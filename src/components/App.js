@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 import Header from './Header';
 import Home from './Home';
-import Video from './Video';
+import Video from './Video/Video';
 import './App.css';
 
 import {

@@ -11,14 +11,14 @@ class Header extends React.Component {
 	 */
 	render() {
 		return (
-			<nav className="p-3 mb-3 d-flex justify-content-around shadow-sm">
+			<nav className="p-3 d-flex justify-content-around shadow-sm">
 				<section>
 					<Link to="/" className="nav-brand">
 						<label className="mb-0 c-pointer">{this.props.appName}</label>
 					</Link>
 				</section>
 				<section>
-					<img src="" alt="Logo de la página" />
+					<img src="" alt="Page logo" />
 				</section>
 				<ul className="navbar-nav flex-row">
 					<li className="nav-item">
