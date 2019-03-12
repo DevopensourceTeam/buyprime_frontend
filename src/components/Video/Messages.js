@@ -6,7 +6,7 @@ const Messages = (props) => {
 	return (
 		<section className="h-100">
 			{
-				props.channel ? <p className="p-3 border-bottom">{props.channel}</p>
+				props.channel ? <p className="m-0 p-3 border-bottom">{props.channel}</p>
 					: <p className="p-3 border-bottom">Load Channel...</p>
 			}
 			<section className="messagesHeight overflow-auto">{

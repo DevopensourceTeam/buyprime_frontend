@@ -63,26 +63,28 @@ class Video extends React.Component {
 				<section className="video-menu">
 					Menu
 				</section>
-				<section
-					className="video-displayer m-3 border rounded-bottom fit-content">
-					<ReactPlayer url='http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
-						playing
-						controls={true} />
-					<section className="m-3">
-						<h2 className="mt-2">Conejo Amoroso</h2>
-						<p className="mt-2">Un conejo super amoroso</p>
-						<button className="btn btn-success m-2" type="submit">
-							Comprar
-						</button>
+				<section className="content-video d-flex w-100">
+					<section
+						className="video-displayer m-3 border rounded-bottom fit-content">
+						<ReactPlayer url='http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+							playing
+							controls={true} />
+						<section className="m-3">
+							<h2 className="mt-2">Conejo Amoroso</h2>
+							<p className="mt-2">Un conejo super amoroso</p>
+							<button className="btn btn-success m-2" type="submit">
+								Comprar
+							</button>
+						</section>
 					</section>
-				</section>
-				<section className="video-chat border">
-					<Messages
-						channel={this.props.channelName}
-						messages={this.props.messagesChat}
-						saveMessage={this.saveMessage}
-						changeInput={this.changeInput}
-						message={this.props.message} />
+					<section className="video-chat border">
+						<Messages
+							channel={this.props.channelName}
+							messages={this.props.messagesChat}
+							saveMessage={this.saveMessage}
+							changeInput={this.changeInput}
+							message={this.props.message} />
+					</section>
 				</section>
 			</article>
 		);

@@ -5,7 +5,7 @@ html, body, #root, #root > div {
     height: calc(100% - 58px);
 }
 .messagesHeight {
-    height: calc(100% - 202px);
+    height: calc(100% - 185px);
 }
 .c-pointer {
     cursor: pointer;
@@ -18,17 +18,69 @@ html, body, #root, #root > div {
 }
 
 .video-menu {
+    min-width: 53px;
     width: 15%;
     background-color: red;
     overflow-y: visible;
 }
 .video-displayer {
-    width: 60%;
+    width: 70%;
 }
 .video-displayer div{
     width: 100% !important;
     height: auto !important;
 }
 .video-chat {
-    width: 25%;
+    width: 30%;
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px) {
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+    .video-menu {
+        width:11%;
+    }
+    .video-displayer {
+        width: 65%;
+    }
+    .video-chat {
+        width: 35%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) { 
+    html, body, #root, #root > div {
+        height: auto;
+    }
+    .content-video {
+        flex-wrap: wrap;
+    }
+    .video-menu {
+        width: 10%;
+    }
+    .video-displayer {
+        width: 100%;
+    }
+    .video-chat {
+        width: 100%;
+        margin: 1em;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) { 
+    .video-menu {
+        display: none;
+    }
+    .video-displayer {
+        width: 100%;
+    }
+    .video-chat {
+        width: 100%;
+    }
 }

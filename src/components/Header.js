@@ -17,8 +17,8 @@ class Header extends React.Component {
 						<label className="mb-0 c-pointer">{this.props.appName}</label>
 					</Link>
 				</section>
-				<section>
-					<img src="" alt="Page logo" />
+				<section className="text-center">
+					<img src="logo.svg" alt="Page logo" width="16%" />
 				</section>
 				<ul className="navbar-nav flex-row">
 					<li className="nav-item">
