@@ -17,12 +17,24 @@ html, body, #root, #root > div {
     height: fit-content;
 }
 
-.video-menu {
-    min-width: 53px;
+.sidebar {
     width: 15%;
-    background-color: red;
     overflow-y: visible;
 }
+.normalSideBar {
+    width: 253px;
+}
+.smallSideBar {
+    width: 50px;
+}
+.changeSideBar {
+    font-size: 20px;
+}
+.sidebarImg {
+    width: 30px;
+    height: 30px;
+}
+
 .video-displayer {
     width: 70%;
 }
@@ -41,9 +53,19 @@ html, body, #root, #root > div {
 
 /* Large devices (desktops, 992px and up) */
 @media (max-width: 992px) {
-    .video-menu {
-        width:11%;
+    .sidebar {
+        width:50px;
     }
+    .changeSideBar {
+        display: none;
+    }
+    .popularChannels {
+        display: none;
+    }
+    .descriptionSidebar {
+        display: none;
+    }   
+    
     .video-displayer {
         width: 65%;
     }
@@ -60,9 +82,6 @@ html, body, #root, #root > div {
     .content-video {
         flex-wrap: wrap;
     }
-    .video-menu {
-        width: 10%;
-    }
     .video-displayer {
         width: 100%;
     }
@@ -74,7 +93,7 @@ html, body, #root, #root > div {
 
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 576px) { 
-    .video-menu {
+    .sidebar {
         display: none;
     }
     .video-displayer {

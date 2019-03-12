@@ -1,20 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import agent from '../../agent';
 
 import ReactPlayer from 'react-player';
+import SideBar from '../SideBar';
 import Messages from './Messages';
 
 import {
 	GET_INFO_CHAT,
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
+	SHOW_SIDEBAR,
 } from '../../constants/actionTypes';
-import agent from '../../agent';
 
 const mapStateToProps = (state) => {
 	return {
 		userChat: state.video.userChat ? state.video.userChat : 'DaniOrtiz',
 		...state.video,
+		stateSidebar: state.common.stateSidebar,
 	};
 };
 
@@ -28,6 +31,8 @@ const mapDispatchToProps = (dispatch) => ({
 			type: SAVE_MESSAGE,
 			payload: agent.Video.saveMessage(message, user),
 		}),
+	showSidebar: (state) =>
+		dispatch({type: SHOW_SIDEBAR, state}),
 });
 
 /**
@@ -60,9 +65,9 @@ class Video extends React.Component {
 	render() {
 		return (
 			<article className="d-flex fullHeight">
-				<section className="video-menu">
-					Menu
-				</section>
+				<SideBar
+					showSidebar={this.props.showSidebar}
+					stateSidebar={this.props.stateSidebar} />
 				<section className="content-video d-flex w-100">
 					<section
 						className="video-displayer m-3 border rounded-bottom fit-content">
