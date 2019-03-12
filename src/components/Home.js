@@ -1,17 +1,36 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+/**
+ * @desc Import constants
+ */
 import {
 	CHANGE_HOME_INPUT,
 } from '../constants/actionTypes';
 
+/**
+ * @function mapStateToProps
+ * @param {Object} state
+ * @return {Object}
+ */
 const mapStateToProps = (state) => {
 	return {
 		userChat: state.video ? state.video.userChat : '',
 	};
 };
 
+/**
+ * @function mapDispatchToProps
+ * @param {*} dispatch
+ * @return {*}
+ */
 const mapDispatchToProps = (dispatch) => ({
+	/**
+	 * @function changeInput
+	 * @param {String} user
+	 * @desc Change value of the input
+	 * @return {*}
+	 */
 	changeInput: (user) =>
 		dispatch({type: CHANGE_HOME_INPUT, user}),
 });
@@ -39,7 +58,6 @@ class Home extends React.Component {
 	 * @return {JSX} JSX del Home
 	 */
 	render() {
-		const userChat = this.props.userChat;
 		return (
 			<article className="pt-3 text-center">
 				<h1>Home</h1>
@@ -48,7 +66,7 @@ class Home extends React.Component {
 						<label>Nombre:</label>
 						<input
 							type="text"
-							value={userChat || ''}
+							value={this.props.userChat || ''}
 							onChange={this.changeInput} />
 					</fieldset>
 				</form>

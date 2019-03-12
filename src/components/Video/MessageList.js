@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * @constant MessageList
+ * @param {Object} props
+ * @return {JSX}
+ */
 const MessageList = (props) => {
 	return (
 		<section>

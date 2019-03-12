@@ -6,10 +6,18 @@ import Home from './Home';
 import Video from './Video/Video';
 import './App.css';
 
+/**
+ * @desc Import constants
+ */
 import {
 	APP_LOAD,
 } from '../constants/actionTypes';
 
+/**
+ * @function mapStateToProps
+ * @param {Object} state
+ * @return {Object}
+ */
 const mapStateToProps = (state) => {
 	return {
 		appLoaded: state.common.appLoaded,
@@ -17,7 +25,17 @@ const mapStateToProps = (state) => {
 	};
 };
 
+/**
+ * @function mapDispatchToProps
+ * @param {*} dispatch
+ * @return {*}
+ */
 const mapDispatchToProps = (dispatch) => ({
+	/**
+	 * @function onLoad
+	 * @desc Charge the app
+	 * @return {*}
+	 */
 	onLoad: () =>
 		dispatch({type: APP_LOAD}),
 });

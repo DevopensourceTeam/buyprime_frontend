@@ -3,10 +3,16 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
+/**
+ * API Request
+ */
 const API_ROOT = 'http://localhost:8080/api';
 
 const responseBody = (res) => res.body;
 
+/**
+ * Get, Post, Put, Del
+ */
 const requests = {
 	del: (url) =>
 		superagent.del(`${API_ROOT}${url}`).then(responseBody),
@@ -19,12 +25,28 @@ const requests = {
 };
 
 const Video = {
+	/**
+	 * @function getUserChat
+	 * @param {String} user
+	 * @desc Send user to get channel messages
+	 * @return {*}
+	 */
 	getUserChat: (user) =>
 		requests.get(`/chats/${user}`),
+	/**
+	 * @function saveMessage
+	 * @param {String} message
+	 * @param {String} user
+	 * @desc Add new message in the channel
+	 * @return {*}
+	 */
 	saveMessage: (message, user) =>
 		requests.post('/chats/', {message: message, user: user}),
 };
 
+/**
+ * @desc Export constants
+ */
 export default {
 	Video,
 };

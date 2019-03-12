@@ -2,6 +2,11 @@ import React from 'react';
 
 import MessageList from './MessageList';
 
+/**
+ * @constant Messages
+ * @param {Object} props
+ * @return {JSX}
+ */
 const Messages = (props) => {
 	return (
 		<section className="h-100">

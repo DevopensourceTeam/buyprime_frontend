@@ -6,6 +6,9 @@ import ReactPlayer from 'react-player';
 import SideBar from '../SideBar';
 import Messages from './Messages';
 
+/**
+ * @desc Import constants
+ */
 import {
 	GET_INFO_CHAT,
 	CHANGE_INPUT_CHAT,
@@ -13,6 +16,11 @@ import {
 	SHOW_SIDEBAR,
 } from '../../constants/actionTypes';
 
+/**
+ * @function mapStateToProps
+ * @param {*} state
+ * @return {Object}
+ */
 const mapStateToProps = (state) => {
 	return {
 		userChat: state.video.userChat ? state.video.userChat : 'DaniOrtiz',
@@ -21,16 +29,46 @@ const mapStateToProps = (state) => {
 	};
 };
 
+/**
+ * @function mapDispatchToProps
+ * @param {*} dispatch
+ * @return {*}
+ */
 const mapDispatchToProps = (dispatch) => ({
+	/**
+	 * @function getInfoChat
+	 * @param {String} userSlug
+	 * @desc Get Messages and Channel info from Expressjs
+	 * @return {*}
+	 */
 	getInfoChat: (userSlug) =>
 		dispatch({type: GET_INFO_CHAT, payload: agent.Video.getUserChat(userSlug)}),
+	/**
+	 * @function changeInput
+	 * @param {String} message
+	 * @desc Change value of the input
+	 * @return {*}
+	 */
 	changeInput: (message) =>
 		dispatch({type: CHANGE_INPUT_CHAT, message}),
+	/**
+	 * @function saveMessage
+	 * @param {String} message
+	 * @param {String} user
+	 * @desc Add a new message
+	 * @return {*}
+	 */
 	saveMessage: (message, user) =>
 		dispatch({
 			type: SAVE_MESSAGE,
 			payload: agent.Video.saveMessage(message, user),
 		}),
+	/**
+	 * @function showSidebar
+	 * @param {String} state Boolean
+	 * @desc Change stat SideBar
+	 * @return {*}
+	 */
 	showSidebar: (state) =>
 		dispatch({type: SHOW_SIDEBAR, state}),
 });
