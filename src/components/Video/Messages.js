@@ -26,6 +26,7 @@ const Messages = (props) => {
 				className="m-3 justify-content-end nresize">
 				<fieldset>
 					<textarea
+						required
 						type="text"
 						placeholder="Add Message"
 						value={props.message || ''}
@@ -33,7 +34,10 @@ const Messages = (props) => {
 						className="p-2 border rounded small align-top w-100 nresize">
 					</textarea>
 				</fieldset>
-				<button className="mt-2 btn btn-primary float-right" type="submit">
+				<button
+					className="mt-2 btn btn-primary float-right"
+					type="submit"
+					disabled={props.buttDisabled}>
 					Chat
 				</button>
 			</form>

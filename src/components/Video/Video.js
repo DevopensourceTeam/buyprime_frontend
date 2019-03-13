@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @return {*}
 	 */
 	unmount: () =>
-		dispatch({type: UNMOUNT_VIDEO}),
+		dispatch({type: UNMOUNT_VIDEO, payload: agent.Video.disconnectChannel()}),
 });
 
 /**
@@ -151,7 +151,8 @@ class Video extends React.Component {
 							messages={this.props.messagesChat}
 							saveMessage={this.saveMessage}
 							changeInput={this.changeInput}
-							message={this.props.message} />
+							message={this.props.message}
+							buttDisabled={this.props.buttDisabled} />
 					</section>
 				</section>
 			</article>

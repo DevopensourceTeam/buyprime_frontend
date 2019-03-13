@@ -93,4 +93,20 @@ router.post('/', (req, res, next) => {
     });
 });
 
+router.post('/disconnect', (req, res, next) => {
+    sb.OpenChannel.getChannel('devopensource', function (channel, error) {
+        if (error) {
+            return;
+        }
+    
+        channel.exit(function(response, error){
+            if (error) {
+                return;
+            }
+        });
+    });
+
+    res.json({state: true});
+});
+
 module.exports = router;

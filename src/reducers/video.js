@@ -9,7 +9,14 @@ import {
 	UNMOUNT_VIDEO,
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+/**
+ * @desc Default state from Video.
+ */
+const defaultState = {
+	buttDisabled: true,
+};
+
+export default (state = defaultState, action) => {
 	switch (action.type) {
 	/**
 	 * @desc When change the value of input in the Home
@@ -28,6 +35,7 @@ export default (state = {}, action) => {
 			userSlug: action.payload.userSlug,
 			messagesChat: action.payload.messages,
 			channelName: action.payload.channel,
+			buttDisabled: false,
 		};
 	/**
 	 * @desc When change the value of input in the Home
@@ -44,12 +52,14 @@ export default (state = {}, action) => {
 		return {
 			...state,
 			messagesChat: action.payload.messages,
+			message: '',
 		};
 	case UNMOUNT_VIDEO:
 		return {
 			...state,
 			messagesChat: null,
 			channelName: null,
+			buttDisabled: true,
 		};
 	default:
 		return state;

@@ -42,6 +42,8 @@ const Video = {
 	 */
 	saveMessage: (message, user) =>
 		requests.post('/chats/', {message: message, user: user}),
+	disconnectChannel: () =>
+		requests.post('/chats/disconnect'),
 };
 
 /**
