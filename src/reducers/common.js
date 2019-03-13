@@ -11,7 +11,7 @@ import {
  */
 const defaultState = {
 	appName: 'Magestreaming',
-	stateSidebar: false,
+	stateSidebar: true,
 };
 
 export default (state = defaultState, action) => {

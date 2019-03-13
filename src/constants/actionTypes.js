@@ -9,3 +9,4 @@ export const CHANGE_HOME_INPUT = 'CHANGE_HOME_INPUT';
 export const GET_INFO_CHAT = 'GET_INFO_CHAT';
 export const CHANGE_INPUT_CHAT = 'CHANGE_INPUT_CHAT';
 export const SAVE_MESSAGE = 'SAVE_MESSAGE';
+export const UNMOUNT_VIDEO = 'UNMOUNT_VIDEO';

@@ -14,6 +14,7 @@ import {
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
 	SHOW_SIDEBAR,
+	UNMOUNT_VIDEO,
 } from '../../constants/actionTypes';
 
 /**
@@ -43,6 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 	getInfoChat: (userSlug) =>
 		dispatch({type: GET_INFO_CHAT, payload: agent.Video.getUserChat(userSlug)}),
+
 	/**
 	 * @function changeInput
 	 * @param {String} message
@@ -51,6 +53,7 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 	changeInput: (message) =>
 		dispatch({type: CHANGE_INPUT_CHAT, message}),
+
 	/**
 	 * @function saveMessage
 	 * @param {String} message
@@ -63,6 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
 			type: SAVE_MESSAGE,
 			payload: agent.Video.saveMessage(message, user),
 		}),
+
 	/**
 	 * @function showSidebar
 	 * @param {String} state Boolean
@@ -71,6 +75,14 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 	showSidebar: (state) =>
 		dispatch({type: SHOW_SIDEBAR, state}),
+
+	/**
+	 * @function unmount
+	 * @desc Clear data video
+	 * @return {*}
+	 */
+	unmount: () =>
+		dispatch({type: UNMOUNT_VIDEO}),
 });
 
 /**
@@ -90,12 +102,25 @@ class Video extends React.Component {
 			this.props.saveMessage(this.props.message, this.props.userSlug);
 		};
 	}
+
 	/**
 	 * @function componentDidMount
+	 * @desc Send user and userslug to expressjs
 	 */
 	componentDidMount() {
-		this.props.getInfoChat(this.props.userChat.toLowerCase().replace(' ', '-'));
+		this.props.getInfoChat({
+			user: this.props.userChat,
+			userSlug: this.props.userChat.toLowerCase().replace(' ', '-')},
+		);
 	}
+
+	/**
+	 * @function componentWillUnmount
+	 */
+	componentWillUnmount() {
+		this.props.unmount();
+	}
+
 	/**
 	 * @function render
 	 * @return {JSX} JSX del video

@@ -4,30 +4,38 @@ let SendBird = require('sendbird');
 let sb = new SendBird({appId: '189DF08F-9C2D-416B-B2D8-405204D26B4F'});
 
 router.get('/:user', (req, res, next) => {
-    sb.connect(req.params.user, function(user, error) {
+    const user = JSON.parse(req.params.user);
+
+    sb.connect(user.userSlug, (user, error) => {
         if (error) {
             return;
         }
     });
 
-    /* sb.OpenChannel.createChannel('DevOpenSource', function(channel, error) {
+    /* sb.OpenChannel.createChannel('DevOpenSource', (channel, error) => {
         if (error) {
             return;
         }
     
-        channel.enter(function(response, error) {
+        channel.enter((response, error) => {
             if (error) {
                 return;
             }
         });
     }); */
 
-    sb.OpenChannel.getChannel('devopensource', function(channel, error) {
+    sb.updateCurrentUserInfo(user.user, '', (response, error) => {
+        if(error) {
+            return;
+        }   
+    });
+
+    sb.OpenChannel.getChannel('devopensource', (channel, error) => {
         if (error) {
             return;
         }
     
-        channel.enter(function(response, error) {
+        channel.enter((response, error) => {
             if (error) {
                 return;
             }
@@ -37,34 +45,34 @@ router.get('/:user', (req, res, next) => {
         messageListQuery.limit = 10;
         messageListQuery.reverse = true;
 
-        messageListQuery.load(function(messageList, error){
+        messageListQuery.load((messageList, error) => {
             if (error) {
                 return;
             }
-            return res.status(200).json({userSlug: req.params.user, messages: messageList, channel: channel.name});
+            return res.status(200).json({userSlug: user.userSlug, messages: messageList, channel: channel.name});
         });
     });
 });
 
 router.post('/', (req, res, next) => {
-    sb.connect(req.body.user, function(user, error) {
+    sb.connect(req.body.user, (user, error) => {
         if (error) {
             return;
         }
     });
 
-    sb.OpenChannel.getChannel('devopensource', function(channel, error) {
+    sb.OpenChannel.getChannel('devopensource', (channel, error) => {
         if (error) {
             return;
         }
 
-        channel.enter(function(response, error) {
+        channel.enter((response, error) => {
             if (error) {
                 return;
             }
         });
 
-        channel.sendUserMessage(req.body.message, function(message, error) {
+        channel.sendUserMessage(req.body.message, (message, error) => {
             if (error) {
                 return;
             }
@@ -75,7 +83,7 @@ router.post('/', (req, res, next) => {
         messageListQuery.limit = 10;
         messageListQuery.reverse = true;
 
-        messageListQuery.load(function(messageList, error){
+        messageListQuery.load((messageList, error) => {
             if (error) {
                 return;
             }

@@ -32,7 +32,7 @@ const Video = {
 	 * @return {*}
 	 */
 	getUserChat: (user) =>
-		requests.get(`/chats/${user}`),
+		requests.get(`/chats/${JSON.stringify(user)}`),
 	/**
 	 * @function saveMessage
 	 * @param {String} message

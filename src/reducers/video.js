@@ -6,6 +6,7 @@ import {
 	GET_INFO_CHAT,
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
+	UNMOUNT_VIDEO,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -43,6 +44,12 @@ export default (state = {}, action) => {
 		return {
 			...state,
 			messagesChat: action.payload.messages,
+		};
+	case UNMOUNT_VIDEO:
+		return {
+			...state,
+			messagesChat: null,
+			channelName: null,
 		};
 	default:
 		return state;
