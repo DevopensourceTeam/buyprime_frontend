@@ -6,7 +6,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 /**
  * API Request
  */
-const API_ROOT = 'http://localhost:8080/api';
+const API_ROOT = 'http://192.168.2.170:8080/api';
 
 const responseBody = (res) => res.body;
 
@@ -32,7 +32,7 @@ const Video = {
 	 * @return {*}
 	 */
 	getUserChat: (user) =>
-		requests.get(`/chats/${JSON.stringify(user)}`),
+		requests.post(`/chats/initChannel`, {user}),
 	/**
 	 * @function saveMessage
 	 * @param {String} message
@@ -41,7 +41,7 @@ const Video = {
 	 * @return {*}
 	 */
 	saveMessage: (message, user) =>
-		requests.post('/chats/', {message: message, user: user}),
+		requests.post('/chats/newMessage', {message: message, user: user}),
 	disconnectChannel: () =>
 		requests.post('/chats/disconnect'),
 };

@@ -19,7 +19,11 @@ const Messages = (props) => {
 					return	<section key={i} className="m-3 mb-2 small">
 						<MessageList message={message} />
 					</section>;
-				}) : <p className="m-3 mb-2">Loading Messages...</p>
+				}) :
+					<section
+						className="h-100 d-flex justify-content-center align-items-center">
+						<label className="lds-dual-ring"></label>
+					</section>
 			}</section>
 
 			<form onSubmit={props.saveMessage}

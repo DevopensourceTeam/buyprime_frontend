@@ -3,110 +3,99 @@ let router = require('express').Router();
 let SendBird = require('sendbird');
 let sb = new SendBird({appId: '189DF08F-9C2D-416B-B2D8-405204D26B4F'});
 
-router.get('/:user', (req, res, next) => {
-    const user = JSON.parse(req.params.user);
 
-    sb.connect(user.userSlug, (user, error) => {
-        if (error) {
-            return;
-        }
-    });
+getChannel = async () => {
+    return new Promise((resolve) => {
+        sb.OpenChannel.getChannel('devopensource', (channel, error) => {
+            if(error)
+                console.log(error);
 
-    /* sb.OpenChannel.createChannel('DevOpenSource', (channel, error) => {
-        if (error) {
-            return;
-        }
-    
-        channel.enter((response, error) => {
-            if (error) {
-                return;
-            }
-        });
-    }); */
+            resolve(channel);
+        })
+    })
+}
 
-    sb.updateCurrentUserInfo(user.user, '', (response, error) => {
-        if(error) {
-            return;
-        }   
-    });
-
-    sb.OpenChannel.getChannel('devopensource', (channel, error) => {
-        if (error) {
-            return;
-        }
-    
-        channel.enter((response, error) => {
-            if (error) {
-                return;
-            }
-        });
-
-        let messageListQuery = channel.createPreviousMessageListQuery();
-        messageListQuery.limit = 10;
-        messageListQuery.reverse = true;
-
-        messageListQuery.load((messageList, error) => {
-            if (error) {
-                return;
-            }
-            return res.status(200).json({userSlug: user.userSlug, messages: messageList, channel: channel.name});
-        });
-    });
-});
-
-router.post('/', (req, res, next) => {
+router.post('/newMessage', async (req, res, next) => {
     sb.connect(req.body.user, (user, error) => {
         if (error) {
             return;
         }
     });
 
-    sb.OpenChannel.getChannel('devopensource', (channel, error) => {
+    let openChannel = await getChannel();
+
+    openChannel.enter((response, error) => {
+        if (error) {
+            return;
+        }
+    });
+
+    openChannel.sendUserMessage(req.body.message, (message, error) => {
+        if (error) {
+            return;
+        }
+    });
+
+    let messageListQuery = openChannel.createPreviousMessageListQuery();
+    messageListQuery.limit = 10;
+    messageListQuery.reverse = true;
+    
+    messageListQuery.load((messageList, error) => {
         if (error) {
             return;
         }
 
-        channel.enter((response, error) => {
-            if (error) {
-                return;
-            }
-        });
-
-        channel.sendUserMessage(req.body.message, (message, error) => {
-            if (error) {
-                return;
-            }
-
-        });
-
-        let messageListQuery = channel.createPreviousMessageListQuery();
-        messageListQuery.limit = 10;
-        messageListQuery.reverse = true;
-
-        messageListQuery.load((messageList, error) => {
-            if (error) {
-                return;
-            }
-
-            return res.status(200).json({messages: messageList});
-        });
+        return res.status(200).json({userSlug: req.body.userSlug, messages: messageList, channel: openChannel.name});
     });
 });
 
-router.post('/disconnect', (req, res, next) => {
-    sb.OpenChannel.getChannel('devopensource', function (channel, error) {
+router.post('/initChannel', async (req, res, next) => {
+    var user = req.body.user.user;
+    var userSlug = req.body.user.userSlug;
+
+    sb.connect(userSlug, (user, error) => {
         if (error) {
             return;
         }
+    });
     
-        channel.exit(function(response, error){
-            if (error) {
-                return;
-            }
-        });
+    sb.updateCurrentUserInfo(user, '', (response, error) => {
+        if(error) {
+            return;
+        }   
+    });
+    
+    let openChannel = await getChannel();
+    
+    openChannel.enter((response, error) => {
+        if (error) {
+            return;
+        }
     });
 
-    res.json({state: true});
+    let messageListQuery = openChannel.createPreviousMessageListQuery();
+    messageListQuery.limit = 10;
+    messageListQuery.reverse = true;
+    
+    messageListQuery.load((messageList, error) => {
+        if (error) {
+            return;
+        }
+
+        return res.status(200).json({userSlug: userSlug, messages: messageList, channel: openChannel.name});
+    });
+});
+
+router.post('/disconnect', async (req, res, next) => {
+    let openChannel = await getChannel();
+    
+    openChannel.exit(function(response, error){
+        if (error) {
+            return;
+        }
+
+        res.json({state: true});
+    });
 });
 
 module.exports = router;
