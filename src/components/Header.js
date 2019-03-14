@@ -31,6 +31,18 @@ class Header extends React.Component {
 							<label className="mb-0 pl-2 pr-2 c-pointer">Video</label>
 						</Link>
 					</li>
+					<li className="nav-item">
+						<Link to="/login">
+							<label className="mb-0 pl-2 pr-2 c-pointer">Sign In</label>
+						</Link>
+					</li>
+					<label>or</label>
+					<li className="nav-item">
+						<Link to="/register">
+							<label className="mb-0 pl-2 pr-2 c-pointer">
+								Create an Account</label>
+						</Link>
+					</li>
 				</ul>
 			</nav>
 		);

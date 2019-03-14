@@ -4,6 +4,8 @@ import {Switch, Route} from 'react-router-dom';
 import Header from './Header';
 import Home from './Home';
 import Video from './Video/Video';
+import Login from './Auth/Login';
+import Register from './Auth/Register';
 import './App.css';
 
 /**
@@ -64,6 +66,8 @@ class App extends React.Component {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/video" component={Video} />
+						<Route exact path="/login" component={Login} />
+						<Route path="/register" component={Register} />
 					</Switch>
 				</div>
 			);
