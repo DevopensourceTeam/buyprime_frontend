@@ -5,7 +5,8 @@ html, body, #root, #root > div {
     height: calc(100% - 58px);
 }
 .messagesHeight {
-    height: calc(100% - 205px);
+    height: calc(100% - 225px);
+    min-height: 175px;
 }
 .c-pointer {
     cursor: pointer;
@@ -44,6 +45,9 @@ html, body, #root, #root > div {
 }
 .video-chat {
     width: 30%;
+}
+.chatImage {
+    width: 20%;
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

@@ -43,11 +43,12 @@ const mapDispatchToProps = (dispatch) => ({
 	/**
 	 * @function getInfoChat
 	 * @param {String} channel
+	 * @param {String} cover
 	 * @desc Set channel
 	 * @return {*}
 	 */
-	initChat: (channel) =>
-		dispatch({type: INIT_CHAT, channel}),
+	initChat: (channel, cover) =>
+		dispatch({type: INIT_CHAT, channel, cover}),
 
 	/**
 	 * @function changeInput
@@ -140,7 +141,7 @@ class Video extends React.Component {
 				}
 			});
 
-		sb.updateCurrentUserInfo(this.props.userChat, '', (response, error) => {
+			sb.updateCurrentUserInfo(this.props.userChat, '', (response, error) => {
 			if (error) {
 				return;
 			};
@@ -156,8 +157,8 @@ class Video extends React.Component {
 				if (error) {
 					return;
 				}
-
-				that.props.initChat(channel.name);
+				
+				that.props.initChat(channel.name, channel.coverUrl);
 			});
 		});
 	}
@@ -166,6 +167,14 @@ class Video extends React.Component {
 	 * @function componentWillUnmount
 	 */
 	componentWillUnmount() {
+		this.openChannel.exit((response, error) => {
+			if (error) {
+				return;
+			}
+		});
+		sb.disconnect(() => {
+		});
+
 		this.props.unmount();
 	}
 
@@ -196,6 +205,7 @@ class Video extends React.Component {
 					<section className="video-chat border">
 						<Messages
 							channel={this.props.channelName}
+							cover={this.props.channelCover}
 							messages={this.props.messages}
 							saveMessage={this.saveMessage}
 							changeInput={this.changeInput}

@@ -34,6 +34,7 @@ export default (state = defaultState, action) => {
 		return {
 			...state,
 			channelName: action.channel,
+			channelCover: action.cover,
 			messages: [],
 			buttDisabled: false,
 		};

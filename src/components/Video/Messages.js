@@ -12,7 +12,10 @@ const Messages = (props) => {
 		<section className="h-100">
 			{
 				props.channel ?
-					<p className="m-0 p-3 border-bottom">{props.channel}</p>
+					<section className="d-flex align-items-center p-2 border-bottom">
+						<img className="m-3 pr-0 chatImage" src={props.cover} />
+						<p className="m-0 p-3">{props.channel}</p>
+					</section>
 					: <p className="p-3 border-bottom">Load Channel...</p>
 			}
 			<section className="messagesHeight overflow-auto">{
