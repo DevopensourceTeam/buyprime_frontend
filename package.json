@@ -12,6 +12,7 @@
     "react-scripts": "2.1.5",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "sendbird": "^3.0.96",
     "superagent": "^4.1.0",
     "superagent-promise": "^1.1.0"
   },

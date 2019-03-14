@@ -6,7 +6,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 /**
  * API Request
  */
-const API_ROOT = 'http://192.168.2.170:8080/api';
+const API_ROOT = 'http://localhost:8080/api';
 
 const responseBody = (res) => res.body;
 

@@ -1,22 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import agent from '../../agent';
 
 import ReactPlayer from 'react-player';
+import SendBird from 'sendbird';
+
 import SideBar from '../SideBar';
 import Messages from './Messages';
+
 
 /**
  * @desc Import constants
  */
 import {
-	GET_INFO_CHAT,
+	INIT_CHAT,
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
 	SHOW_SIDEBAR,
 	UNMOUNT_VIDEO,
 } from '../../constants/actionTypes';
 
+const sb = new SendBird({appId: '189DF08F-9C2D-416B-B2D8-405204D26B4F'});
 /**
  * @function mapStateToProps
  * @param {*} state
@@ -25,6 +28,7 @@ import {
 const mapStateToProps = (state) => {
 	return {
 		userChat: state.video.userChat ? state.video.userChat : 'DaniOrtiz',
+		userSlug: state.video.userSlug ? state.video.userSlug : 'daniortiz',
 		...state.video,
 		stateSidebar: state.common.stateSidebar,
 	};
@@ -38,12 +42,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
 	/**
 	 * @function getInfoChat
-	 * @param {String} userSlug
-	 * @desc Get Messages and Channel info from Expressjs
+	 * @param {String} channel
+	 * @desc Set channel
 	 * @return {*}
 	 */
-	getInfoChat: (userSlug) =>
-		dispatch({type: GET_INFO_CHAT, payload: agent.Video.getUserChat(userSlug)}),
+	initChat: (channel) =>
+		dispatch({type: INIT_CHAT, channel}),
 
 	/**
 	 * @function changeInput
@@ -57,15 +61,11 @@ const mapDispatchToProps = (dispatch) => ({
 	/**
 	 * @function saveMessage
 	 * @param {String} message
-	 * @param {String} user
 	 * @desc Add a new message
 	 * @return {*}
 	 */
-	saveMessage: (message, user) =>
-		dispatch({
-			type: SAVE_MESSAGE,
-			payload: agent.Video.saveMessage(message, user),
-		}),
+	saveMessage: (message) =>
+		dispatch({type: SAVE_MESSAGE, message}),
 
 	/**
 	 * @function showSidebar
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @return {*}
 	 */
 	unmount: () =>
-		dispatch({type: UNMOUNT_VIDEO, payload: agent.Video.disconnectChannel()}),
+		dispatch({type: UNMOUNT_VIDEO}),
 });
 
 /**
@@ -94,26 +94,74 @@ class Video extends React.Component {
 	 */
 	constructor() {
 		super();
+		const that = this;
+		this.openChannel = '';
 		this.changeInput = (ev) => {
 			this.props.changeInput(ev.target.value);
 		};
+
 		this.saveMessage = (ev) => {
 			ev.preventDefault();
-			this.props.saveMessage(this.props.message, this.props.userSlug);
+
+			this.openChannel.sendUserMessage(this.props.message,
+				(message, error) => {
+					if (error) {
+						return;
+					}
+
+					that.props.saveMessage(message);
+				});
 		};
 	}
 
 	/**
 	 * @function componentDidMount
-	 * @desc Send user and userslug to expressjs
 	 */
 	componentDidMount() {
-		this.props.getInfoChat({
-			user: this.props.userChat,
-			userSlug: this.props.userChat.toLowerCase().replace(' ', '-')},
-		);
-	}
+		const that = this;
+		const ChannelHandler = new sb.ChannelHandler();
 
+		ChannelHandler.onMessageReceived = (channel, message) => {
+			that.props.saveMessage(message);
+			this.setState({reaload: true});
+		};
+		sb.addChannelHandler('208549964', ChannelHandler);
+	}
+	/* eslint-disable*/
+	/**
+	 * @function componentWillMount
+	 */
+	componentWillMount() {
+		const that = this;
+		sb.connect(this.props.userSlug,
+			(user, error) => {
+				if (error) {
+					return;
+				}
+			});
+
+		sb.updateCurrentUserInfo(this.props.userChat, '', (response, error) => {
+			if (error) {
+				return;
+			};
+		});
+
+		sb.OpenChannel.getChannel('devopensource', (channel, error) => {
+			if (error) {
+				return;
+			}
+			this.openChannel = channel;
+
+			channel.enter(function(response, error) {
+				if (error) {
+					return;
+				}
+
+				that.props.initChat(channel.name);
+			});
+		});
+	}
+	/* eslint-enable*/
 	/**
 	 * @function componentWillUnmount
 	 */
@@ -148,7 +196,7 @@ class Video extends React.Component {
 					<section className="video-chat border">
 						<Messages
 							channel={this.props.channelName}
-							messages={this.props.messagesChat}
+							messages={this.props.messages}
 							saveMessage={this.saveMessage}
 							changeInput={this.changeInput}
 							message={this.props.message}

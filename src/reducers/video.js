@@ -3,7 +3,7 @@
  */
 import {
 	CHANGE_HOME_INPUT,
-	GET_INFO_CHAT,
+	INIT_CHAT,
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
 	UNMOUNT_VIDEO,
@@ -25,16 +25,16 @@ export default (state = defaultState, action) => {
 		return {
 			...state,
 			userChat: action.user,
+			userSlug: action.user.toLowerCase().replace(' ', '-'),
 		};
 	/**
 	 * @desc Get Messages and Channel info from Expressjs
 	 */
-	case GET_INFO_CHAT:
+	case INIT_CHAT:
 		return {
 			...state,
-			userSlug: action.payload.userSlug,
-			messagesChat: action.payload.messages,
-			channelName: action.payload.channel,
+			channelName: action.channel,
+			messages: [],
 			buttDisabled: false,
 		};
 	/**
@@ -49,16 +49,18 @@ export default (state = defaultState, action) => {
 	 * @desc Messages with new message added
 	 */
 	case SAVE_MESSAGE:
+		state.messages.push(action.message);
 		return {
 			...state,
-			messagesChat: action.payload.messages,
+			messages: state.messages,
 			message: '',
 		};
 	case UNMOUNT_VIDEO:
 		return {
 			...state,
-			messagesChat: null,
+			messages: null,
 			channelName: null,
+			message: '',
 			buttDisabled: true,
 		};
 	default:

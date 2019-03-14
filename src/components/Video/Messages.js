@@ -11,17 +11,20 @@ const Messages = (props) => {
 	return (
 		<section className="h-100">
 			{
-				props.channel ? <p className="m-0 p-3 border-bottom">{props.channel}</p>
+				props.channel ?
+					<p className="m-0 p-3 border-bottom">{props.channel}</p>
 					: <p className="p-3 border-bottom">Load Channel...</p>
 			}
 			<section className="messagesHeight overflow-auto">{
-				props.messages ? props.messages.map((message, i) => {
-					return	<section key={i} className="m-3 mb-2 small">
-						<MessageList message={message} />
-					</section>;
-				}) :
+				props.messages ?
+					props.messages.map((message, i) => {
+						return	<section key={i} className="m-3 mb-2 small">
+							<MessageList message={message} />
+						</section>;
+					}) :
 					<section
-						className="h-100 d-flex justify-content-center align-items-center">
+						className="h-100 d-flex justify-content-center
+							align-items-center">
 						<label className="lds-dual-ring"></label>
 					</section>
 			}</section>
