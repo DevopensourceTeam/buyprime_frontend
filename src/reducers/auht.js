@@ -51,11 +51,11 @@ export default (state = defaultState, action) => {
 	case REGISTER:
 		return {
 			...state,
-			fname: '',
+			/* fname: '',
 			lname: '',
 			emailR: '',
 			passwordR: '',
-			cpasswordR: '',
+			cpasswordR: '',*/
 			errorsRegister: [],
 		};
 	default:

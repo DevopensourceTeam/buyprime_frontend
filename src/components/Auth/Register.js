@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import agent from '../../agent';
 
 import Errors from '../Errors';
 /**
@@ -29,9 +30,9 @@ const mapDispatchToProps = (dispatch, props) => ({
 		dispatch({type: CHANGE_TYPE_PASS, key, passType}),
 	showErrors: (errors) =>
 		dispatch({type: SHOW_ERRORS_REGISTER, errors}),
-	register: () =>{
-		dispatch({type: REGISTER});
-		props.history.push('/');
+	register: (user) => {
+		dispatch({type: REGISTER, payload: agent.Auth.createCustomer(user)});
+		/* props.history.push('/'); */
 	},
 });
 /**
@@ -59,7 +60,16 @@ class Register extends React.Component {
 				console.log(stateForm);
 				this.props.showErrors(stateForm);
 			} else {
-				this.props.register();
+				const magJson = {
+					'customer': {
+						'email': this.props.emailR,
+						'firstname': this.props.fname,
+						'lastname': this.props.lname,
+					},
+					'password': this.props.passwordR,
+				};
+				console.log(magJson);
+				this.props.register(magJson);
 			}
 		};
 	}
