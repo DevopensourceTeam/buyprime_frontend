@@ -1,41 +1,35 @@
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
-import axios from 'axios';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-axios.get('http://magento23pwa.test/rest/V1/products/types').then((response) => {
-	// handle success
-	console.log('Response:', response);
-}).catch((error) => {
-	// handle error
-	console.log('Error: ', error);
-}).then(() => {
-	// always executed
-});
+// const reqData1 = '{"customer": {"email": "dani@devopensource.com",'+
+// '"firstname": "Dani","lastname": "Ortiz",},"password": "Magneto123.",}';
 
-axios.post('http://magento23pwa.test/rest/V1/customers', {
-	data: {'customer': {
-		'email': 'dani@devopensource.com',
-		'firstname': 'Dani',
-		'lastname': 'Ortiz',
-	},
-	'password': 'Magneto123.',
-	},
-	config: {headers: {'Content-Type': 'application/json'}},
-}).then((response) => {
-	// handle success
-	console.log('Response:', response);
-}).catch((error) => {
-	// handle error
-	console.log('Error: ', error);
-}).then(() => {
-	// always executed
-});
+(async () => {
+	const rawResponse = await fetch('https://magento23pwa.test/index.php/rest/V1/customers', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			"customer": {
+				"email": "dani.ort@devopensource.com",
+				"firstname": "Dani",
+				"lastname": "Ortiz",
+			},
+			"password": "Magneto123.",
+		}),
+	});
+	const content = await rawResponse.json();
+
+	console.log(content);
+})();
+
 /**
 * API Request
 */
-const API_ROOT = 'http://magento23pwa.test/rest';
+const API_ROOT = 'https://magento23pwa.test/rest';
 
 const responseBody = (res) => res.body;
 
@@ -53,10 +47,6 @@ const requests = {
 		superagent.post(`${API_ROOT}${url}`, body).then(responseBody),
 };
 
-requests.get('/V1/products/types').then((response) => {
-	console.log(response);
-});
-
 const Auth = {
 	/**
 	 * @function getUserChat
@@ -66,7 +56,7 @@ const Auth = {
 	 */
 	createCustomer: (user) =>
 		requests.post(`/V1/customers`,
-			JSON.stringify({customer: user.customer, password: user.password})),
+			{customer: user.customer, password: user.password}),
 };
 
 /**
