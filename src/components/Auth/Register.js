@@ -79,7 +79,7 @@ class Register extends React.Component {
 			<section>
 				<Errors errors={this.props.errorsRegister} />
 				<form className="p-3 w-50" onSubmit={this.submitForm}>
-					<fieldset className="form-row">
+					<fieldset className="form-row d-flex flex-column">
 						<p className="m-0 text-muted h3">Personal Information</p>
 						<hr className="mt-2 mb-2" />
 						<section className="form-group col-md-6 mw-100">
@@ -109,7 +109,7 @@ class Register extends React.Component {
 								onChange={this.changeInput('lname')}/>
 						</section>
 					</fieldset>
-					<fieldset className="form-row">
+					<fieldset className="form-row d-flex flex-column">
 						<p className="m-0 text-muted h3">Sign-in Information</p>
 						<hr className="mt-2 mb-2" />
 						<section className="form-group col-md-6 mw-100">

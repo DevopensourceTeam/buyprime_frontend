@@ -70,7 +70,7 @@ class Login extends React.Component {
 			<section>
 				<Errors errors={this.props.errorsLogin} />
 				<form className="p-3 w-50" onSubmit={this.submitForm}>
-					<fieldset className="form-row">
+					<fieldset className="form-row d-flex flex-column">
 						<p className="m-0 text-muted h3">Customer Login</p>
 						<hr className="mt-2 mb-2" />
 						<section className="form-group col-md-6 mw-100">
@@ -87,7 +87,7 @@ class Login extends React.Component {
 								value={this.props.emailL || ''}
 								onChange={this.changeInput('emailL')} />
 						</section>
-						<section className="form-group col-md-6 mw-100">
+						<section className="form-group col-md-6 mw-100 d-flex flex-column">
 							<label className="mb-0" htmlFor="password">
 								Password
 								<label className="ml-1 text-danger">*</label>
