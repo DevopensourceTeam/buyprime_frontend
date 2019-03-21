@@ -26,14 +26,24 @@ const requests = {
 
 const Auth = {
 	/**
-	 * @function getUserChat
-	 * @param {String} user
-	 * @desc Send user to get channel messages
+	 * @function createCustomer
+	 * @param {Object} user
+	 * @desc Send user to create customer
 	 * @return {*}
 	 */
 	createCustomer: (user) =>
 		requests.post(`/auth/register`,
 			{customer: user.customer, password: user.password}),
+	/**
+	 * @function loginCustomer
+	 * @param {String} user
+	 * @param {String} password
+	 * @desc Send user to login customer
+	 * @return {*}
+	 */
+	loginCustomer: (user, password) =>
+		requests.post(`/auth/login`,
+			{username: user, password: password}),
 };
 
 /**

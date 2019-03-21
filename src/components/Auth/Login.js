@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import agent from '../../agent';
 
 import Errors from '../Errors';
 
@@ -30,9 +31,9 @@ const mapDispatchToProps = (dispatch, props) => ({
 		dispatch({type: CHANGE_TYPE_PASS, key, passType}),
 	showErrors: (errors) =>
 		dispatch({type: SHOW_ERRORS_LOGIN, errors}),
-	login: () => {
-		dispatch({type: LOGIN});
-		props.history.push('/');
+	login: (user, password) => {
+		dispatch({type: LOGIN,
+			payload: agent.Auth.loginCustomer(user, password), props});
 	},
 });
 
@@ -57,7 +58,7 @@ class Login extends React.Component {
 				console.log(stateForm);
 				this.props.showErrors(stateForm);
 			} else {
-				this.props.login();
+				this.props.login(this.props.emailL, this.props.passwordL);
 			}
 		};
 	}

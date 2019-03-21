@@ -46,12 +46,22 @@ export default (state = defaultState, action) => {
 			errorsRegister: action.errors,
 		};
 	case LOGIN:
-		return {
-			...state,
-			emailL: '',
-			passwordL: '',
-			errorsLogin: [],
-		};
+		if (action.payload.error) {
+			return {
+				...state,
+				errorsLogin: [{key: 'Error', error: action.payload.error}],
+			};
+		} else {
+			toastr.success('Successful Login', 'LOGIN');
+			action.props.history.push('/');
+
+			return {
+				...state,
+				emailL: '',
+				passwordL: '',
+				errorsLogin: [],
+			};
+		}
 	case REGISTER:
 		if (action.payload.error) {
 			return {
