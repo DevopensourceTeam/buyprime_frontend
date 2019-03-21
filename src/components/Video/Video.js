@@ -19,7 +19,7 @@ import {
 	UNMOUNT_VIDEO,
 } from '../../constants/actionTypes';
 
-const sb = new SendBird({appId: '189DF08F-9C2D-416B-B2D8-405204D26B4F'});
+const sb = new SendBird({appId: process.env.REACT_APP_SENDBIRD_ID});
 /**
  * @function mapStateToProps
  * @param {*} state
