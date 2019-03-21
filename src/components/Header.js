@@ -21,7 +21,7 @@ class Header extends React.Component {
 				<section className="text-center">
 					<img src="logo.svg" alt="Page logo" width="16%" />
 				</section>
-				<AMenu user={this.props.user}/>
+				<AMenu user={this.props.user} logout={this.props.logout}/>
 			</nav>
 		);
 	}

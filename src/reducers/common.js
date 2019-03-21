@@ -6,13 +6,14 @@ import {
 	SHOW_SIDEBAR,
 	LOGIN,
 	REGISTER,
+	LOGOUT,
 } from '../constants/actionTypes';
 
 /**
  * @desc Default state from all the application web.
  */
 const defaultState = {
-	appName: 'Magestreaming',
+	appName: 'BuyPrime',
 	stateSidebar: true,
 };
 
@@ -42,6 +43,13 @@ export default (state = defaultState, action) => {
 				action.payload.success.user : undefined,
 			userToken: action.payload.success ?
 				action.payload.success.token : undefined,
+		};
+	case LOGOUT:
+		action.props.history.push('/');
+		return {
+			...state,
+			userInfo: null,
+			userToken: null,
 		};
 	default:
 		return state;

@@ -13,6 +13,7 @@ import './App.css';
  */
 import {
 	APP_LOAD,
+	LOGOUT,
 } from '../constants/actionTypes';
 
 /**
@@ -29,9 +30,10 @@ const mapStateToProps = (state) => {
 /**
  * @function mapDispatchToProps
  * @param {*} dispatch
+ * @param {*} props
  * @return {*}
  */
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, props) => ({
 	/**
 	 * @function onLoad
 	 * @desc Charge the app
@@ -39,6 +41,8 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 	onLoad: () =>
 		dispatch({type: APP_LOAD}),
+	logout: () =>
+		dispatch({type: LOGOUT, props}),
 });
 
 /**
@@ -61,6 +65,7 @@ class App extends React.Component {
 			return (
 				<div>
 					<Header
+						logout={this.props.logout}
 						appName={this.props.appName}
 						user={this.props.userInfo} />
 					<Switch>

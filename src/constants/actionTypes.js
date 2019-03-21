@@ -16,6 +16,7 @@ export const SHOW_ERRORS_LOGIN = 'SHOW_ERRORS_LOGIN';
 export const SHOW_ERRORS_REGISTER = 'SHOW_ERRORS_REGISTER';
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
+export const LOGOUT = 'LOGOUT';
 export const TOASTR_OPTIONS = {
 	closeButton: true,
 	preventDuplicated: true,

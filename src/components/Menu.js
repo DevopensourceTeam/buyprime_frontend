@@ -3,12 +3,19 @@ import {Link} from 'react-router-dom';
 
 const RegistredMenu = (props) => {
 	return (
-		<li className="nav-item">
-			<Link to="/">
+		<ul className="navbar-nav flex-row">
+			<li className="nav-item">
+				<Link to="/">
+					<label className="mb-0 pl-2 pr-2 c-pointer">
+						{props.user.firstname}{props.user.lastname}</label>
+				</Link>
+			</li>
+			<li className="nav-item"
+				onClick={() => props.logout()}>
 				<label className="mb-0 pl-2 pr-2 c-pointer">
-					{props.user.firstname}{props.user.lastname}</label>
-			</Link>
-		</li>
+					<i className="fas fa-sign-out-alt"></i></label>
+			</li>
+		</ul>
 	);
 };
 
@@ -46,7 +53,7 @@ const AMenu = (props) => {
 			</li>
 			{
 				props.user ?
-					<RegistredMenu user={props.user} />
+					<RegistredMenu user={props.user} logout={props.logout} />
 					: <UnregistredMenu />
 			}
 		</ul>
