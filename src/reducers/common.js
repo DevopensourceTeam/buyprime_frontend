@@ -4,6 +4,8 @@
 import {
 	APP_LOAD,
 	SHOW_SIDEBAR,
+	LOGIN,
+	REGISTER,
 } from '../constants/actionTypes';
 
 /**
@@ -31,6 +33,15 @@ export default (state = defaultState, action) => {
 		return {
 			...state,
 			stateSidebar: action.state,
+		};
+	case LOGIN:
+	case REGISTER:
+		return {
+			...state,
+			userInfo: action.payload.success ?
+				action.payload.success.user : undefined,
+			userToken: action.payload.success ?
+				action.payload.success.token : undefined,
 		};
 	default:
 		return state;

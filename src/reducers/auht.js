@@ -1,7 +1,10 @@
+import toastr from 'toastr';
+
 /**
  * @desc import constants
  */
 import {
+	TOASTR_OPTIONS,
 	CHANGE_INPUT_AUTH,
 	CHANGE_TYPE_PASS,
 	SHOW_ERRORS_LOGIN,
@@ -9,6 +12,7 @@ import {
 	LOGIN,
 	REGISTER,
 } from '../constants/actionTypes';
+toastr.options = TOASTR_OPTIONS;
 
 /**
  * @desc Default state from auth.
@@ -49,15 +53,25 @@ export default (state = defaultState, action) => {
 			errorsLogin: [],
 		};
 	case REGISTER:
-		return {
-			...state,
-			/* fname: '',
-			lname: '',
-			emailR: '',
-			passwordR: '',
-			cpasswordR: '',*/
-			errorsRegister: [],
-		};
+		if (action.payload.error) {
+			return {
+				...state,
+				errorsRegister: [{key: 'Error', error: action.payload.error}],
+			};
+		} else {
+			toastr.success('Successful Registration', 'REGISTER');
+			action.props.history.push('/');
+
+			return {
+				...state,
+				errorsRegister: [],
+				fname: '',
+				lname: '',
+				emailR: '',
+				passwordR: '',
+				cpasswordR: '',
+			};
+		}
 	default:
 		return state;
 	}

@@ -1,7 +1,7 @@
 /* eslint-disable */
 var router = require('express').Router();
 
-router.use('/chats', require('./chats'));
+router.use('/auth', require('./auth'));
 
 router.use(function(err, req, res, next){
   if(err.name === 'ValidationError'){

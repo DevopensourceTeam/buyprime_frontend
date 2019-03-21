@@ -3,33 +3,10 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-// const reqData1 = '{"customer": {"email": "dani@devopensource.com",'+
-// '"firstname": "Dani","lastname": "Ortiz",},"password": "Magneto123.",}';
-
-(async () => {
-	const rawResponse = await fetch('https://magento23pwa.test/index.php/rest/V1/customers', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			"customer": {
-				"email": "dani.ort@devopensource.com",
-				"firstname": "Dani",
-				"lastname": "Ortiz",
-			},
-			"password": "Magneto123.",
-		}),
-	});
-	const content = await rawResponse.json();
-
-	console.log(content);
-})();
-
 /**
 * API Request
 */
-const API_ROOT = 'https://magento23pwa.test/rest';
+const API_ROOT = 'http://localhost:8080/api';
 
 const responseBody = (res) => res.body;
 
@@ -55,7 +32,7 @@ const Auth = {
 	 * @return {*}
 	 */
 	createCustomer: (user) =>
-		requests.post(`/V1/customers`,
+		requests.post(`/auth/register`,
 			{customer: user.customer, password: user.password}),
 };
 

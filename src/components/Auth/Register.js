@@ -31,8 +31,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 	showErrors: (errors) =>
 		dispatch({type: SHOW_ERRORS_REGISTER, errors}),
 	register: (user) => {
-		dispatch({type: REGISTER, payload: agent.Auth.createCustomer(user)});
-		/* props.history.push('/'); */
+		dispatch({type: REGISTER, payload: agent.Auth.createCustomer(user), props});
 	},
 });
 /**
@@ -57,7 +56,6 @@ class Register extends React.Component {
 					this.props.passwordR,
 					this.props.cpasswordR);
 			if (stateForm.length > 0) {
-				console.log(stateForm);
 				this.props.showErrors(stateForm);
 			} else {
 				const magJson = {
@@ -68,7 +66,6 @@ class Register extends React.Component {
 					},
 					'password': this.props.passwordR,
 				};
-				console.log(magJson);
 				this.props.register(magJson);
 			}
 		};
