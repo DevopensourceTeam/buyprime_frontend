@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import AMenu from './Menu';
 
 /**
  * @class Header
@@ -20,30 +21,7 @@ class Header extends React.Component {
 				<section className="text-center">
 					<img src="logo.svg" alt="Page logo" width="16%" />
 				</section>
-				<ul className="navbar-nav flex-row">
-					<li className="nav-item">
-						<Link to="/">
-							<label className="mb-0 pl-2 pr-2 c-pointer">Inicio</label>
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/video">
-							<label className="mb-0 pl-2 pr-2 c-pointer">Video</label>
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/login">
-							<label className="mb-0 pl-2 pr-2 c-pointer">Sign In</label>
-						</Link>
-					</li>
-					<label>or</label>
-					<li className="nav-item">
-						<Link to="/register">
-							<label className="mb-0 pl-2 pr-2 c-pointer">
-								Create an Account</label>
-						</Link>
-					</li>
-				</ul>
+				<AMenu user={this.props.user}/>
 			</nav>
 		);
 	}

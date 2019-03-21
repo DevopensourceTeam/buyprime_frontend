@@ -22,8 +22,7 @@ import {
  */
 const mapStateToProps = (state) => {
 	return {
-		appLoaded: state.common.appLoaded,
-		appName: state.common.appName,
+		...state.common,
 	};
 };
 
@@ -62,7 +61,8 @@ class App extends React.Component {
 			return (
 				<div>
 					<Header
-						appName={this.props.appName} />
+						appName={this.props.appName}
+						user={this.props.userInfo} />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/video" component={Video} />
