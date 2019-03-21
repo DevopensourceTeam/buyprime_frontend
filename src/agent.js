@@ -44,6 +44,14 @@ const Auth = {
 	loginCustomer: (user, password) =>
 		requests.post(`/auth/login`,
 			{username: user, password: password}),
+	/**
+	 * @function infoUser
+	 * @param {String} token
+	 * @desc Get user token
+	 * @return {*}
+	 */
+	infoUser: (token) =>
+		requests.post(`/auth/infouser`, {token}),
 };
 
 /**

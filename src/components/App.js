@@ -13,8 +13,10 @@ import './App.css';
  */
 import {
 	APP_LOAD,
+	USER_INFO,
 	LOGOUT,
 } from '../constants/actionTypes';
+import agent from '../agent';
 
 /**
  * @function mapStateToProps
@@ -41,6 +43,8 @@ const mapDispatchToProps = (dispatch, props) => ({
 	 */
 	onLoad: () =>
 		dispatch({type: APP_LOAD}),
+	infoUser: (token) =>
+		dispatch({type: USER_INFO, payload: agent.Auth.infoUser(token)}),
 	logout: () =>
 		dispatch({type: LOGOUT, props}),
 });
@@ -49,6 +53,16 @@ const mapDispatchToProps = (dispatch, props) => ({
  * @class App
  */
 class App extends React.Component {
+	/* eslint-disable */
+	/**
+	 * @function componentDidMount
+	 */
+	componentWillMount() {
+		if (localStorage.getItem('token')) {
+			this.props.infoUser(localStorage.getItem('token'));
+		}
+	}
+	/* eslint-enable */
 	/**
 	 * @function componentDidMount
 	 */

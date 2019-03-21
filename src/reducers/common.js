@@ -6,6 +6,7 @@ import {
 	SHOW_SIDEBAR,
 	LOGIN,
 	REGISTER,
+	USER_INFO,
 	LOGOUT,
 } from '../constants/actionTypes';
 
@@ -37,6 +38,10 @@ export default (state = defaultState, action) => {
 		};
 	case LOGIN:
 	case REGISTER:
+	case USER_INFO:
+		if (action.payload.success) {
+			localStorage.setItem('token', action.payload.success.token);
+		}
 		return {
 			...state,
 			userInfo: action.payload.success ?
@@ -45,6 +50,7 @@ export default (state = defaultState, action) => {
 				action.payload.success.token : undefined,
 		};
 	case LOGOUT:
+		localStorage.removeItem('token');
 		action.props.history.push('/');
 		return {
 			...state,
