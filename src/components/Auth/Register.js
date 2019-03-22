@@ -11,6 +11,7 @@ import {
 	CHANGE_TYPE_PASS,
 	SHOW_ERRORS_REGISTER,
 	REGISTER,
+	UNMOUNT_REGISTER,
 } from '../../constants/actionTypes';
 import {validate} from './validate';
 
@@ -33,6 +34,8 @@ const mapDispatchToProps = (dispatch, props) => ({
 	register: (user) => {
 		dispatch({type: REGISTER, payload: agent.Auth.createCustomer(user), props});
 	},
+	unmount: () =>
+		dispatch({type: UNMOUNT_REGISTER}),
 });
 /**
  * @class Regsiter
@@ -43,11 +46,18 @@ class Register extends React.Component {
 	 */
 	constructor() {
 		super();
+		this.state = {
+			buttRdisable: false,
+		};
+
 		this.changeInput = (key) => (ev) => {
 			this.props.changeInput(key, ev.target.value);
 		};
 		this.submitForm = async (ev) => {
 			ev.preventDefault();
+			this.setState({
+				buttRdisable: true,
+			});
 			const stateForm =
 				await validate.validateFormReg(
 					this.props.fname,
@@ -56,6 +66,9 @@ class Register extends React.Component {
 					this.props.passwordR,
 					this.props.cpasswordR);
 			if (stateForm.length > 0) {
+				this.setState({
+					buttRdisable: false,
+				});
 				this.props.showErrors(stateForm);
 			} else {
 				const magJson = {
@@ -69,6 +82,38 @@ class Register extends React.Component {
 				this.props.register(magJson);
 			}
 		};
+	}
+	/**
+	 * @function componentDidMount
+	 */
+	componentDidMount() {
+		if (localStorage.getItem('token')) {
+			this.props.history.push('/');
+		}
+	}
+	/**
+	 * @function getDerivedStateFromProps
+	 * @param {*} props
+	 * @param {*} state
+	 * @return {Boolean}
+	 */
+	static getDerivedStateFromProps(props, state) {
+		if (props.errorsRegister) {
+			if (props.errorsRegister.length > 0 &&
+				props.errorsRegister !== state.errorsRegister) {
+				return {
+					buttRdisable: false,
+					errorsRegister: props.errorsRegister,
+				};
+			}
+		}
+		return true;
+	}
+	/**
+	 * @function componentWillUnmount
+	 */
+	componentWillUnmount() {
+		this.props.unmount();
 	}
 	/**
 	 * @function render
@@ -180,7 +225,10 @@ class Register extends React.Component {
 							</section>
 						</section>
 					</fieldset>
-					<button type="submit" className="btn btn-primary">
+					<button
+						type="submit"
+						className="btn btn-primary"
+						disabled={this.state.buttRdisable}>
 						Create an Account</button>
 
 					<p className="mt-3 text-danger small">* Required Fields</p>

@@ -18,6 +18,8 @@ export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
 export const LOGOUT = 'LOGOUT';
 export const USER_INFO ='USER_INFO';
+export const UNMOUNT_REGISTER = 'UNMOUNT_REGISTER';
+export const UNMOUNT_LOGIN = 'UNMOUNT_LOGIN';
 export const TOASTR_OPTIONS = {
 	closeButton: true,
 	preventDuplicated: true,

@@ -12,6 +12,7 @@ import {
 	CHANGE_TYPE_PASS,
 	SHOW_ERRORS_LOGIN,
 	LOGIN,
+	UNMOUNT_LOGIN,
 } from '../../constants/actionTypes';
 import {validate} from './validate';
 
@@ -22,6 +23,7 @@ import {validate} from './validate';
  */
 const mapStateToProps = (state) => ({
 	...state.auth,
+	token: state.common.userToken,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -35,6 +37,8 @@ const mapDispatchToProps = (dispatch, props) => ({
 		dispatch({type: LOGIN,
 			payload: agent.Auth.loginCustomer(user, password), props});
 	},
+	unmount: () =>
+		dispatch({type: UNMOUNT_LOGIN}),
 });
 
 /**
@@ -46,21 +50,61 @@ class Login extends React.Component {
 	 */
 	constructor() {
 		super();
+		this.state = {
+			buttLdisable: false,
+		};
 
 		this.changeInput = (key) => (ev) => {
 			this.props.changeInput(key, ev.target.value);
 		};
 		this.submitForm = async (ev) => {
 			ev.preventDefault();
+			this.setState({
+				buttLdisable: true,
+			});
 			const stateForm =
 				await validate.validateFormLog(this.props.emailL, this.props.passwordL);
 			if (stateForm.length > 0) {
-				console.log(stateForm);
+				this.setState({
+					buttLdisable: false,
+				});
 				this.props.showErrors(stateForm);
 			} else {
 				this.props.login(this.props.emailL, this.props.passwordL);
 			}
 		};
+	}
+	/**
+	 * @function componentDidMount
+	 */
+	componentDidMount() {
+		if (localStorage.getItem('token')) {
+			this.props.history.push('/');
+		}
+	}
+	/**
+	 * @function getDerivedStateFromProps
+	 * @param {*} props
+	 * @param {*} state
+	 * @return {Boolean}
+	 */
+	static getDerivedStateFromProps(props, state) {
+		if (props.errorsLogin) {
+			if (props.errorsLogin.length > 0 &&
+				props.errorsLogin !== state.errorsLogin) {
+				return {
+					buttLdisable: false,
+					errorsLogin: props.errorsLogin,
+				};
+			}
+		}
+		return true;
+	}
+	/**
+	 * @function componentWillUnmount
+	 */
+	componentWillUnmount() {
+		this.props.unmount();
 	}
 	/**
 	 * @function render
@@ -117,8 +161,11 @@ class Login extends React.Component {
 							</section>
 						</section>
 					</fieldset>
-					<button type="submit" className="btn btn-primary">Sign In</button>
-
+					<button
+						type="submit"
+						className="btn btn-primary"
+						disabled={this.state.buttLdisable}>
+						Sign In</button>
 					<p className="mt-3 text-danger small">* Required Fields</p>
 				</form>
 			</section>

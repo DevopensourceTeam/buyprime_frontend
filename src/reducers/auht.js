@@ -11,6 +11,8 @@ import {
 	SHOW_ERRORS_REGISTER,
 	LOGIN,
 	REGISTER,
+	UNMOUNT_LOGIN,
+	UNMOUNT_REGISTER,
 } from '../constants/actionTypes';
 toastr.options = TOASTR_OPTIONS;
 
@@ -85,6 +87,26 @@ export default (state = defaultState, action) => {
 				passRegCType: 'password',
 			};
 		}
+	case UNMOUNT_LOGIN:
+		return {
+			...state,
+			emailL: '',
+			passwordL: '',
+			errorsLogin: [],
+			passLogType: 'password',
+		};
+	case UNMOUNT_REGISTER:
+		return {
+			...state,
+			errorsRegister: [],
+			fname: '',
+			lname: '',
+			emailR: '',
+			passwordR: '',
+			cpasswordR: '',
+			passRegType: 'password',
+			passRegCType: 'password',
+		};
 	default:
 		return state;
 	}
