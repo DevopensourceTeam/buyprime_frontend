@@ -42,14 +42,19 @@ const Messages = (props) => {
 						placeholder="Add Message"
 						value={props.message || ''}
 						onChange={props.changeInput}
-						className="p-2 border rounded small align-top w-100 nresize">
+						className="p-2 border rounded small align-top w-100 nresize"
+						disabled={!props.nickname}>
 					</textarea>
 				</fieldset>
 				<button
 					className="mt-2 btn btn-primary float-right"
 					type="submit"
-					disabled={props.buttDisabled}>
-					Chat
+					disabled={props.buttDisabled || !props.nickname}>
+					{
+						props.nickname ?
+							'Chat'
+							: 'Register'
+					}
 				</button>
 			</form>
 		</section>

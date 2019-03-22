@@ -18,6 +18,7 @@ import {
 	SHOW_SIDEBAR,
 	UNMOUNT_VIDEO,
 } from '../../constants/actionTypes';
+import {asynchat} from './asynchat';
 
 const sb = new SendBird({appId: process.env.REACT_APP_SENDBIRD_ID});
 /**
@@ -27,9 +28,10 @@ const sb = new SendBird({appId: process.env.REACT_APP_SENDBIRD_ID});
  */
 const mapStateToProps = (state) => {
 	return {
-		userChat: state.video.userChat ? state.video.userChat : 'DaniOrtiz',
-		userSlug: state.video.userSlug ? state.video.userSlug : 'daniortiz',
 		...state.video,
+		nickname: state.common.userInfo ?
+			state.common.userInfo.firstname+''+state.common.userInfo.lastname : null,
+		usermail: state.common.userInfo ? state.common.userInfo.email : null,
 		stateSidebar: state.common.stateSidebar,
 	};
 };
@@ -118,61 +120,39 @@ class Video extends React.Component {
 	/**
 	 * @function componentDidMount
 	 */
-	componentDidMount() {
+	async componentDidMount() {
 		const that = this;
 		const ChannelHandler = new sb.ChannelHandler();
 
-		ChannelHandler.onMessageReceived = (channel, message) => {
-			that.props.saveMessage(message);
-			this.setState({reaload: true});
-		};
+		await asynchat.messagereceived(ChannelHandler,
+			that.props.saveMessage,
+			that);
 		sb.addChannelHandler('208549964', ChannelHandler);
 	}
 	/* eslint-disable*/
 	/**
 	 * @function componentWillMount
 	 */
-	componentWillMount() {
+	async componentWillMount() {
 		const that = this;
-		sb.connect(this.props.userSlug,
-			(user, error) => {
-				if (error) {
-					return;
-				}
-			});
+		
+		if (this.props.nickname) {
+			await asynchat.connect(this.props.nickname, this.props.usermail.split('@')[0], sb);
+		} else if (!this.props.nickname && localStorage.getItem('token')) {
+			this.props.history.push('/');
+		} else {
+			await asynchat.connect('anonymous', 'anonymous', sb);
+		}
 
-			sb.updateCurrentUserInfo(this.props.userChat, '', (response, error) => {
-			if (error) {
-				return;
-			};
-		});
-
-		sb.OpenChannel.getChannel('devopensource', (channel, error) => {
-			if (error) {
-				return;
-			}
-			this.openChannel = channel;
-
-			channel.enter(function(response, error) {
-				if (error) {
-					return;
-				}
-				
-				that.props.initChat(channel.name, channel.coverUrl);
-			});
-		});
+		await asynchat.getchannel(sb, that.props.initChat, that);
 	}
 	/* eslint-enable*/
 	/**
 	 * @function componentWillUnmount
 	 */
-	componentWillUnmount() {
+	async componentWillUnmount() {
 		if (this.openChannel) {
-			this.openChannel.exit((response, error) => {
-				if (error) {
-					return;
-				}
-			});
+			await asynchat.exit(this.openChannel);
 		}
 		sb.disconnect(() => {
 		});
@@ -212,7 +192,8 @@ class Video extends React.Component {
 							saveMessage={this.saveMessage}
 							changeInput={this.changeInput}
 							message={this.props.message}
-							buttDisabled={this.props.buttDisabled} />
+							buttDisabled={this.props.buttDisabled}
+							nickname={this.props.nickname} />
 					</section>
 				</section>
 			</article>
