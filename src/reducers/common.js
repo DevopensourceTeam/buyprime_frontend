@@ -41,6 +41,8 @@ export default (state = defaultState, action) => {
 	case USER_INFO:
 		if (action.payload.success) {
 			localStorage.setItem('token', action.payload.success.token);
+		} else if (action.payload.message) {
+			localStorage.removeItem('token');
 		}
 		return {
 			...state,

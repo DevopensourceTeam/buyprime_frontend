@@ -60,6 +60,7 @@ export default (state = defaultState, action) => {
 				emailL: '',
 				passwordL: '',
 				errorsLogin: [],
+				passLogType: 'password',
 			};
 		}
 	case REGISTER:
@@ -80,6 +81,8 @@ export default (state = defaultState, action) => {
 				emailR: '',
 				passwordR: '',
 				cpasswordR: '',
+				passRegType: 'password',
+				passRegCType: 'password',
 			};
 		}
 	default:

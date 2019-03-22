@@ -167,11 +167,13 @@ class Video extends React.Component {
 	 * @function componentWillUnmount
 	 */
 	componentWillUnmount() {
-		this.openChannel.exit((response, error) => {
-			if (error) {
-				return;
-			}
-		});
+		if (this.openChannel) {
+			this.openChannel.exit((response, error) => {
+				if (error) {
+					return;
+				}
+			});
+		}
 		sb.disconnect(() => {
 		});
 

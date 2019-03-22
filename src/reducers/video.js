@@ -31,6 +31,11 @@ export default (state = defaultState, action) => {
 	 * @desc Get Messages and Channel info from Expressjs
 	 */
 	case INIT_CHAT:
+		if (process.env.REACT_APP_PUBLIC_URL+'/video' !== window.location.href) {
+			return {
+				...state,
+			};
+		}
 		return {
 			...state,
 			channelName: action.channel,
