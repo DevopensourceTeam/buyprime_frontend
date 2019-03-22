@@ -48,6 +48,7 @@ class Register extends React.Component {
 		super();
 		this.state = {
 			buttRdisable: false,
+			unmount: true,
 		};
 
 		this.changeInput = (key) => (ev) => {
@@ -57,6 +58,7 @@ class Register extends React.Component {
 			ev.preventDefault();
 			this.setState({
 				buttRdisable: true,
+				unmount: false,
 			});
 			const stateForm =
 				await validate.validateFormReg(
@@ -68,6 +70,7 @@ class Register extends React.Component {
 			if (stateForm.length > 0) {
 				this.setState({
 					buttRdisable: false,
+					unmount: true,
 				});
 				this.props.showErrors(stateForm);
 			} else {
@@ -103,6 +106,7 @@ class Register extends React.Component {
 				props.errorsRegister !== state.errorsRegister) {
 				return {
 					buttRdisable: false,
+					unmount: true,
 					errorsRegister: props.errorsRegister,
 				};
 			}
@@ -113,7 +117,9 @@ class Register extends React.Component {
 	 * @function componentWillUnmount
 	 */
 	componentWillUnmount() {
-		this.props.unmount();
+		if (this.state.unmount) {
+			this.props.unmount();
+		}
 	}
 	/**
 	 * @function render

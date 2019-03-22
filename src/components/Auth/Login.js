@@ -52,6 +52,7 @@ class Login extends React.Component {
 		super();
 		this.state = {
 			buttLdisable: false,
+			unmount: true,
 		};
 
 		this.changeInput = (key) => (ev) => {
@@ -61,12 +62,14 @@ class Login extends React.Component {
 			ev.preventDefault();
 			this.setState({
 				buttLdisable: true,
+				unmount: false,
 			});
 			const stateForm =
 				await validate.validateFormLog(this.props.emailL, this.props.passwordL);
 			if (stateForm.length > 0) {
 				this.setState({
 					buttLdisable: false,
+					unmount: true,
 				});
 				this.props.showErrors(stateForm);
 			} else {
@@ -94,6 +97,7 @@ class Login extends React.Component {
 				props.errorsLogin !== state.errorsLogin) {
 				return {
 					buttLdisable: false,
+					unmount: true,
 					errorsLogin: props.errorsLogin,
 				};
 			}
@@ -104,7 +108,9 @@ class Login extends React.Component {
 	 * @function componentWillUnmount
 	 */
 	componentWillUnmount() {
-		this.props.unmount();
+		if (this.state.unmount) {
+			this.props.unmount();
+		}
 	}
 	/**
 	 * @function render
