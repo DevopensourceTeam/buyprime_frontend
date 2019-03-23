@@ -2,7 +2,6 @@
  * @desc Import the constants
  */
 import {
-	CHANGE_HOME_INPUT,
 	INIT_CHAT,
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
@@ -18,15 +17,6 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
 	switch (action.type) {
-	/**
-	 * @desc When change the value of input in the Home
-	 */
-	case CHANGE_HOME_INPUT:
-		return {
-			...state,
-			userChat: action.user,
-			userSlug: action.user.toLowerCase().replace(' ', '-'),
-		};
 	/**
 	 * @desc Get Messages and Channel info from Expressjs
 	 */
