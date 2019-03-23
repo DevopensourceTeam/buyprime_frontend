@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const RegistredMenu = (props) => {
+const RegisteredMenu = (props) => {
 	return (
 		<ul className="navbar-nav flex-row">
 			<li className="nav-item">
@@ -19,7 +19,7 @@ const RegistredMenu = (props) => {
 	);
 };
 
-const UnregistredMenu = () => {
+const UnregisteredMenu = () => {
 	return (
 		<ul className="navbar-nav flex-row">
 			<li className="nav-item">
@@ -53,8 +53,8 @@ const AMenu = (props) => {
 			</li>
 			{
 				props.user ?
-					<RegistredMenu user={props.user} logout={props.logout} />
-					: <UnregistredMenu />
+					<RegisteredMenu user={props.user} logout={props.logout} />
+					: <UnregisteredMenu />
 			}
 		</ul>
 	);
