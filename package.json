@@ -22,6 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "doc": "jsdoc -c jsdoc.json README.md src/*",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -36,6 +37,7 @@
   "devDependencies": {
     "eslint-config-google": "^0.12.0",
     "eslint-plugin-react": "^7.12.4",
+    "jsdoc": "^3.5.5",
     "redux-devtools-extension": "^2.13.8"
   }
 }
