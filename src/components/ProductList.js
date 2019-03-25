@@ -6,7 +6,6 @@ import React from 'react';
  * @return {JSX}
  */
 const ProductList = (props) => {
-	console.log(props);
 	return (
 		props.products ?
 			props.products.map((product, i) => {
@@ -19,7 +18,11 @@ const ProductList = (props) => {
 					<section className="m-3">
 						<h3 className="mt-2">{product.name}</h3>
 						<h4>$ {product.price}</h4>
-						<button className="btn btn-primary m-2" type="button">
+						<button
+							className="btn btn-primary m-2"
+							type="button"
+							onClick={() =>
+								props.addCart({id: product.id, sku: product.sku, qty: 1})}>
 							Add to Cart
 						</button>
 					</section>

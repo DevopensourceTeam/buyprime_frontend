@@ -14,7 +14,6 @@ import './App.css';
 import {
 	APP_LOAD,
 	USER_INFO,
-	LOGOUT,
 } from '../constants/actionTypes';
 import agent from '../agent';
 
@@ -52,14 +51,6 @@ const mapDispatchToProps = (dispatch, props) => ({
 	 */
 	infoUser: (token) =>
 		dispatch({type: USER_INFO, payload: agent.Auth.infoUser(token)}),
-
-	/**
-	 * @function logout
-	 * @desc Clear all information of the user
-	 * @return {*}
-	 */
-	logout: () =>
-		dispatch({type: LOGOUT, props}),
 });
 
 /**
@@ -93,10 +84,7 @@ class App extends React.Component {
 		if (this.props.appLoaded) {
 			return (
 				<div>
-					<Header
-						logout={this.props.logout}
-						appName={this.props.appName}
-						user={this.props.userInfo} />
+					<Header />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/video" component={Video} />

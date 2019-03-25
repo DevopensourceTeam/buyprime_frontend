@@ -17,6 +17,7 @@ import {
 	SAVE_MESSAGE,
 	SHOW_SIDEBAR,
 	GET_PRODUCT,
+	ADD_CART,
 	UNMOUNT_VIDEO,
 } from '../../constants/actionTypes';
 import agent from '../../agent';
@@ -79,6 +80,15 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 	saveMessage: (message) =>
 		dispatch({type: SAVE_MESSAGE, message}),
+
+	/**
+	 * @function addCart
+	 * @desc Save product in the cart
+	 * @param {Object} product
+	 * @return {*}
+	 */
+	addCart: (product) =>
+		dispatch({type: ADD_CART, product}),
 
 	/**
 	 * @function showSidebar
@@ -188,7 +198,8 @@ class Video extends React.Component {
 							playing
 							controls={true} />
 						<ProductList
-							products={this.props.productsVideo} />
+							products={this.props.productsVideo}
+							addCart={this.props.addCart}/>
 					</section>
 					<section className="video-chat border">
 						<Messages

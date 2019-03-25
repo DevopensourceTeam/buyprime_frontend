@@ -72,6 +72,13 @@ const AMenu = (props) => {
 					<RegisteredMenu user={props.user} logout={props.logout} />
 					: <UnregisteredMenu />
 			}
+			<li className="nav-item">
+				<Link to="/">
+					<label className="mb-0 pl-2 pr-2 c-pointer">
+						<label>{props.nproducts}</label>
+						<i className="fas fa-shopping-cart"></i></label>
+				</Link>
+			</li>
 		</ul>
 	);
 };
