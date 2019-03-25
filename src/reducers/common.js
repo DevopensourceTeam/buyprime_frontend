@@ -36,6 +36,9 @@ export default (state = defaultState, action) => {
 			...state,
 			stateSidebar: action.state,
 		};
+	/**
+	 * @desc Save the token and user info
+	 */
 	case LOGIN:
 	case REGISTER:
 	case USER_INFO:
@@ -51,6 +54,9 @@ export default (state = defaultState, action) => {
 			userToken: action.payload.success ?
 				action.payload.success.token : undefined,
 		};
+	/**
+	 * Remove all the info and token of the user
+	 */
 	case LOGOUT:
 		localStorage.removeItem('token');
 		action.props.history.push('/');

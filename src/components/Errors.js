@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * @function Errors
+ * @param {Object} props
+ * @return {JSX}
+ */
 const Errors = (props) => {
 	return (
 		<section>

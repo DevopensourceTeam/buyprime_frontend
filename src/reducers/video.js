@@ -34,7 +34,7 @@ export default (state = defaultState, action) => {
 			buttDisabled: false,
 		};
 	/**
-	 * @desc When change the value of input in the Home
+	 * @desc When change the value of input in the Chat
 	 */
 	case CHANGE_INPUT_CHAT:
 		return {
@@ -51,6 +51,9 @@ export default (state = defaultState, action) => {
 			messages: state.messages,
 			message: '',
 		};
+	/**
+	 * @desc Set default data component when unmount
+	 */
 	case UNMOUNT_VIDEO:
 		return {
 			...state,

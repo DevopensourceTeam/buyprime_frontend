@@ -1,6 +1,10 @@
+/**
+ * @constant validate
+ */
 export const validate = {
 	/**
 	 * @function validateForm
+	 * @desc Async function to validate the Login form
 	 * @param {String} email
 	 * @param {String} password
 	 * @return {Promise}
@@ -34,6 +38,7 @@ export const validate = {
 	},
 	/**
 	 * @function validateForm
+	 * @desc Async function to validate the Register form
 	 * @param {String} fname
 	 * @param {String} lname
 	 * @param {String} email

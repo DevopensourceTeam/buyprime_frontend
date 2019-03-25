@@ -26,17 +26,58 @@ const mapStateToProps = (state) => ({
 	token: state.common.userToken,
 });
 
+/**
+ * @function mapDispatchToProps
+ * @param {Object} dispatch
+ * @param {Object} props
+ * @return {*}
+ */
 const mapDispatchToProps = (dispatch, props) => ({
+	/**
+	 * @function changeInput
+	 * @desc Save in store the changes of the input
+	 * @param {String} key
+	 * @param {String} value
+	 * @return {*}
+	 */
 	changeInput: (key, value) =>
 		dispatch({type: CHANGE_INPUT_AUTH, key, value}),
+
+	/**
+	 * @function changePassType
+	 * @desc Change type of the input password in the store
+	 * @param {String} key
+	 * @param {String} passType
+	 * @return {*}
+	 */
 	changePassType: (key, passType) =>
 		dispatch({type: CHANGE_TYPE_PASS, key, passType}),
+
+	/**
+	 * @function showErrors
+	 * @desc Save the errors to show in Login component
+	 * @param {Array} errors
+	 * @return {*}
+	 */
 	showErrors: (errors) =>
 		dispatch({type: SHOW_ERRORS_LOGIN, errors}),
+
+	/**
+	 * @function login
+	 * @description Log in the user in the application.
+	 * @param {String} user
+	 * @param {String} password
+	 */
 	login: (user, password) => {
 		dispatch({type: LOGIN,
 			payload: agent.Auth.loginCustomer(user, password), props});
 	},
+
+	/**
+	 * @function unmount
+	 * @desc unmount the component
+	 * @return {*}
+	 */
 	unmount: () =>
 		dispatch({type: UNMOUNT_LOGIN}),
 });
@@ -50,6 +91,10 @@ class Login extends React.Component {
 	 */
 	constructor() {
 		super();
+		/**
+		 * @desc Initial state Login component. disable button from the form,
+		 * unmount to know when can unmount the component.
+		 */
 		this.state = {
 			buttLdisable: false,
 			unmount: true,
@@ -64,8 +109,15 @@ class Login extends React.Component {
 				buttLdisable: true,
 				unmount: false,
 			});
+			/**
+			 * @desc Call function validateFormLog to validate the field of the form
+			 */
 			const stateForm =
 				await validate.validateFormLog(this.props.emailL, this.props.passwordL);
+			/**
+			 * @desc If stateForm have errors, show errors else call
+			 * the nodejs backend
+			 */
 			if (stateForm.length > 0) {
 				this.setState({
 					buttLdisable: false,
@@ -79,6 +131,7 @@ class Login extends React.Component {
 	}
 	/**
 	 * @function componentDidMount
+	 * @desc Check if user is loged in the app.
 	 */
 	componentDidMount() {
 		if (localStorage.getItem('token')) {
@@ -87,6 +140,7 @@ class Login extends React.Component {
 	}
 	/**
 	 * @function getDerivedStateFromProps
+	 * @desc Validate to know when disable the button
 	 * @param {*} props
 	 * @param {*} state
 	 * @return {Boolean}

@@ -25,20 +25,55 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
+	/**
+	 * @function changeInput
+	 * @desc Save in store the changes of the input
+	 * @param {String} key
+	 * @param {String} value
+	 * @return {*}
+	 */
 	changeInput: (key, value) =>
 		dispatch({type: CHANGE_INPUT_AUTH, key, value}),
+
+	/**
+	 * @function changePassType
+	 * @desc Change type of the input password in the store
+	 * @param {String} key
+	 * @param {String} passType
+	 * @return {*}
+	 */
 	changePassType: (key, passType) =>
 		dispatch({type: CHANGE_TYPE_PASS, key, passType}),
+
+	/**
+	 * @function showErrors
+	 * @desc Save the errors to show in Login component
+	 * @param {Array} errors
+	 * @return {*}
+	 */
 	showErrors: (errors) =>
 		dispatch({type: SHOW_ERRORS_REGISTER, errors}),
+
+	/**
+	 * @function register
+	 * @description Register the user in the application.
+	 * @param {String} user
+	 * @param {String} password
+	 */
 	register: (user) => {
 		dispatch({type: REGISTER, payload: agent.Auth.createCustomer(user), props});
 	},
+
+	/**
+	 * @function unmount
+	 * @desc unmount the component
+	 * @return {*}
+	 */
 	unmount: () =>
 		dispatch({type: UNMOUNT_REGISTER}),
 });
 /**
- * @class Regsiter
+ * @class Register
  */
 class Register extends React.Component {
 	/**
@@ -46,6 +81,10 @@ class Register extends React.Component {
 	 */
 	constructor() {
 		super();
+		/**
+		 * @desc Initial state Register component. disable button from the form,
+		 * unmount to know when can unmount the component.
+		 */
 		this.state = {
 			buttRdisable: false,
 			unmount: true,
@@ -60,6 +99,9 @@ class Register extends React.Component {
 				buttRdisable: true,
 				unmount: false,
 			});
+			/**
+			 * @desc Call function validateFormReg to validate the field of the form
+			 */
 			const stateForm =
 				await validate.validateFormReg(
 					this.props.fname,
@@ -67,6 +109,10 @@ class Register extends React.Component {
 					this.props.emailR,
 					this.props.passwordR,
 					this.props.cpasswordR);
+			/**
+			 * @desc If stateForm have errors, show errors else call
+			 * the nodejs backend
+			 */
 			if (stateForm.length > 0) {
 				this.setState({
 					buttRdisable: false,
@@ -88,6 +134,7 @@ class Register extends React.Component {
 	}
 	/**
 	 * @function componentDidMount
+	 * @desc Check if user is loged in the app.
 	 */
 	componentDidMount() {
 		if (localStorage.getItem('token')) {
@@ -96,6 +143,7 @@ class Register extends React.Component {
 	}
 	/**
 	 * @function getDerivedStateFromProps
+	 * @desc Validate to know when disable the button
 	 * @param {*} props
 	 * @param {*} state
 	 * @return {Boolean}

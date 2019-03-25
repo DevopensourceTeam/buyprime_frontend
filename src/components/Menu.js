@@ -1,6 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+/**
+ * @function RegisteredMenu
+ * @desc When the user is registered in the app
+ * @param {Object} props
+ * @return {JSX}
+ */
 const RegisteredMenu = (props) => {
 	return (
 		<ul className="navbar-nav flex-row">
@@ -19,6 +25,11 @@ const RegisteredMenu = (props) => {
 	);
 };
 
+/**
+ * @function UnRegisteredMenu
+ * @desc When the user isn't registered in the app
+ * @return {JSX}
+ */
 const UnregisteredMenu = () => {
 	return (
 		<ul className="navbar-nav flex-row">
@@ -37,7 +48,12 @@ const UnregisteredMenu = () => {
 		</ul>
 	);
 };
-
+/**
+ * @function AMenu
+ * @desc Global menu of the application
+ * @param {Object} props
+ * @return {JSX}
+ */
 const AMenu = (props) => {
 	return (
 		<ul className="navbar-nav flex-row">

@@ -43,8 +43,21 @@ const mapDispatchToProps = (dispatch, props) => ({
 	 */
 	onLoad: () =>
 		dispatch({type: APP_LOAD}),
+
+	/**
+	 * @function infoUser
+	 * @desc Get personal info of the user
+	 * @param {String} token
+	 * @return {*}
+	 */
 	infoUser: (token) =>
 		dispatch({type: USER_INFO, payload: agent.Auth.infoUser(token)}),
+
+	/**
+	 * @function logout
+	 * @desc Clear all information of the user
+	 * @return {*}
+	 */
 	logout: () =>
 		dispatch({type: LOGOUT, props}),
 });
@@ -56,6 +69,7 @@ class App extends React.Component {
 	/* eslint-disable */
 	/**
 	 * @function componentDidMount
+	 * @desc If user exists get the personal data
 	 */
 	componentWillMount() {
 		if (localStorage.getItem('token')) {
@@ -65,6 +79,7 @@ class App extends React.Component {
 	/* eslint-enable */
 	/**
 	 * @function componentDidMount
+	 * @desc Load the app
 	 */
 	componentDidMount() {
 		this.props.onLoad();

@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * @function SideBar
+ * @param {Object} props
+ * @return {JSX}
+ */
 const SideBar = (props) => {
 	const classVar = props.stateSidebar ? 'normalSideBar' : 'smallSideBar';
 	return (

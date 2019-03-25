@@ -27,26 +27,42 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
 	switch (action.type) {
+	/**
+	 * @desc When change the value of input in the Login or Register
+	 */
 	case CHANGE_INPUT_AUTH:
 		return {
 			...state,
 			[action.key]: action.value,
 		};
+	/**
+	 * @desc When change the value of input password in the Login or Register
+	 */
 	case CHANGE_TYPE_PASS:
 		return {
 			...state,
 			[action.key]: action.passType,
 		};
+	/**
+	 * @desc Save the errors what show in the Login
+	 */
 	case SHOW_ERRORS_LOGIN:
 		return {
 			...state,
 			errorsLogin: action.errors,
 		};
+	/**
+	 * @desc Save the errors what show in the Register
+	 */
 	case SHOW_ERRORS_REGISTER:
 		return {
 			...state,
 			errorsRegister: action.errors,
 		};
+	/**
+	 * @desc Save the errors what show in the Login of the backend or
+	 * Clear data of the input and save user data and token
+	 */
 	case LOGIN:
 		if (action.payload.error) {
 			return {
@@ -65,6 +81,10 @@ export default (state = defaultState, action) => {
 				passLogType: 'password',
 			};
 		}
+	/**
+	 * @desc Save the errors what show in the Register of the backend or
+	 * Clear data of the input and save user data and token
+	 */
 	case REGISTER:
 		if (action.payload.error) {
 			return {
@@ -87,6 +107,9 @@ export default (state = defaultState, action) => {
 				passRegCType: 'password',
 			};
 		}
+	/**
+	 * @desc Set default data component Login when unmount
+	 */
 	case UNMOUNT_LOGIN:
 		return {
 			...state,
@@ -95,6 +118,9 @@ export default (state = defaultState, action) => {
 			errorsLogin: [],
 			passLogType: 'password',
 		};
+	/**
+	 * @desc Set default data component Register when unmount
+	 */
 	case UNMOUNT_REGISTER:
 		return {
 			...state,

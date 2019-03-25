@@ -1,11 +1,17 @@
 import React from 'react';
 
 /**
- * @constant MessageList
+ * @function MessageList
  * @param {Object} props
  * @return {JSX}
  */
 const MessageList = (props) => {
+	/**
+	 * @function stringToColour
+	 * @desc Convert the id of the user in a colour
+	 * @param {String} str
+	 * @return {String}
+	 */
 	const stringToColour = (str) => {
 		let hash = 0;
 		for (let i = 0; i < str.length; i++) {
@@ -19,6 +25,10 @@ const MessageList = (props) => {
 		return colour;
 	};
 
+	/**
+	 * @constant style
+	 * @desc Style to include in JSX to make change the colour
+	 */
 	const style = {
 		color: stringToColour(props.message._sender.userId),
 	};
