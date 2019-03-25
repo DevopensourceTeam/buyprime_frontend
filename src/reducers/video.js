@@ -5,6 +5,7 @@ import {
 	INIT_CHAT,
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
+	GET_PRODUCT,
 	UNMOUNT_VIDEO,
 } from '../constants/actionTypes';
 
@@ -50,6 +51,14 @@ export default (state = defaultState, action) => {
 			...state,
 			messages: state.messages,
 			message: '',
+		};
+	/**
+	 * @desc Save the product to show in Video
+	 */
+	case GET_PRODUCT:
+		return {
+			...state,
+			productsVideo: [action.payload.product],
 		};
 	/**
 	 * @desc Set default data component when unmount

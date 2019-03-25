@@ -24,6 +24,11 @@ const requests = {
 		superagent.post(`${API_ROOT}${url}`, body).then(responseBody),
 };
 
+const Products = {
+	getProduct: () =>
+		requests.get(`/products/getone`),
+};
+
 const Auth = {
 	/**
 	 * @function createCustomer
@@ -59,4 +64,5 @@ const Auth = {
 */
 export default {
 	Auth,
+	Products,
 };

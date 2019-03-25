@@ -6,7 +6,7 @@ import SendBird from 'sendbird';
 
 import SideBar from '../SideBar';
 import Messages from './Messages';
-
+import ProductList from '../ProductList';
 
 /**
  * @desc Import constants
@@ -16,8 +16,10 @@ import {
 	CHANGE_INPUT_CHAT,
 	SAVE_MESSAGE,
 	SHOW_SIDEBAR,
+	GET_PRODUCT,
 	UNMOUNT_VIDEO,
 } from '../../constants/actionTypes';
+import agent from '../../agent';
 import {asynchat} from './asynchat';
 
 const sb = new SendBird({appId: process.env.REACT_APP_SENDBIRD_ID});
@@ -51,6 +53,14 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 	initChat: (channel, cover) =>
 		dispatch({type: INIT_CHAT, channel, cover}),
+
+	/**
+	 * @function getProduct
+	 * @desc Get one product
+	 * @return {*}
+	 */
+	getProduct: () =>
+		dispatch({type: GET_PRODUCT, payload: agent.Products.getProduct()}),
 
 	/**
 	 * @function changeInput
@@ -135,6 +145,7 @@ class Video extends React.Component {
 	 */
 	async componentWillMount() {
 		const that = this;
+		this.props.getProduct();
 		
 		if (this.props.nickname) {
 			await asynchat.connect(this.props.nickname, this.props.usermail.split('@')[0], sb);
@@ -176,13 +187,8 @@ class Video extends React.Component {
 						<ReactPlayer url='http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
 							playing
 							controls={true} />
-						<section className="m-3">
-							<h2 className="mt-2">Conejo Amoroso</h2>
-							<p className="mt-2">Un conejo super amoroso</p>
-							<button className="btn btn-success m-2" type="submit">
-								Comprar
-							</button>
-						</section>
+						<ProductList
+							products={this.props.productsVideo} />
 					</section>
 					<section className="video-chat border">
 						<Messages
