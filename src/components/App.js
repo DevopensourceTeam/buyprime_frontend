@@ -6,6 +6,7 @@ import Home from './Home';
 import Video from './Video/Video';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
+import Cart from './Cart';
 import './App.css';
 
 /**
@@ -90,6 +91,7 @@ class App extends React.Component {
 						<Route path="/video" component={Video} />
 						<Route exact path="/login" component={Login} />
 						<Route path="/register" component={Register} />
+						<Route path="/cart" component={Cart} />
 					</Switch>
 				</div>
 			);

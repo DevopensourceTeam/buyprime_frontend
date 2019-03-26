@@ -20,6 +20,7 @@ export default (state = {cartItems: []}, action) => {
 			} else {
 				stateCart = [...stateCart, action.product];
 			}
+			return stateCart;
 		});
 		return {
 			...state,

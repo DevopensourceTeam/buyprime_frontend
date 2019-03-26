@@ -73,7 +73,7 @@ const AMenu = (props) => {
 					: <UnregisteredMenu />
 			}
 			<li className="nav-item">
-				<Link to="/">
+				<Link to="/cart">
 					<label className="mb-0 pl-2 pr-2 c-pointer">
 						<label>{props.nproducts}</label>
 						<i className="fas fa-shopping-cart"></i></label>

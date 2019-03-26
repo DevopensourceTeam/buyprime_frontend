@@ -14,7 +14,8 @@ const ProductList = (props) => {
 					key={i}>
 					<img className="ml-3 mr-3 h-100" width="150px"
 						src={'http://magento23pwa.test/media/catalog/product/'+
-						product.media_gallery_entries[0].file} />
+						product.media_gallery_entries[0].file}
+						alt="thumblain product"/>
 					<section className="m-3">
 						<h3 className="mt-2">{product.name}</h3>
 						<h4>$ {product.price}</h4>
@@ -22,7 +23,13 @@ const ProductList = (props) => {
 							className="btn btn-primary m-2"
 							type="button"
 							onClick={() =>
-								props.addCart({id: product.id, sku: product.sku, qty: 1})}>
+								props.addCart({
+									id: product.id,
+									name: product.name,
+									sku: product.sku,
+									price: product.price,
+									image: product.media_gallery_entries[0].file,
+									qty: 1})}>
 							Add to Cart
 						</button>
 					</section>
