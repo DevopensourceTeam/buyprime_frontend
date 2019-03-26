@@ -4,6 +4,7 @@ import ProductListCart from './ProductListCart';
 
 import {
 	REMOVE_ITEM_CART,
+	CHANGE_QTY_CART,
 } from '../constants/actionTypes';
 /**
  * @function mapStateToProps
@@ -24,6 +25,8 @@ const mapStateToProps = (state) => {
 const mapDisptachToProps = (dispatch) => ({
 	removeItem: (productid) =>
 		dispatch({type: REMOVE_ITEM_CART, productid}),
+	changeQty: (productid, operator) =>
+		dispatch({type: CHANGE_QTY_CART, productid, operator}),
 });
 
 /**
@@ -50,6 +53,7 @@ class Cart extends React.Component {
 					<ProductListCart
 						products={this.props.cartItems}
 						removeItem={this.props.removeItem}
+						changeQty={this.props.changeQty}
 						orderTotal={orderTotal} />
 				</section>
 			</article>

@@ -4,6 +4,7 @@
 import {
 	ADD_ITEM_CART,
 	REMOVE_ITEM_CART,
+	CHANGE_QTY_CART,
 } from '../constants/actionTypes';
 
 export default (state = {cartItems: []}, action) => {
@@ -33,6 +34,19 @@ export default (state = {cartItems: []}, action) => {
 			...state,
 			cartItems: state.cartItems.filter((prod) =>
 				prod.id !== action.productid),
+		};
+	case CHANGE_QTY_CART:
+		const changeProd = state.cartItems.filter((prod) =>
+			prod.id === action.productid)[0];
+		if (action.operator === '+') {
+			changeProd.qty = changeProd.qty + 1;
+		} else {
+			changeProd.qty = changeProd.qty - 1;
+		}
+		return {
+			...state,
+			cartItems: [...state.cartItems.filter((prod) =>
+				prod.id !== action.productid), changeProd],
 		};
 	default:
 		return state;
