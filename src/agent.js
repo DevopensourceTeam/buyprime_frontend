@@ -25,8 +25,8 @@ const requests = {
 };
 
 const Products = {
-	getProduct: () =>
-		requests.get(`/products/getone`),
+	getProduct: (products) =>
+		requests.post(`/products/getone`, {products: products}),
 };
 
 const Auth = {
