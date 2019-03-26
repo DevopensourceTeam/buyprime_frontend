@@ -38,10 +38,10 @@ class Cart extends React.Component {
 	 * @return {JSX}
 	 */
 	render() {
-		let orderTotal;
+		let orderTotal = 0;
 		if (this.props.cartItems.length > 1) {
-			orderTotal = this.props.cartItems.reduce((prodAn, prodAc, i) => {
-				return (prodAn.qty * prodAn.price) + (prodAc.qty * prodAc.price);
+			this.props.cartItems.map((item) => {
+				orderTotal = orderTotal + (item.qty * item.price);
 			});
 		} else if (this.props.cartItems.length > 0) {
 			orderTotal = this.props.cartItems[0].qty * this.props.cartItems[0].price;

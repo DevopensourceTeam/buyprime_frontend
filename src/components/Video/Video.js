@@ -61,8 +61,10 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @return {*}
 	 */
 	getProduct: () =>
-		dispatch({type: GET_PRODUCT,
-			payload: agent.Products.getProduct(['VA15-SI-NA', 'VT07-KH-XS'])}),
+		dispatch({type: GET_PRODUCT, payload: agent.Products.getProduct([
+			'VA15-SI-NA',
+			'VT07-KH-XS',
+			'VT09-KH-M'])}),
 
 	/**
 	 * @function changeInput

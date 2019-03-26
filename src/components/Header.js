@@ -47,10 +47,10 @@ class Header extends React.Component {
 	 * @return {JSX} JSX del Header
 	 */
 	render() {
-		let nproducts;
+		let nproducts = 0;
 		if (this.props.cartItems.length > 1) {
-			nproducts = this.props.cartItems.reduce((prodAn, prodAc, i) => {
-				return prodAn.qty + prodAc.qty;
+			this.props.cartItems.map((item) => {
+				nproducts = nproducts + item.qty;
 			});
 		} else if (this.props.cartItems.length > 0) {
 			nproducts = this.props.cartItems[0].qty;
