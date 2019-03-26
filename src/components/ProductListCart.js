@@ -25,13 +25,22 @@ const ProductListCart = (props) => {
 							<p className="m-0"><strong>{product.name}</strong></p>
 							<p className="m-0">{product.price}$</p>
 							<p className="m-0">
-								<label className="pr-2 pl-2 pt-1 pb-1
-									m-2 bg-light rounded c-pointer"
-								onClick={() => props.changeQty(product.id, '-')}>-</label>
+								{
+									product.qty < 2 ?
+										<label className="pr-2 pl-2 pt-1 pb-1
+											m-2 bg-light rounded c-pointer">
+											<strong>-</strong></label>
+										:
+										<label className="pr-2 pl-2 pt-1 pb-1
+											m-2 bg-light rounded c-pointer"
+										onClick={() => props.changeQty(product.id, '-')}>
+											<strong>-</strong></label>
+								}
 								{product.qty}
 								<label className="pr-2 pl-2 pt-1 pb-1
 									m-2 bg-light rounded c-pointer"
-								onClick={() => props.changeQty(product.id, '+')}>+</label>
+								onClick={() => props.changeQty(product.id, '+')}>
+									<strong>+</strong></label>
 							</p>
 							<p className="m-0">{product.qty * product.price}$</p>
 							<i className="far fa-times-circle text-secondary
