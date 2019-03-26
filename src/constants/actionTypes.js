@@ -20,7 +20,8 @@ export const USER_INFO ='USER_INFO';
 export const UNMOUNT_REGISTER = 'UNMOUNT_REGISTER';
 export const UNMOUNT_LOGIN = 'UNMOUNT_LOGIN';
 export const GET_PRODUCT = 'GET_PRODUCT';
-export const ADD_CART = 'ADD_CART';
+export const ADD_ITEM_CART = 'ADD_ITEM_CART';
+export const REMOVE_ITEM_CART = 'REMOVE_ITEM_CART';
 export const TOASTR_OPTIONS = {
 	closeButton: true,
 	preventDuplicated: true,

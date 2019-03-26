@@ -9,12 +9,11 @@ router.get('/getone', async (req, res) => {
 	}).then((res) => res.json())
 		.then((response) => {
 			const product = response;
-			fetch('http://magento23pwa.test/rest/V1/products/VA15-SI-NA', {
+			fetch('http://magento23pwa.test/rest/V1/products/VT07-KH-XS', {
 				method: 'GET',
 			}).then((res) => res.json())
 				.then((response) => {
-					console.log(response);
-					res.status(200).json({product: product});
+					res.status(200).json({product: [product, response]});
 				}).catch((error) => {
 					res.status(400).json({error: error});
 				});

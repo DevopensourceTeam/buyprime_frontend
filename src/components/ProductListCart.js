@@ -8,14 +8,15 @@ import React from 'react';
 const ProductListCart = (props) => {
 	return (
 		props.products.length > 0 ?
-			<article className="d-flex justify-content-between mt-3">
+			<article className="d-flex justify-content-between
+				mt-4 align-items-center">
 				<section className="w-100">
 					{props.products.map((product, i) => {
 						return <section
 							className="d-flex
 								justify-content-around
 								small rounded p-3 mr-4
-								border border-secondary"
+								border border-secondary mb-3"
 							key={i}>
 							<img className="h-100" width="100px"
 								src={'http://magento23pwa.test/media/catalog/product/'+
@@ -25,14 +26,16 @@ const ProductListCart = (props) => {
 							<p className="m-0">{product.price}$</p>
 							<p className="m-0">{product.qty}</p>
 							<p className="m-0">{product.qty * product.price}$</p>
-							<i className="far fa-times-circle text-secondary h5 m-0"></i>
+							<i className="far fa-times-circle text-secondary
+								h5 m-0 c-pointer fit-content"
+							onClick={() => props.removeItem(product.id)}></i>
 						</section>;
 					})}
 				</section>
 				<section className="
 					d-flex flex-column align-items-center
 					border border-secondary
-					rounded p-4 w-50">
+					rounded p-4 w-50 mb-3 fit-content">
 					<section>
 						<h3>Cart Summary</h3>
 					</section>

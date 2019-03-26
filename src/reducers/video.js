@@ -58,7 +58,7 @@ export default (state = defaultState, action) => {
 	case GET_PRODUCT:
 		return {
 			...state,
-			productsVideo: [action.payload.product],
+			productsVideo: action.payload.product,
 		};
 	/**
 	 * @desc Set default data component when unmount

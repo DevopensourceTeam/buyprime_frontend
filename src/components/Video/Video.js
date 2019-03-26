@@ -17,7 +17,7 @@ import {
 	SAVE_MESSAGE,
 	SHOW_SIDEBAR,
 	GET_PRODUCT,
-	ADD_CART,
+	ADD_ITEM_CART,
 	UNMOUNT_VIDEO,
 } from '../../constants/actionTypes';
 import agent from '../../agent';
@@ -88,7 +88,7 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @return {*}
 	 */
 	addCart: (product) =>
-		dispatch({type: ADD_CART, product}),
+		dispatch({type: ADD_ITEM_CART, product}),
 
 	/**
 	 * @function showSidebar

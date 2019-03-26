@@ -1,6 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ProductListCart from './ProductListCart';
+
+import {
+	REMOVE_ITEM_CART,
+} from '../constants/actionTypes';
 /**
  * @function mapStateToProps
  * @param {Object} state
@@ -18,6 +22,8 @@ const mapStateToProps = (state) => {
  * @return {*}
  */
 const mapDisptachToProps = (dispatch) => ({
+	removeItem: (productid) =>
+		dispatch({type: REMOVE_ITEM_CART, productid}),
 });
 
 /**
@@ -43,6 +49,7 @@ class Cart extends React.Component {
 				<section>
 					<ProductListCart
 						products={this.props.cartItems}
+						removeItem={this.props.removeItem}
 						orderTotal={orderTotal} />
 				</section>
 			</article>

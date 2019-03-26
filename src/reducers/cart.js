@@ -2,7 +2,8 @@
  * @desc Import the constants
  */
 import {
-	ADD_CART,
+	ADD_ITEM_CART,
+	REMOVE_ITEM_CART,
 } from '../constants/actionTypes';
 
 export default (state = {cartItems: []}, action) => {
@@ -10,14 +11,15 @@ export default (state = {cartItems: []}, action) => {
 	/**
      * @desc Save in array id and quantity of the products
      */
-	case ADD_CART:
+	case ADD_ITEM_CART:
 		let stateCart = state.cartItems;
-		stateCart.filter((prod) => {
+		stateCart.map((prod) => {
 			if (prod.id === action.product.id) {
 				action.product.qty = prod.qty + 1;
 				stateCart = [...stateCart.filter((prod) =>
 					prod.id !== action.product.id), action.product];
-			} else {
+			} else if (stateCart.filter((prod) =>
+				prod.id === action.product.id).length < 1) {
 				stateCart = [...stateCart, action.product];
 			}
 			return stateCart;
@@ -25,6 +27,12 @@ export default (state = {cartItems: []}, action) => {
 		return {
 			...state,
 			cartItems: stateCart.length > 0 ? stateCart : [action.product],
+		};
+	case REMOVE_ITEM_CART:
+		return {
+			...state,
+			cartItems: state.cartItems.filter((prod) =>
+				prod.id !== action.productid),
 		};
 	default:
 		return state;
