@@ -16,6 +16,7 @@ import {
 	APP_LOAD,
 	USER_INFO,
 	LOAD_CART,
+	LOGOUT,
 } from '../constants/actionTypes';
 import agent from '../agent';
 
@@ -60,6 +61,13 @@ const mapDispatchToProps = (dispatch, props) => ({
 	 */
 	loadCart: () =>
 		dispatch({type: LOAD_CART}),
+	/**
+	 * @function logout
+	 * @desc Clear all information of the user
+	 * @return {*}
+	 */
+	logout: () =>
+		dispatch({type: LOGOUT, props}),
 });
 
 /**
@@ -96,7 +104,7 @@ class App extends React.Component {
 		if (this.props.appLoaded) {
 			return (
 				<div>
-					<Header />
+					<Header logout={this.props.logout} />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/video" component={Video} />

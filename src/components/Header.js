@@ -4,13 +4,6 @@ import {Link} from 'react-router-dom';
 import AMenu from './Menu';
 
 /**
- * @desc Import constants
- */
-import {
-	LOGOUT,
-} from '../constants/actionTypes';
-
-/**
  * @function mapStateToProps
  * @param {Object} state
  * @return {Object}
@@ -21,22 +14,6 @@ const mapStateToProps = (state) => {
 		cartItems: state.cart.cartItems,
 	};
 };
-
-/**
- * @function mapDispatchToProps
- * @param {*} dispatch
- * @param {*} props
- * @return {*}
- */
-const mapDispatchToProps = (dispatch, props) => ({
-	/**
-	 * @function logout
-	 * @desc Clear all information of the user
-	 * @return {*}
-	 */
-	logout: () =>
-		dispatch({type: LOGOUT, props}),
-});
 
 /**
  * @class Header
@@ -77,4 +54,4 @@ class Header extends React.Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);
