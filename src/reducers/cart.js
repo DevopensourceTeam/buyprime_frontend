@@ -5,6 +5,7 @@ import {
 	ADD_ITEM_CART,
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
+	LOAD_CART,
 } from '../constants/actionTypes';
 
 export default (state = {cartItems: []}, action) => {
@@ -25,11 +26,19 @@ export default (state = {cartItems: []}, action) => {
 			}
 			return stateCart;
 		});
+
+		stateCart.length > 0 ?
+			localStorage.setItem('cart', JSON.stringify(stateCart)) :
+			localStorage.setItem('cart', JSON.stringify([action.product]));
+
 		return {
 			...state,
 			cartItems: stateCart.length > 0 ? stateCart : [action.product],
 		};
 	case REMOVE_ITEM_CART:
+		localStorage.setItem('cart', JSON.stringify(
+			state.cartItems.filter((prod) =>
+				prod.id !== action.productid)));
 		return {
 			...state,
 			cartItems: state.cartItems.filter((prod) =>
@@ -53,9 +62,15 @@ export default (state = {cartItems: []}, action) => {
 		}
 		changeQty.splice(index, 0, changeProd);
 
+		localStorage.setItem('cart', JSON.stringify(changeQty));
 		return {
 			...state,
 			cartItems: changeQty,
+		};
+	case LOAD_CART:
+		return {
+			...state,
+			cartItems: JSON.parse(localStorage.getItem('cart')),
 		};
 	default:
 		return state;

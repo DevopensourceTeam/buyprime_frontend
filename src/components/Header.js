@@ -51,6 +51,7 @@ class Header extends React.Component {
 		if (this.props.cartItems.length > 1) {
 			this.props.cartItems.map((item) => {
 				nproducts = nproducts + item.qty;
+				return true;
 			});
 		} else if (this.props.cartItems.length > 0) {
 			nproducts = this.props.cartItems[0].qty;

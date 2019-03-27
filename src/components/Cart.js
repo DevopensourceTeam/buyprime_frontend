@@ -42,6 +42,7 @@ class Cart extends React.Component {
 		if (this.props.cartItems.length > 1) {
 			this.props.cartItems.map((item) => {
 				orderTotal = orderTotal + (item.qty * item.price);
+				return true;
 			});
 		} else if (this.props.cartItems.length > 0) {
 			orderTotal = this.props.cartItems[0].qty * this.props.cartItems[0].price;

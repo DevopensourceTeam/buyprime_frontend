@@ -15,6 +15,7 @@ import './App.css';
 import {
 	APP_LOAD,
 	USER_INFO,
+	LOAD_CART,
 } from '../constants/actionTypes';
 import agent from '../agent';
 
@@ -52,6 +53,13 @@ const mapDispatchToProps = (dispatch, props) => ({
 	 */
 	infoUser: (token) =>
 		dispatch({type: USER_INFO, payload: agent.Auth.infoUser(token)}),
+	/**
+	 * @function loadCart
+	 * @desc Get data from localStorage and save in store
+	 * @return {*}
+	 */
+	loadCart: () =>
+		dispatch({type: LOAD_CART}),
 });
 
 /**
@@ -75,6 +83,9 @@ class App extends React.Component {
 	 */
 	componentDidMount() {
 		this.props.onLoad();
+		if (localStorage.getItem('cart')) {
+			this.props.loadCart();
+		}
 	}
 
 	/**

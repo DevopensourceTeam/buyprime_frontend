@@ -23,6 +23,7 @@ export const GET_PRODUCT = 'GET_PRODUCT';
 export const ADD_ITEM_CART = 'ADD_ITEM_CART';
 export const REMOVE_ITEM_CART = 'REMOVE_ITEM_CART';
 export const CHANGE_QTY_CART = 'CHANGE_QTY_CART';
+export const LOAD_CART = 'LOAD_CART';
 export const TOASTR_OPTIONS = {
 	closeButton: true,
 	preventDuplicated: true,
