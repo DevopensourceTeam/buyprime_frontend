@@ -50,13 +50,26 @@ class Cart extends React.Component {
 		return (
 			<article className="mt-5 ml-5 mr-5">
 				<h3>Shopping Cart</h3>
-				<section>
+				<article className="d-flex justify-content-between
+				mt-4 align-items-center">
 					<ProductListCart
 						products={this.props.cartItems}
 						removeItem={this.props.removeItem}
-						changeQty={this.props.changeQty}
-						orderTotal={orderTotal} />
-				</section>
+						changeQty={this.props.changeQty} />
+					<section className="
+						d-flex flex-column align-items-center
+						border border-secondary
+						rounded p-4 w-50 mb-3 fit-content">
+						<section>
+							<h3>Cart Summary</h3>
+						</section>
+						<hr className="border-dark w-100" />
+						<section>
+							<p><strong>Order Total</strong> {orderTotal} $</p>
+						</section>
+						<button className="btn-primary btn-lg">Proceed to Checkout</button>
+					</section>
+				</article>
 			</article>
 		);
 	}
