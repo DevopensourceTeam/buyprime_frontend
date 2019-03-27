@@ -7,6 +7,8 @@ import Video from './Video/Video';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
 import Cart from './Cart';
+import PersonalData from './Checkout/PersonalData';
+import Payment from './Checkout/Payment';
 import './App.css';
 
 /**
@@ -111,6 +113,8 @@ class App extends React.Component {
 						<Route exact path="/login" component={Login} />
 						<Route path="/register" component={Register} />
 						<Route path="/cart" component={Cart} />
+						<Route path="/checkout/personaldata" component={PersonalData} />
+						<Route path="/checkout/payment" component={Payment} />
 					</Switch>
 				</div>
 			);

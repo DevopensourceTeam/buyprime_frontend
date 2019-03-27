@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import ProductListCart from './ProductListCart';
 
@@ -67,7 +68,10 @@ class Cart extends React.Component {
 						<section>
 							<p><strong>Order Total</strong> {orderTotal} $</p>
 						</section>
-						<button className="btn-primary btn-lg">Proceed to Checkout</button>
+						<Link to="/checkout/personaldata" className="nav-brand">
+							<button className="btn-primary btn-lg" disabled={!orderTotal}>
+							Proceed to Checkout</button>
+						</Link>
 					</section>
 				</article>
 			</article>

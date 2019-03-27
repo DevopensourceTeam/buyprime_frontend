@@ -59,10 +59,16 @@ const Auth = {
 		requests.post(`/auth/infouser`, {token}),
 };
 
+const Checkout = {
+	getCountries: () =>
+		requests.get(`/checkout/countries`),
+};
+
 /**
 * @desc Export constants
 */
 export default {
 	Auth,
 	Products,
+	Checkout,
 };
