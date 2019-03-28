@@ -12,6 +12,7 @@ import {
 	FILL_IN_FIELDS,
 	GET_COUNTRIES,
 	SELECT_COUNTRY,
+	SELECT_PROVINCE,
 } from '../../constants/actionTypes';
 import {validate} from './validate';
 
@@ -69,6 +70,14 @@ const mapDispatchToProps = (dispatch, props) => ({
 	 */
 	selectCountry: (country) =>
 		dispatch({type: SELECT_COUNTRY, country}),
+
+	/**
+	 * @function selectCountry
+	 * @param {String} province
+	 * @return {*}
+	 */
+	selectProvince: (province) =>
+		dispatch({type: SELECT_PROVINCE, province}),
 });
 /**
  * @class Register
@@ -92,6 +101,9 @@ class Register extends React.Component {
 		this.selectCountry = () => (ev) => {
 			this.props.selectCountry(ev.target.value);
 		};
+		this.selectProvince = () => (ev) => {
+			this.props.selectProvince(ev.target.value);
+		};
 		this.submitForm = async (ev) => {
 			ev.preventDefault();
 			this.setState({
@@ -107,8 +119,11 @@ class Register extends React.Component {
 				this.props.company,
 				this.props.street,
 				this.props.city,
+				this.props.country,
+				this.props.provinceId,
 				this.props.postalcode,
-				this.props.phone);
+				this.props.phone,
+				this.props.provinces);
 			/**
 			 * @desc If stateForm have errors, show errors else call
 			 * the nodejs backend
@@ -161,6 +176,8 @@ class Register extends React.Component {
 	 * @return {JSX}
 	 */
 	render() {
+		const disableProv = this.props.provinces ?
+			this.props.provinces.length < 1 : false;
 		return (
 			<section>
 				<Errors errors={this.props.errorsCheckout} />
@@ -251,16 +268,44 @@ class Register extends React.Component {
 						</section>
 						<section className="form-group col-md-6  mw-100">
 							<label className="mb-0">
+								Country
+								<label className="ml-1 text-danger">*</label>
+							</label>
+							<select required
+								className="form-control"
+								onChange={this.selectCountry()}
+								disabled={!this.props.countries}
+								value={this.props.country}>
+								<option value=''>Select a Country</option>
+								{
+									this.props.countries ?
+										this.props.countries.map((country, i) => {
+											return <option key={i} value={country.id}>
+												{country.full_name_english}</option>;
+										})
+										: ''
+								}
+							</select>
+						</section>
+						<section className="form-group col-md-6  mw-100">
+							<label className="mb-0">
 								State/Province
 								<label className="ml-1 text-danger">*</label>
-								<select>
+								<select required
+									className="form-control"
+									disabled={!this.props.provinces
+											|| disableProv}
+									onChange={this.selectProvince()}
+									value={this.props.provinceId}>
+									<option value=''>Select a Province</option>
 									{
-										this.props.province ?
-											this.props.province.map((province, i) => {
-												return <option key={i} value={province.id}>
-													{province.name}</option>;
-											})
-											: <option>Select One</option>
+										this.props.provinces ?
+											this.props.provinces.length > 0 ?
+												this.props.provinces.map((province, i) => {
+													return <option key={i} value={province.id}>
+														{province.name}</option>;
+												})
+												: '' : ''
 									}
 								</select>
 							</label>
@@ -277,22 +322,6 @@ class Register extends React.Component {
 								placeholder="Zip/PostalCode"
 								value={this.props.postalcode || ''}
 								onChange={this.changeInput('postalcode')}/>
-						</section>
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0">
-								Country
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<select onChange={this.selectCountry()}>
-								{
-									this.props.countries ?
-										this.props.countries.map((country, i) => {
-											return <option key={i} value={country.id}>
-												{country.full_name_english}</option>;
-										})
-										: <option>Select One</option>
-								}
-							</select>
 						</section>
 						<section>
 							<label className="mb-0" htmlFor="phone">

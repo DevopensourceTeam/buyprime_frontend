@@ -10,6 +10,7 @@ import {
 	LOGOUT,
 	GET_COUNTRIES,
 	SELECT_COUNTRY,
+	SELECT_PROVINCE,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -40,14 +41,20 @@ export default (state = {}, action) => {
 	case GET_COUNTRIES:
 		return {
 			...state,
-			countries: action.payload.countries,
+			countries: action.payload.countries.sort(),
 		};
 	case SELECT_COUNTRY:
+		const provinces = action.country ? state.countries.filter((country) =>
+			country.id === action.country)[0].available_regions : [];
 		return {
 			...state,
 			country: action.country,
-			province: state.countries.filter((country) =>
-				country.id === action.country)[0].available_regions,
+			provinces: provinces ? provinces : [],
+		};
+	case SELECT_PROVINCE:
+		return {
+			...state,
+			provinceId: action.province,
 		};
 	case LOGIN:
 	case REGISTER:

@@ -16,7 +16,7 @@ export const validate = {
 	 * @return {Promise}
 	 */
 	/* eslint-disable */
-	validateFormCheck: async (email, fname, lname, company, street, city, postalcode, phone) => {
+	validateFormCheck: async (email, fname, lname, company, street, city, country, province, postalcode, phone, provinces) => {
 		return new Promise((resolve) => {
 			const errors = [];
 			const emailRE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -92,6 +92,25 @@ export const validate = {
 				errors.push({
 					key: 'City',
 					error: 'City must be between 3 & 15 letters',
+				});
+			}
+
+			if (!country) {
+				errors.push({
+					key: 'Country',
+					error: 'Select a Country',
+				});
+			} if (provinces.length < 1 && country) {
+				errors.push({
+					key: 'Country',
+					error: 'Invalid Country',
+				});
+			}
+
+			if (!province && provinces.length > 0) {
+				errors.push({
+					key: 'Province',
+					error: 'Select a Province',
 				});
 			}
 

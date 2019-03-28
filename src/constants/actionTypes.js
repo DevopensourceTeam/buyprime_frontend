@@ -29,6 +29,7 @@ export const SHOW_ERRORS_CHECKOUT = 'SHOW_ERRORS_CHECKOUT';
 export const FILL_IN_FIELDS = 'FILL_IN_FIELDS';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const SELECT_COUNTRY = 'SELECT_COUNTRY';
+export const SELECT_PROVINCE = 'SELECT_PROVINCE';
 export const TOASTR_OPTIONS = {
 	closeButton: true,
 	preventDuplicated: true,
