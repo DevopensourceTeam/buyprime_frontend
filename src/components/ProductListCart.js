@@ -17,8 +17,8 @@ const ProductListCart = (props) => {
 							border border-secondary mb-3"
 						key={i}>
 						<img className="h-100" width="100px"
-							src={'http://magento23pwa.test/media/catalog/product/'+
-							product.image}
+							src={'http://magento23pwa.test/media/catalog/product'+
+							product.image.file}
 							alt="thumblain product"/>
 						<p className="m-0"><strong>{product.name}</strong></p>
 						<p className="m-0">{product.price}$</p>

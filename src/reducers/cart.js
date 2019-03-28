@@ -15,9 +15,16 @@ export default (state = {cartItems: []}, action) => {
 	 * @desc Charge the app
 	 */
 	case APP_LOAD:
+		const fItems = [];
+		action.payload.items.map((item) => {
+			item.item.image = item.image[0];
+			fItems.push(item.item);
+			return true;
+		});
+
 		return {
 			...state,
-			cartItems: action.payload.items,
+			cartItems: fItems,
 			idCart: action.payload.idCart,
 		};
 	/**

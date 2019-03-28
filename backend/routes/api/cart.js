@@ -3,6 +3,17 @@ const router = require('express').Router();
 const fetch = require('node-fetch');
 /* eslint-enable */
 
+getImgItem = (item) => {
+	return new Promise((resolve) => {
+		fetch('http://magento23pwa.test/index.php/rest/V1/products/'+item.sku+'/media', {
+			method: 'GET',
+		}).then((res) => res.json())
+			.then((image) => {
+				resolve({item, image});
+			});
+	});
+};
+
 router.post('/idCart', (req, res) => {
 	fetch('http://magento23pwa.test/index.php/rest/V1/customers/'+req.body.id+'/carts', {
 		method: 'POST',
@@ -18,7 +29,12 @@ router.post('/idCart', (req, res) => {
 				},
 			}).then((res) => res.json())
 				.then((items) => {
-					res.status(200).json({idCart, items});
+					const asyncI = items.map((item) => {
+						return getImgItem(item);
+					});
+					Promise.all(asyncI).then((items) => {
+						res.status(200).json({idCart, items});
+					});
 				});
 		})
 		.catch((error) => {
