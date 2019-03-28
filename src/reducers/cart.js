@@ -36,7 +36,8 @@ export default (state = {cartItems: []}, action) => {
 			...state,
 			cartItems: stateCart.length > 0 ?
 				[...stateCart.filter((prod) =>
-					prod.id !== action.product.id), action.payload.product]:
+					prod.item_id !== action.payload.product.item_id),
+				action.payload.product]:
 				[action.payload.product],
 		};
 	case REMOVE_ITEM_CART:

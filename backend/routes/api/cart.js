@@ -57,8 +57,11 @@ router.post('/addItem', (req, res) => {
 			},
 		}),
 	}).then((res) => res.json())
-		.then((product) => {
-			res.status(200).json({product: product});
+		.then(async (product) => {
+			const allItem = await getImgItem(product);
+			allItem.item.image = allItem.image[0];
+			console.log(allItem);
+			res.status(200).json({product: allItem.item});
 		})
 		.catch((error) => {
 			res.status(400).json({error: error});
