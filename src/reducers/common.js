@@ -10,15 +10,7 @@ import {
 	LOGOUT,
 } from '../constants/actionTypes';
 
-/**
- * @desc Default state from all the application web.
- */
-const defaultState = {
-	appName: 'BuyPrime',
-	stateSidebar: true,
-};
-
-export default (state = defaultState, action) => {
+export default (state = {}, action) => {
 	switch (action.type) {
 	/**
 	 * @desc Charge the app

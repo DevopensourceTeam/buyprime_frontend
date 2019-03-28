@@ -56,7 +56,7 @@ const Auth = {
 	 * @return {*}
 	 */
 	infoUser: (token) =>
-		requests.post(`/auth/infouser`, {token}),
+		requests.post(`/auth/infouser`, {token}).then((res) => res),
 };
 
 const Checkout = {

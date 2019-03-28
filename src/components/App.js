@@ -82,7 +82,7 @@ class App extends React.Component {
 	 * @desc If user exists get the personal data
 	 */
 	componentWillMount() {
-		if (localStorage.getItem('token')) {
+		if (localStorage.getItem('token') && !this.props.userInfo) {
 			this.props.infoUser(localStorage.getItem('token'));
 		}
 	}
