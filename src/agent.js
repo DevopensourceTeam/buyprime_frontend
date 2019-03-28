@@ -62,8 +62,10 @@ const Auth = {
 const Cart = {
 	idCart: (id) =>
 		requests.post(`/cart/idCart`, {id}),
-	addItem: (sku, idCart, token) =>
+	addItem: (sku, idCart) =>
 		requests.post(`/cart/addItem`, {sku, idCart}),
+	removeItem: (idItem, idCart) =>
+		requests.post(`/cart/removeItem`, {idItem, idCart}),
 };
 
 const Checkout = {

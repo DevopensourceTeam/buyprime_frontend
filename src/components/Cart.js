@@ -7,6 +7,7 @@ import {
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
 } from '../constants/actionTypes';
+import agent from '../agent';
 /**
  * @function mapStateToProps
  * @param {Object} state
@@ -24,8 +25,9 @@ const mapStateToProps = (state) => {
  * @return {*}
  */
 const mapDisptachToProps = (dispatch) => ({
-	removeItem: (productid) =>
-		dispatch({type: REMOVE_ITEM_CART, productid}),
+	removeItem: (idItem, idCart) =>
+		dispatch({type: REMOVE_ITEM_CART,
+			payload: agent.Cart.removeItem(idItem, idCart), idItem}),
 	changeQty: (productid, operator) =>
 		dispatch({type: CHANGE_QTY_CART, productid, operator}),
 });
@@ -34,6 +36,15 @@ const mapDisptachToProps = (dispatch) => ({
  * @class Cart
  */
 class Cart extends React.Component {
+	/**
+	 * @constructor
+	 */
+	constructor() {
+		super();
+		this.removeItem = (idItem) => {
+			this.props.removeItem(idItem, this.props.idCart);
+		};
+	}
 	/**
 	 * @function render
 	 * @return {JSX}
@@ -55,7 +66,7 @@ class Cart extends React.Component {
 				mt-4 align-items-center">
 					<ProductListCart
 						products={this.props.cartItems}
-						removeItem={this.props.removeItem}
+						removeItem={this.removeItem}
 						changeQty={this.props.changeQty} />
 					<section className="
 						d-flex flex-column align-items-center

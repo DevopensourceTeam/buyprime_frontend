@@ -60,8 +60,24 @@ router.post('/addItem', (req, res) => {
 		.then(async (product) => {
 			const allItem = await getImgItem(product);
 			allItem.item.image = allItem.image[0];
-			console.log(allItem);
 			res.status(200).json({product: allItem.item});
+		})
+		.catch((error) => {
+			res.status(400).json({error: error});
+		});
+});
+
+router.post('/removeItem', (req, res) => {
+	console.log(req.body.idCart, req.body.idItem);
+	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+'/items/'+req.body.idItem, {
+		method: 'DELETE',
+		headers: {
+			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
+		},
+	}).then((res) => res.json())
+		.then(async (state) => {
+			console.log(state);
+			res.status(200).json({state: state});
 		})
 		.catch((error) => {
 			res.status(400).json({error: error});

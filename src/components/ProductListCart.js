@@ -31,19 +31,19 @@ const ProductListCart = (props) => {
 									:
 									<label className="pr-2 pl-2 pt-1 pb-1
 										m-2 bg-light rounded c-pointer"
-									onClick={() => props.changeQty(product.id, '-')}>
+									onClick={() => props.changeQty(product.item_id, '-')}>
 										<strong>-</strong></label>
 							}
 							{product.qty}
 							<label className="pr-2 pl-2 pt-1 pb-1
 								m-2 bg-light rounded c-pointer"
-							onClick={() => props.changeQty(product.id, '+')}>
+							onClick={() => props.changeQty(product.item_id, '+')}>
 								<strong>+</strong></label>
 						</p>
 						<p className="m-0">{product.qty * product.price}$</p>
 						<i className="far fa-times-circle text-secondary
 							h5 m-0 c-pointer fit-content"
-						onClick={() => props.removeItem(product.id)}></i>
+						onClick={() => props.removeItem(product.item_id)}></i>
 					</section>;
 				})}
 			</section>

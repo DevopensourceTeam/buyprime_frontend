@@ -41,13 +41,10 @@ export default (state = {cartItems: []}, action) => {
 				[action.payload.product],
 		};
 	case REMOVE_ITEM_CART:
-		localStorage.setItem('cart', JSON.stringify(
-			state.cartItems.filter((prod) =>
-				prod.id !== action.productid)));
 		return {
 			...state,
-			cartItems: state.cartItems.filter((prod) =>
-				prod.id !== action.productid),
+			cartItems: action.payload.state ? state.cartItems.filter((item) =>
+				item.item_id !== action.idItem) : state.cartItems,
 		};
 	case CHANGE_QTY_CART:
 		let changeQty = state.cartItems;
