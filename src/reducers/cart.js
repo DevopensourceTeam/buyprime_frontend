@@ -6,34 +6,31 @@ import {
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
 	LOAD_CART,
+	APP_LOAD,
 } from '../constants/actionTypes';
 
 export default (state = {cartItems: []}, action) => {
 	switch (action.type) {
 	/**
+	 * @desc Charge the app
+	 */
+	case APP_LOAD:
+		return {
+			...state,
+			cartItems: action.payload.items,
+			idCart: action.payload.idCart,
+		};
+	/**
      * @desc Save in array id and quantity of the products
      */
 	case ADD_ITEM_CART:
-		let stateCart = state.cartItems;
-		stateCart.map((prod) => {
-			if (prod.id === action.product.id) {
-				action.product.qty = prod.qty + 1;
-				stateCart = [...stateCart.filter((prod) =>
-					prod.id !== action.product.id), action.product];
-			} else if (stateCart.filter((prod) =>
-				prod.id === action.product.id).length < 1) {
-				stateCart = [...stateCart, action.product];
-			}
-			return stateCart;
-		});
-
-		stateCart.length > 0 ?
-			localStorage.setItem('cart', JSON.stringify(stateCart)) :
-			localStorage.setItem('cart', JSON.stringify([action.product]));
-
+		const stateCart = state.cartItems;
 		return {
 			...state,
-			cartItems: stateCart.length > 0 ? stateCart : [action.product],
+			cartItems: stateCart.length > 0 ?
+				[...stateCart.filter((prod) =>
+					prod.id !== action.product.id), action.payload.product]:
+				[action.payload.product],
 		};
 	case REMOVE_ITEM_CART:
 		localStorage.setItem('cart', JSON.stringify(

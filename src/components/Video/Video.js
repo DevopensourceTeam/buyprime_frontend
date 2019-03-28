@@ -32,19 +32,20 @@ const sb = new SendBird({appId: process.env.REACT_APP_SENDBIRD_ID});
 const mapStateToProps = (state) => {
 	return {
 		...state.video,
+		...state.common,
 		nickname: state.common.userInfo ?
 			state.common.userInfo.firstname+''+state.common.userInfo.lastname : null,
 		usermail: state.common.userInfo ? state.common.userInfo.email : null,
-		stateSidebar: state.common.stateSidebar,
 	};
 };
 
 /**
  * @function mapDispatchToProps
- * @param {*} dispatch
+ * @param {Object} dispatch
+ * @param {Object} props
  * @return {*}
  */
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, props) => ({
 	/**
 	 * @function getInfoChat
 	 * @param {String} channel
@@ -87,11 +88,13 @@ const mapDispatchToProps = (dispatch) => ({
 	/**
 	 * @function addCart
 	 * @desc Save product in the cart
-	 * @param {Object} product
+	 * @param {String} product
+	 * @param {Integer} idCart
 	 * @return {*}
 	 */
-	addCart: (product) =>
-		dispatch({type: ADD_ITEM_CART, product}),
+	addCart: (product, idCart) =>
+		dispatch({type: ADD_ITEM_CART,
+			payload: agent.Cart.addItem(product.sku, idCart), product}),
 
 	/**
 	 * @function showSidebar
@@ -124,6 +127,9 @@ class Video extends React.Component {
 		this.openChannel = '';
 		this.changeInput = (ev) => {
 			this.props.changeInput(ev.target.value);
+		};
+		this.addCart = (product) => {
+			this.props.addCart(product, this.props.idCart);
 		};
 
 		this.saveMessage = (ev) => {
@@ -202,7 +208,7 @@ class Video extends React.Component {
 							controls={true} />
 						<ProductList
 							products={this.props.productsVideo}
-							addCart={this.props.addCart}/>
+							addCart={this.addCart}/>
 					</section>
 					<section className="video-chat border">
 						<Messages

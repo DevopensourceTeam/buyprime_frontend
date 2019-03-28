@@ -16,6 +16,7 @@ import './App.css';
  */
 import {
 	APP_LOAD,
+	APP_LOADU,
 	USER_INFO,
 	LOAD_CART,
 	LOGOUT,
@@ -43,10 +44,20 @@ const mapDispatchToProps = (dispatch, props) => ({
 	/**
 	 * @function onLoad
 	 * @desc Charge the app
+	 * @param {String} id
+	 * @param {String} token
 	 * @return {*}
 	 */
-	onLoad: () =>
-		dispatch({type: APP_LOAD}),
+	onLoad: (id) =>
+		dispatch({type: APP_LOAD, payload: agent.Cart.idCart(id)}),
+
+	/**
+	 * @function onLoad
+	 * @desc Charge the app
+	 * @return {*}
+	 */
+	onLoadU: () =>
+		dispatch({type: APP_LOADU}),
 
 	/**
 	 * @function infoUser
@@ -76,23 +87,17 @@ const mapDispatchToProps = (dispatch, props) => ({
  * @class App
  */
 class App extends React.Component {
-	/* eslint-disable */
-	/**
-	 * @function componentDidMount
-	 * @desc If user exists get the personal data
-	 */
-	componentWillMount() {
-		if (localStorage.getItem('token') && !this.props.userInfo) {
-			this.props.infoUser(localStorage.getItem('token'));
-		}
-	}
-	/* eslint-enable */
 	/**
 	 * @function componentDidMount
 	 * @desc Load the app
 	 */
 	componentDidMount() {
-		this.props.onLoad();
+		if (this.props.userInfo) {
+			this.props.onLoad(this.props.userInfo.id);
+		} else {
+			this.props.onLoadU();
+		}
+
 		if (localStorage.getItem('cart')) {
 			this.props.loadCart();
 		}

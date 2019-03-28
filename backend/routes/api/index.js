@@ -5,6 +5,7 @@ const router = require('express').Router();
 router.use('/auth', require('./auth'));
 router.use('/products', require('./products'));
 router.use('/checkout', require('./checkout'));
+router.use('/cart', require('./cart'));
 
 router.use((err, req, res, next) => {
 	if (err.name === 'ValidationError') {

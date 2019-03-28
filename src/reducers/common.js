@@ -3,6 +3,7 @@
  */
 import {
 	APP_LOAD,
+	APP_LOADU,
 	SHOW_SIDEBAR,
 	LOGIN,
 	REGISTER,
@@ -16,6 +17,12 @@ export default (state = {}, action) => {
 	 * @desc Charge the app
 	 */
 	case APP_LOAD:
+		return {
+			...state,
+			appLoaded: true,
+			idCart: action.payload.idCart,
+		};
+	case APP_LOADU:
 		return {
 			...state,
 			appLoaded: true,

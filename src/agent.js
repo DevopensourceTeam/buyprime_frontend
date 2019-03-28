@@ -59,6 +59,13 @@ const Auth = {
 		requests.post(`/auth/infouser`, {token}).then((res) => res),
 };
 
+const Cart = {
+	idCart: (id) =>
+		requests.post(`/cart/idCart`, {id}),
+	addItem: (sku, idCart, token) =>
+		requests.post(`/cart/addItem`, {sku, idCart}),
+};
+
 const Checkout = {
 	getCountries: () =>
 		requests.get(`/checkout/countries`),
@@ -70,5 +77,6 @@ const Checkout = {
 export default {
 	Auth,
 	Products,
+	Cart,
 	Checkout,
 };
