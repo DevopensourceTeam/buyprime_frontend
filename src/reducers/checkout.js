@@ -11,6 +11,8 @@ import {
 	GET_COUNTRIES,
 	SELECT_COUNTRY,
 	SELECT_PROVINCE,
+	SHIPPING_ADDRESS,
+	SHIPPING_METHODS,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -55,6 +57,19 @@ export default (state = {}, action) => {
 		return {
 			...state,
 			provinceId: action.province,
+		};
+	case SHIPPING_ADDRESS:
+		return {
+			...state,
+			shipMethods: action.payload.methods,
+			shipAddress: action.address,
+		};
+	case SHIPPING_METHODS:
+		action.props.history.push('/checkout/payment');
+		return {
+			...state,
+			payMethods: action.payload.methods.payment_methods,
+			totals: action.payload.methods.totals,
 		};
 	case LOGIN:
 	case REGISTER:

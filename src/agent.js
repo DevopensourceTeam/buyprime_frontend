@@ -73,6 +73,10 @@ const Cart = {
 const Checkout = {
 	getCountries: () =>
 		requests.get(`/checkout/countries`),
+	shippingMethods: (methods, idCart) =>
+		requests.post(`/checkout/shippingmethods`, {methods, idCart}),
+	shippingAddress: (address, idCart) =>
+		requests.post(`/checkout/shippingaddress`, {address, idCart}),
 };
 
 /**

@@ -30,6 +30,8 @@ export const FILL_IN_FIELDS = 'FILL_IN_FIELDS';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const SELECT_COUNTRY = 'SELECT_COUNTRY';
 export const SELECT_PROVINCE = 'SELECT_PROVINCE';
+export const SHIPPING_ADDRESS = 'SHIPPING_ADDRESS';
+export const SHIPPING_METHODS = 'SHIPPING_METHODS';
 export const TOASTR_OPTIONS = {
 	closeButton: true,
 	preventDuplicated: true,

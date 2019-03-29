@@ -13,6 +13,8 @@ import {
 	GET_COUNTRIES,
 	SELECT_COUNTRY,
 	SELECT_PROVINCE,
+	SHIPPING_ADDRESS,
+	SHIPPING_METHODS,
 } from '../../constants/actionTypes';
 import {validate} from './validate';
 
@@ -25,6 +27,7 @@ const mapStateToProps = (state) => ({
 	...state.checkout,
 	user: state.common.userInfo,
 	cartItems: state.cart.cartItems,
+	idCart: state.cart.idCart,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -78,11 +81,31 @@ const mapDispatchToProps = (dispatch, props) => ({
 	 */
 	selectProvince: (province) =>
 		dispatch({type: SELECT_PROVINCE, province}),
+
+	/**
+	 * @function shippingAddress
+	 * @param {Object} address
+	 * @param {Integer} idCart
+	 * @return {*}
+	 */
+	shippingAddress: (address, idCart) =>
+		dispatch({type: SHIPPING_ADDRESS,
+			payload: agent.Checkout.shippingAddress(address, idCart), address}),
+
+	/**
+	 * @function shippingMethods
+	 * @param {Object} methods
+	 * @param {Integer} idCart
+	 * @return {*}
+	 */
+	shippingMethods: (methods, idCart) =>
+		dispatch({type: SHIPPING_METHODS,
+			payload: agent.Checkout.shippingMethods(methods, idCart), props}),
 });
 /**
- * @class Register
+ * @class PersonalData
  */
-class Register extends React.Component {
+class PersonalData extends React.Component {
 	/**
 	 * @constructor
 	 */
@@ -135,6 +158,9 @@ class Register extends React.Component {
 				window.scrollTo(0, 0);
 				this.props.showErrors(stateForm);
 			} else {
+				this.setState({
+					buttdisable: false,
+				});
 				const checkJson = {
 					'address': {
 						'firstname': this.props.fname,
@@ -150,9 +176,26 @@ class Register extends React.Component {
 					},
 					'userForShipping': 1,
 				};
-				console.log(checkJson);
-				this.props.history.push('/checkout/payment');
+
+				this.props.shippingAddress(checkJson, this.props.idCart);
+				// this.props.history.push('/checkout/payment');
 			};
+		};
+
+		this.submitAll = () => (ev) => {
+			ev.preventDefault();
+			const address = this.props.shipAddress;
+			const method = this.props.inputShipMethod;
+			console.log(address, method);
+			const allShipping = {addressInformation:
+				{
+					shipping_address: address.address,
+					shipping_method_code: method,
+					shipping_carrier_code: method,
+				},
+			};
+
+			this.props.shippingMethods(allShipping, this.props.idCart);
 		};
 	}
 
@@ -335,26 +378,43 @@ class Register extends React.Component {
 								onChange={this.changeInput('phone')}/>
 						</section>
 					</fieldset>
-					<fieldset className="form-row d-flex flex-column">
+					<button
+						type="submit"
+						className="btn btn-primary btn-lg"
+						disabled={this.state.buttdisable || this.props.shipMethods}>
+						Next</button>
+					<p className="mt-3 text-danger small">* Required Fields</p>
+				</form>
+				<form onSubmit={this.submitAll()}>
+					<fieldset className="d-flex flex-column">
 						<p className="m-0 mt-3 text-muted h3">Shipping Methods</p>
 						<hr className="mt-2 mb-2" />
-						<section className="form-group col-md-6 mw-100">
-							<label className="mb-0">
-								$5.00
-							</label>
-						</section>
+						{
+							this.props.shipMethods ?
+								this.props.shipMethods.map((method, i) => {
+									return <section key={i} className="form-check ml-3">
+										<input
+											className="form-check-input"
+											type="radio" name="exampleRadios"
+											value={method.method_code}
+											onChange={this.changeInput('inputShipMethod')}/>
+										<label className="form-check-label"
+											htmlFor="exampleRadios1">
+											{method.method_title} {method.carrier_title}
+										</label>
+									</section>;
+								}) : <p>Save Shipping Address</p>
+						}
 					</fieldset>
 					<button
 						type="submit"
 						className="btn btn-primary btn-lg"
-						disabled={this.state.buttdisable}>
+						disabled={!this.props.inputShipMethod}>
 						Next</button>
-
-					<p className="mt-3 text-danger small">* Required Fields</p>
 				</form>
 			</section>
 		);
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalData);
