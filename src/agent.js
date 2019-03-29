@@ -77,6 +77,8 @@ const Checkout = {
 		requests.post(`/checkout/shippingmethods`, {methods, idCart}),
 	shippingAddress: (address, idCart) =>
 		requests.post(`/checkout/shippingaddress`, {address, idCart}),
+	fOrder: (payment, idCart) =>
+		requests.post(`/checkout/forder`, {payment, idCart}),
 };
 
 /**

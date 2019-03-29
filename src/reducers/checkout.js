@@ -13,6 +13,7 @@ import {
 	SELECT_PROVINCE,
 	SHIPPING_ADDRESS,
 	SHIPPING_METHODS,
+	PAY_METHODS,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -71,6 +72,9 @@ export default (state = {}, action) => {
 			payMethods: action.payload.methods.payment_methods,
 			totals: action.payload.methods.totals,
 		};
+	case PAY_METHODS:
+		action.props.history.push('/');
+		return {};
 	case LOGIN:
 	case REGISTER:
 	case LOGOUT:

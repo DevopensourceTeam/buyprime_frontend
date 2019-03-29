@@ -6,6 +6,7 @@ import {
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
 	APP_LOAD,
+	PAY_METHODS,
 } from '../constants/actionTypes';
 
 export default (state = {cartItems: []}, action) => {
@@ -48,7 +49,6 @@ export default (state = {cartItems: []}, action) => {
 			cartItems: RItems,
 		};
 	case CHANGE_QTY_CART:
-
 		return {
 			...state,
 			stateCart: state.cartItems.map((item) => {
@@ -58,6 +58,8 @@ export default (state = {cartItems: []}, action) => {
 				return item;
 			}),
 		};
+	case PAY_METHODS:
+		return {cartItems: []};
 	default:
 		return state;
 	}

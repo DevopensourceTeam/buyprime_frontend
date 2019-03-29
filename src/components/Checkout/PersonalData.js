@@ -158,9 +158,6 @@ class PersonalData extends React.Component {
 				window.scrollTo(0, 0);
 				this.props.showErrors(stateForm);
 			} else {
-				this.setState({
-					buttdisable: false,
-				});
 				const checkJson = {
 					'address': {
 						'firstname': this.props.fname,
@@ -178,7 +175,9 @@ class PersonalData extends React.Component {
 				};
 
 				this.props.shippingAddress(checkJson, this.props.idCart);
-				// this.props.history.push('/checkout/payment');
+				this.setState({
+					buttdisable: false,
+				});
 			};
 		};
 
@@ -381,7 +380,7 @@ class PersonalData extends React.Component {
 					<button
 						type="submit"
 						className="btn btn-primary btn-lg"
-						disabled={this.state.buttdisable || this.props.shipMethods}>
+						disabled={this.state.buttdisable}>
 						Next</button>
 					<p className="mt-3 text-danger small">* Required Fields</p>
 				</form>
@@ -395,11 +394,10 @@ class PersonalData extends React.Component {
 									return <section key={i} className="form-check ml-3">
 										<input
 											className="form-check-input"
-											type="radio" name="exampleRadios"
+											type="radio" name="personalRadio"
 											value={method.method_code}
 											onChange={this.changeInput('inputShipMethod')}/>
-										<label className="form-check-label"
-											htmlFor="exampleRadios1">
+										<label className="form-check-label">
 											{method.method_title} {method.carrier_title}
 										</label>
 									</section>;

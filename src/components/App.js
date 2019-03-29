@@ -107,7 +107,8 @@ class App extends React.Component {
 						<Route path="/register" component={Register} />
 						<Route path="/cart" component={Cart} />
 						<Route path="/checkout/personaldata" component={PersonalData} />
-						<Route path="/checkout/payment" component={Payment} />
+						<Route path="/checkout/payment" component={Payment}
+							history={this.props.history}/>
 					</Switch>
 				</div>
 			);
