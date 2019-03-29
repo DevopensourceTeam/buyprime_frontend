@@ -26,14 +26,24 @@ const saveLocal = () => {
 };
 
 export const storeF = async () => {
+	let common = {
+		appName: 'BuyPrime',
+		stateSidebar: true,
+	};
 	const userinfo = await saveLocal();
-	return createStore(reducer,
-		{common: {
+
+	if (userinfo) {
+		common = {
 			userInfo: userinfo.user,
 			token: userinfo.token,
 			appName: 'BuyPrime',
 			stateSidebar: true,
-		}},
+		};
+	} else {
+		localStorage.removeItem('token');
+	}
+	return createStore(reducer,
+		{common},
 		composeWithDevTools(
 			applyMiddleware(myRouterMiddleware, promiseMiddleware, thunk),
 		)
