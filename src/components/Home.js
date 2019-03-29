@@ -8,7 +8,8 @@ import {connect} from 'react-redux';
  */
 const mapStateToProps = (state) => {
 	return {
-
+		...state.common,
+		idCart: state.cart.idCart,
 	};
 };
 
@@ -25,13 +26,22 @@ const mapDispatchToProps = (dispatch) => ({
  */
 class Home extends React.Component {
 	/**
+	 * @function componentDidMount
+	 */
+	componentDidMount() {
+		console.log(this.props.idCart, this.props.userInfo);
+		if (!this.props.idCart && this.props.userInfo) {
+			this.props.onLoad(this.props.userInfo.id);
+		}
+	}
+	/**
 	 * @function render
 	 * @return {JSX} JSX del Home
 	 */
 	render() {
 		return (
 			<article className="pt-3 text-center">
-				<h1>Home</h1>
+				<h1>BuyPrime</h1>
 			</article>
 		);
 	}

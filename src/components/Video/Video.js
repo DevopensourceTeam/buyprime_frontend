@@ -33,6 +33,7 @@ const mapStateToProps = (state) => {
 	return {
 		...state.video,
 		...state.common,
+		idCart: state.cart.idCart,
 		nickname: state.common.userInfo ?
 			state.common.userInfo.firstname+''+state.common.userInfo.lastname : null,
 		usermail: state.common.userInfo ? state.common.userInfo.email : null,

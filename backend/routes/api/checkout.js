@@ -66,7 +66,6 @@ router.post('/shippingmethods', (req, res) => {
 });
 
 router.post('/forder', (req, res) => {
-	console.log(req.body.payment, req.body.idCart);
 	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+
 		'/selected-payment-method', {
 		method: 'PUT',
@@ -81,7 +80,6 @@ router.post('/forder', (req, res) => {
 		}),
 	}).then((res) => res.json())
 		.then((methods) => {
-			console.log(methods)
 			fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+'/order', {
 				method: 'PUT',
 				headers: {
@@ -95,7 +93,6 @@ router.post('/forder', (req, res) => {
 				}),
 			}).then((res) => res.json())
 				.then((state) => {
-					console.log(state)
 					if (state.message) {
 						res.status(200).json({message: state.message});
 					} else {

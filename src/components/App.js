@@ -30,6 +30,7 @@ import agent from '../agent';
 const mapStateToProps = (state) => {
 	return {
 		...state.common,
+		idCart: state.cart.idCart,
 	};
 };
 
@@ -101,7 +102,8 @@ class App extends React.Component {
 				<div>
 					<Header logout={this.props.logout} />
 					<Switch>
-						<Route exact path="/" component={Home} />
+						<Route exact path="/" component={Home}
+							onLoad={this.props.onLoad}/>
 						<Route path="/video" component={Video} />
 						<Route exact path="/login" component={Login} />
 						<Route path="/register" component={Register} />

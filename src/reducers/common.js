@@ -20,7 +20,6 @@ export default (state = {}, action) => {
 		return {
 			...state,
 			appLoaded: true,
-			idCart: action.payload.idCart,
 		};
 	case APP_LOADU:
 		return {

@@ -37,6 +37,9 @@ export default (state = {cartItems: []}, action) => {
 				prod.item_id !== action.payload.product.item_id),
 			action.payload.product]:
 			[action.payload.product];
+		if (stateCart.length < 1) {
+			window.location.reload();
+		}
 		return {
 			...state,
 			cartItems: AItems,

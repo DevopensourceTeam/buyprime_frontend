@@ -185,7 +185,6 @@ class PersonalData extends React.Component {
 			ev.preventDefault();
 			const address = this.props.shipAddress;
 			const method = this.props.inputShipMethod;
-			console.log(address, method);
 			const allShipping = {addressInformation:
 				{
 					shipping_address: address.address,
