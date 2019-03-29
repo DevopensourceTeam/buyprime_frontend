@@ -161,12 +161,10 @@ class Register extends React.Component {
 	 * @desc Check if client is sign in and have any items in cart
 	 */
 	componentDidMount() {
-		if (this.props.user) {
-			this.props.fillinFields(this.props.user);
-		} else if (!this.props.user && localStorage.getItem('token')) {
+		if (this.props.cartItems.length < 1) {
 			this.props.history.push('/cart');
-		} else if (!this.props.cartItems) {
-			this.props.history.push('/checkout/payment');
+		} else if (this.props.user) {
+			this.props.fillinFields(this.props.user);
 		}
 		this.props.getCountries();
 	}

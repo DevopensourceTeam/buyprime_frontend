@@ -22,6 +22,7 @@ import {validate} from './validate';
  */
 const mapStateToProps = (state) => ({
 	...state.auth,
+	token: state.common.token,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -137,7 +138,7 @@ class Register extends React.Component {
 	 * @desc Check if user is loged in the app.
 	 */
 	componentDidMount() {
-		if (localStorage.getItem('token')) {
+		if (this.props.token) {
 			this.props.history.push('/');
 		}
 	}

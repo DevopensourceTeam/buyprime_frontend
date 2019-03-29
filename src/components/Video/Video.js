@@ -168,8 +168,6 @@ class Video extends React.Component {
 		
 		if (this.props.nickname) {
 			await asynchat.connect(this.props.nickname, this.props.usermail.split('@')[0], sb);
-		} else if (!this.props.nickname && localStorage.getItem('token')) {
-			this.props.history.push('/');
 		} else {
 			await asynchat.connect('anonymous', 'anonymous', sb);
 		}

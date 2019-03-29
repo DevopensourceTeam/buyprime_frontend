@@ -23,7 +23,7 @@ import {validate} from './validate';
  */
 const mapStateToProps = (state) => ({
 	...state.auth,
-	token: state.common.userToken,
+	token: state.common.token,
 });
 
 /**
@@ -134,7 +134,7 @@ class Login extends React.Component {
 	 * @desc Check if user is loged in the app.
 	 */
 	componentDidMount() {
-		if (localStorage.getItem('token')) {
+		if (this.props.token) {
 			this.props.history.push('/');
 		}
 	}

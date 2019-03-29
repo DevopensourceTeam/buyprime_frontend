@@ -5,7 +5,6 @@ import {
 	ADD_ITEM_CART,
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
-	LOAD_CART,
 	APP_LOAD,
 } from '../constants/actionTypes';
 
@@ -25,6 +24,7 @@ export default (state = {cartItems: []}, action) => {
 		return {
 			...state,
 			cartItems: fItems,
+			cartItemsCP: fItems,
 			idCart: action.payload.idCart,
 		};
 	/**
@@ -32,30 +32,34 @@ export default (state = {cartItems: []}, action) => {
      */
 	case ADD_ITEM_CART:
 		const stateCart = state.cartItems;
+		const AItems = stateCart.length > 0 ?
+			[...stateCart.filter((prod) =>
+				prod.item_id !== action.payload.product.item_id),
+			action.payload.product]:
+			[action.payload.product];
 		return {
 			...state,
-			cartItems: stateCart.length > 0 ?
-				[...stateCart.filter((prod) =>
-					prod.item_id !== action.payload.product.item_id),
-				action.payload.product]:
-				[action.payload.product],
+			cartItems: AItems,
+			cartItemsCP: AItems,
 		};
 	case REMOVE_ITEM_CART:
+		const RItems = action.payload.state ? state.cartItems.filter((item) =>
+			item.item_id !== action.idItem) : state.cartItems;
 		return {
 			...state,
-			cartItems: action.payload.state ? state.cartItems.filter((item) =>
-				item.item_id !== action.idItem) : state.cartItems,
+			cartItems: RItems,
+			cartItemsCP: RItems,
 		};
 	case CHANGE_QTY_CART:
 		let changeQty = state.cartItems;
-		const index = state.cartItems.map((prod) => prod.id)
-			.indexOf(action.productid);
+		const index = state.cartItems.map((prod) => prod.item_id)
+			.indexOf(action.idItem);
 
 		changeQty = changeQty.filter((prod) =>
-			prod.id !== action.productid);
+			prod.item_id !== action.idItem);
 
 		const changeProd = state.cartItems.filter((prod) =>
-			prod.id === action.productid)[0];
+			prod.item_id === action.idItem)[0];
 
 		if (action.operator === '+') {
 			changeProd.qty = changeProd.qty + 1;
@@ -64,15 +68,9 @@ export default (state = {cartItems: []}, action) => {
 		}
 		changeQty.splice(index, 0, changeProd);
 
-		localStorage.setItem('cart', JSON.stringify(changeQty));
 		return {
 			...state,
 			cartItems: changeQty,
-		};
-	case LOAD_CART:
-		return {
-			...state,
-			cartItems: JSON.parse(localStorage.getItem('cart')),
 		};
 	default:
 		return state;

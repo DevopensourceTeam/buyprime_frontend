@@ -18,7 +18,6 @@ import {
 	APP_LOAD,
 	APP_LOADU,
 	USER_INFO,
-	LOAD_CART,
 	LOGOUT,
 } from '../constants/actionTypes';
 import agent from '../agent';
@@ -68,13 +67,6 @@ const mapDispatchToProps = (dispatch, props) => ({
 	infoUser: (token) =>
 		dispatch({type: USER_INFO, payload: agent.Auth.infoUser(token)}),
 	/**
-	 * @function loadCart
-	 * @desc Get data from localStorage and save in store
-	 * @return {*}
-	 */
-	loadCart: () =>
-		dispatch({type: LOAD_CART}),
-	/**
 	 * @function logout
 	 * @desc Clear all information of the user
 	 * @return {*}
@@ -96,10 +88,6 @@ class App extends React.Component {
 			this.props.onLoad(this.props.userInfo.id);
 		} else {
 			this.props.onLoadU();
-		}
-
-		if (localStorage.getItem('cart')) {
-			this.props.loadCart();
 		}
 	}
 
