@@ -68,7 +68,6 @@ router.post('/addItem', (req, res) => {
 });
 
 router.post('/removeItem', (req, res) => {
-	console.log(req.body.idCart, req.body.idItem);
 	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+'/items/'+req.body.idItem, {
 		method: 'DELETE',
 		headers: {
@@ -76,8 +75,33 @@ router.post('/removeItem', (req, res) => {
 		},
 	}).then((res) => res.json())
 		.then(async (state) => {
-			console.log(state);
 			res.status(200).json({state: state});
+		})
+		.catch((error) => {
+			res.status(400).json({error: error});
+		});
+});
+
+router.post('/updateItem', (req, res) => {
+	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.item.quote_id+
+	'/items/'+req.body.item.item_id, {
+		method: 'PUT',
+		headers: {
+			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			'cartItem': {
+				'sku': req.body.item.sku,
+				'qty': req.body.item.qty,
+				'quote_id': req.body.item.quote_id,
+			},
+		}),
+	}).then((res) => res.json())
+		.then(async (item) => {
+			const allItem = await getImgItem(item);
+			allItem.item.image = allItem.image[0];
+			res.status(200).json({item: allItem.item});
 		})
 		.catch((error) => {
 			res.status(400).json({error: error});

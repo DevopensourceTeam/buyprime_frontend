@@ -66,6 +66,8 @@ const Cart = {
 		requests.post(`/cart/addItem`, {sku, idCart}),
 	removeItem: (idItem, idCart) =>
 		requests.post(`/cart/removeItem`, {idItem, idCart}),
+	updateItem: (item) =>
+		requests.post(`/cart/updateItem`, {item}),
 };
 
 const Checkout = {

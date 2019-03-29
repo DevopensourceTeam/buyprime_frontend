@@ -28,8 +28,9 @@ const mapDisptachToProps = (dispatch) => ({
 	removeItem: (idItem, idCart) =>
 		dispatch({type: REMOVE_ITEM_CART,
 			payload: agent.Cart.removeItem(idItem, idCart), idItem}),
-	changeQty: (productid, operator) =>
-		dispatch({type: CHANGE_QTY_CART, productid, operator}),
+	changeQty: (item) =>
+		dispatch({type: CHANGE_QTY_CART,
+			payload: agent.Cart.updateItem(item)}),
 });
 
 /**
@@ -43,6 +44,10 @@ class Cart extends React.Component {
 		super();
 		this.removeItem = (idItem) => {
 			this.props.removeItem(idItem, this.props.idCart);
+		};
+		this.changeQty = (item, qty) => {
+			item.qty = qty;
+			this.props.changeQty(item);
 		};
 	}
 	/**
@@ -67,7 +72,7 @@ class Cart extends React.Component {
 					<ProductListCart
 						products={this.props.cartItems}
 						removeItem={this.removeItem}
-						changeQty={this.props.changeQty} />
+						changeQty={this.changeQty} />
 					<section className="
 						d-flex flex-column align-items-center
 						border border-secondary

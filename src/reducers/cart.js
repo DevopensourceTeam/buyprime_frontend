@@ -24,7 +24,6 @@ export default (state = {cartItems: []}, action) => {
 		return {
 			...state,
 			cartItems: fItems,
-			cartItemsCP: fItems,
 			idCart: action.payload.idCart,
 		};
 	/**
@@ -40,7 +39,6 @@ export default (state = {cartItems: []}, action) => {
 		return {
 			...state,
 			cartItems: AItems,
-			cartItemsCP: AItems,
 		};
 	case REMOVE_ITEM_CART:
 		const RItems = action.payload.state ? state.cartItems.filter((item) =>
@@ -48,29 +46,17 @@ export default (state = {cartItems: []}, action) => {
 		return {
 			...state,
 			cartItems: RItems,
-			cartItemsCP: RItems,
 		};
 	case CHANGE_QTY_CART:
-		let changeQty = state.cartItems;
-		const index = state.cartItems.map((prod) => prod.item_id)
-			.indexOf(action.idItem);
-
-		changeQty = changeQty.filter((prod) =>
-			prod.item_id !== action.idItem);
-
-		const changeProd = state.cartItems.filter((prod) =>
-			prod.item_id === action.idItem)[0];
-
-		if (action.operator === '+') {
-			changeProd.qty = changeProd.qty + 1;
-		} else {
-			changeProd.qty = changeProd.qty - 1;
-		}
-		changeQty.splice(index, 0, changeProd);
 
 		return {
 			...state,
-			cartItems: changeQty,
+			stateCart: state.cartItems.map((item) => {
+				if (item.item_id === action.payload.item.item_id) {
+					return action.payload.item;
+				}
+				return item;
+			}),
 		};
 	default:
 		return state;
