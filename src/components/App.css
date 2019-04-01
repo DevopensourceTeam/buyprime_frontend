@@ -2,7 +2,7 @@ html, body, #root, #root > div {
     height: 100%;
 }
 .fullHeight {
-    height: calc(100% - 58px);
+    height: calc(100% - 64px);
 }
 .messagesHeight {
     height: calc(100% - 225px);
@@ -20,7 +20,8 @@ html, body, #root, #root > div {
 
 .sidebar {
     width: 15%;
-    overflow-y: visible;
+    max-height: 100%;
+    overflow-y: scroll;
 }
 .normalSideBar {
     width: 253px;
@@ -35,9 +36,12 @@ html, body, #root, #root > div {
     width: 30px;
     height: 30px;
 }
-
+.overflow-y-scroll {
+    overflow-y: scroll;
+}
 .video-displayer {
     width: 70%;
+    max-height: 94%;
 }
 .video-displayer div{
     width: 100% !important;

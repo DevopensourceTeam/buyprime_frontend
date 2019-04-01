@@ -49,7 +49,7 @@ export default (state = {}, action) => {
 			...state,
 			userInfo: action.payload.success ?
 				action.payload.success.user : undefined,
-			userToken: action.payload.success ?
+			token: action.payload.success ?
 				action.payload.success.token : undefined,
 		};
 	/**
@@ -61,7 +61,7 @@ export default (state = {}, action) => {
 		return {
 			...state,
 			userInfo: null,
-			userToken: null,
+			token: null,
 		};
 	default:
 		return state;

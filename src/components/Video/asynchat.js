@@ -17,15 +17,16 @@ export const asynchat = {
 					if (error) {
 						return;
 					}
+
+					if (!user.nickname) {
+						sb.updateCurrentUserInfo(nickname, '', (response, error) => {
+							if (error) {
+								return;
+							};
+						});
+					}
+					resolve(true);
 				});
-
-			sb.updateCurrentUserInfo(nickname, '', (response, error) => {
-				if (error) {
-					return;
-				};
-			});
-
-			resolve(true);
 		});
 	},
 	/**

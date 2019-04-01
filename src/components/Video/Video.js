@@ -201,13 +201,16 @@ class Video extends React.Component {
 					stateSidebar={this.props.stateSidebar} />
 				<section className="content-video d-flex w-100">
 					<section
-						className="video-displayer m-3 border rounded-bottom fit-content">
+						className="video-displayer m-3 border rounded-bottom
+							fit-content overflow-y-scroll">
 						<ReactPlayer url='http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
 							playing
 							controls={true} />
-						<ProductList
-							products={this.props.productsVideo}
-							addCart={this.addCart}/>
+						<section>
+							<ProductList
+								products={this.props.productsVideo}
+								addCart={this.addCart}/>
+						</section>
 					</section>
 					<section className="video-chat border">
 						<Messages
