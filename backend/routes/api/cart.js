@@ -43,7 +43,6 @@ router.post('/idCart', (req, res) => {
 });
 
 router.post('/addItem', (req, res) => {
-	console.log(req.body.idCart);
 	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+'/items', {
 		method: 'POST',
 		headers: {

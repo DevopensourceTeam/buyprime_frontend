@@ -14,23 +14,16 @@ const mapStateToProps = (state) => {
 };
 
 /**
- * @function mapDispatchToProps
- * @param {*} dispatch
- * @return {*}
- */
-const mapDispatchToProps = (dispatch) => ({
-});
-
-/**
  * @class Home
  */
 class Home extends React.Component {
 	/**
-	 * @function componentDidMount
+	 * @function componentDidUpdate
+	 * @param {*} prevProps
 	 */
 	componentDidMount() {
-		console.log(this.props.idCart, this.props.userInfo);
 		if (!this.props.idCart && this.props.userInfo) {
+			console.log('Dentro');
 			this.props.onLoad(this.props.userInfo.id);
 		}
 	}
@@ -47,4 +40,4 @@ class Home extends React.Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);
