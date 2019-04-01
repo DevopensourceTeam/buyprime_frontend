@@ -4,10 +4,18 @@ It's a streaming application that you will be able to buy the products that are 
 
 ## Used Services
 
-Getstream: Live Stream Chat.
-Eslint: All the code in the same structure.
 React Redux: Frontend tecnology.
+Nodejs: Backend tecnology.
+Magento 2.3: Backend tecnology.
+SendBird: Stream Chat.
+Eslint: All the code in the same structure.
 PWA: Progressive Web App.
+
+## Necessary actions
+
+- Run the nodejs backend.
+- In src/agent.js change API_ROOT if is necessary.
+- Copy and change the name of the file .env.sample to .env, and configure the global variables.
 
 ## Available Scripts
 
@@ -22,6 +30,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.
 You will also see any lint errors in the console.
+
+**Note: React Redux need nodejs, see the Readme in the folder backend!**
 
 ### `npm test`
 
