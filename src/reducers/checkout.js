@@ -66,7 +66,7 @@ export default (state = {}, action) => {
 			shipAddress: action.address,
 		};
 	case SHIPPING_METHODS:
-		action.props.history.push('/checkout/payment');
+		action.props.history.push('/payment');
 		return {
 			...state,
 			payMethods: action.payload.methods.payment_methods,

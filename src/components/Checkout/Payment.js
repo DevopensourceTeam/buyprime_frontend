@@ -71,7 +71,7 @@ class Payment extends React.Component {
 		if (this.props.cartItems.length < 1) {
 			this.props.history.push('/cart');
 		} else if (!this.props.payMethods && !this.props.shipMethods) {
-			this.props.history.push('/checkout/personaldata');
+			this.props.history.push('/personaldata');
 		}
 	}
 

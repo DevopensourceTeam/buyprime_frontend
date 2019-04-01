@@ -84,7 +84,7 @@ class Cart extends React.Component {
 						<section>
 							<p><strong>Order Total</strong> {orderTotal} $</p>
 						</section>
-						<Link to="/checkout/personaldata" className="nav-brand">
+						<Link to="/personaldata" className="nav-brand">
 							<button className="btn-primary btn-lg" disabled={!orderTotal}>
 							Proceed to Checkout</button>
 						</Link>
