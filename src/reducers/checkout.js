@@ -1,7 +1,10 @@
+import toastr from 'toastr';
+
 /**
  * @desc import constants
  */
 import {
+	TOASTR_OPTIONS,
 	CHANGE_INPUT_CHECKOUT,
 	SHOW_ERRORS_CHECKOUT,
 	FILL_IN_FIELDS,
@@ -15,6 +18,8 @@ import {
 	SHIPPING_METHODS,
 	PAY_METHODS,
 } from '../constants/actionTypes';
+toastr.options = TOASTR_OPTIONS;
+
 
 export default (state = {}, action) => {
 	switch (action.type) {
@@ -73,6 +78,7 @@ export default (state = {}, action) => {
 			totals: action.payload.methods.totals,
 		};
 	case PAY_METHODS:
+		toastr.success('SUCCESS PURCHASE');
 		action.props.history.push('/');
 		return {};
 	case LOGIN:

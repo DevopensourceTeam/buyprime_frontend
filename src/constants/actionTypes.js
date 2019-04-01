@@ -33,6 +33,12 @@ export const SELECT_PROVINCE = 'SELECT_PROVINCE';
 export const SHIPPING_ADDRESS = 'SHIPPING_ADDRESS';
 export const SHIPPING_METHODS = 'SHIPPING_METHODS';
 export const PAY_METHODS = 'PAY_METHODS';
+export const TOASTR_OPTIONSL = {
+	closeButton: true,
+	preventDuplicated: true,
+	positionClass: 'toast-top-left',
+	closeDuration: 100,
+};
 export const TOASTR_OPTIONS = {
 	closeButton: true,
 	preventDuplicated: true,

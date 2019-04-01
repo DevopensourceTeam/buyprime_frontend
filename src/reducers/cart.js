@@ -1,13 +1,17 @@
+import toastr from 'toastr';
+
 /**
  * @desc Import the constants
  */
 import {
+	TOASTR_OPTIONSL,
 	ADD_ITEM_CART,
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
 	APP_LOAD,
 	PAY_METHODS,
 } from '../constants/actionTypes';
+toastr.options = TOASTR_OPTIONSL;
 
 export default (state = {cartItems: []}, action) => {
 	switch (action.type) {
@@ -40,6 +44,7 @@ export default (state = {cartItems: []}, action) => {
 		if (stateCart.length < 1) {
 			window.location.reload();
 		}
+		toastr.success('ADDED ITEM');
 		return {
 			...state,
 			cartItems: AItems,
