@@ -23,7 +23,6 @@ class Home extends React.Component {
 	 */
 	componentDidMount() {
 		if (!this.props.idCart && this.props.userInfo) {
-			console.log('Dentro');
 			this.props.onLoad(this.props.userInfo.id);
 		}
 	}

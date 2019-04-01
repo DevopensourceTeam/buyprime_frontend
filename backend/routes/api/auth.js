@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 tokenUser = async (userData) => {
 	return new Promise((resolve) => {
-		fetch('http://magento23pwa.test/index.php/rest/V1/integration/customer/token', {
+		fetch(URL_BACKEND+'/V1/integration/customer/token', {
 			method: 'POST',
 			body: JSON.stringify(userData),
 			headers: {
@@ -20,7 +20,7 @@ tokenUser = async (userData) => {
 
 infoUser = async (token) => {
 	return new Promise((resolve) => {
-		fetch('http://magento23pwa.test/index.php/rest/V1/customers/me', {
+		fetch(URL_BACKEND+'/V1/customers/me', {
 			method: 'GET',
 			headers: {
 				'Authorization': 'Bearer '+ token,
@@ -38,7 +38,7 @@ infoUser = async (token) => {
 
 router.post('/register', (req, res) => {
 	try {
-		fetch('http://magento23pwa.test/index.php/rest/V1/customers', {
+		fetch(URL_BACKEND+'/V1/customers', {
 			method: 'POST',
 			body: JSON.stringify(req.body),
 			headers: {

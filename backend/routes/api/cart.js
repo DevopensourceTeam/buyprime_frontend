@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 getImgItem = (item) => {
 	return new Promise((resolve) => {
-		fetch('http://magento23pwa.test/index.php/rest/V1/products/'+item.sku+'/media', {
+		fetch(URL_BACKEND+'/V1/products/'+item.sku+'/media', {
 			method: 'GET',
 		}).then((res) => res.json())
 			.then((image) => {
@@ -15,14 +15,14 @@ getImgItem = (item) => {
 };
 
 router.post('/idCart', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/customers/'+req.body.id+'/carts', {
+	fetch(URL_BACKEND+'/V1/customers/'+req.body.id+'/carts', {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
 		},
 	}).then((res) => res.json())
 		.then((idCart) => {
-			fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+idCart+'/items', {
+			fetch(URL_BACKEND+'/V1/carts/'+idCart+'/items', {
 				method: 'GET',
 				headers: {
 					'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
@@ -43,7 +43,7 @@ router.post('/idCart', (req, res) => {
 });
 
 router.post('/addItem', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+'/items', {
+	fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/items', {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
@@ -68,7 +68,7 @@ router.post('/addItem', (req, res) => {
 });
 
 router.post('/removeItem', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+'/items/'+req.body.idItem, {
+	fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/items/'+req.body.idItem, {
 		method: 'DELETE',
 		headers: {
 			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
@@ -83,7 +83,7 @@ router.post('/removeItem', (req, res) => {
 });
 
 router.post('/updateItem', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.item.quote_id+
+	fetch(URL_BACKEND+'/V1/carts/'+req.body.item.quote_id+
 	'/items/'+req.body.item.item_id, {
 		method: 'PUT',
 		headers: {

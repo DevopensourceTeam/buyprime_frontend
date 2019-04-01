@@ -5,6 +5,7 @@ let express = require('express'),
 
 // Initialize the app
 let app = express();
+global.URL_BACKEND = 'http://magento23pwa.test/index.php/rest';
 
 app.use(cors());
 

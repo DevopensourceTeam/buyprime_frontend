@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 /* eslint-enable */
 
 router.get('/countries', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/directory/countries', {
+	fetch(URL_BACKEND+'/V1/directory/countries', {
 		method: 'GET',
 	}).then((res) => res.json())
 		.then((countries) => {
@@ -16,8 +16,7 @@ router.get('/countries', (req, res) => {
 });
 
 router.post('/shippingaddress', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+
-	req.body.idCart+'/estimate-shipping-methods', {
+	fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/estimate-shipping-methods', {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
@@ -26,8 +25,7 @@ router.post('/shippingaddress', (req, res) => {
 		body: JSON.stringify(req.body.address),
 	}).then((res) => res.json())
 		.then((methods) => {
-			fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+
-			req.body.idCart+'/billing-address', {
+			fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/billing-address', {
 				method: 'POST',
 				headers: {
 					'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
@@ -48,8 +46,7 @@ router.post('/shippingaddress', (req, res) => {
 });
 
 router.post('/shippingmethods', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+
-	req.body.idCart+'/shipping-information', {
+	fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/shipping-information', {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
@@ -66,8 +63,7 @@ router.post('/shippingmethods', (req, res) => {
 });
 
 router.post('/forder', (req, res) => {
-	fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+
-		'/selected-payment-method', {
+	fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/selected-payment-method', {
 		method: 'PUT',
 		headers: {
 			'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
@@ -80,7 +76,7 @@ router.post('/forder', (req, res) => {
 		}),
 	}).then((res) => res.json())
 		.then((methods) => {
-			fetch('http://magento23pwa.test/index.php/rest/V1/carts/'+req.body.idCart+'/order', {
+			fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/order', {
 				method: 'PUT',
 				headers: {
 					'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',

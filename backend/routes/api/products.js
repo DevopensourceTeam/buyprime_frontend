@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 getProduct = (sku) => {
 	return new Promise((resolve) => {
-		fetch('http://magento23pwa.test/rest/V1/products/'+sku, {
+		fetch(URL_BACKEND+'/V1/products/'+sku, {
 			method: 'GET',
 		}).then((res) => res.json())
 			.then((product) => {
