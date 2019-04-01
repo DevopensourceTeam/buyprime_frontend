@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import agent from '../../agent';
-
+import {Input} from '../Form/Input';
 import Errors from '../Errors';
+
 /**
 * @desc Import constants
 */
@@ -226,85 +227,26 @@ class PersonalData extends React.Component {
 						<hr className="mt-2 mb-2" />
 						{
 							!this.props.user ?
-								<section className="form-group col-md-6 mw-100">
-									<label className="mb-0" htmlFor="email">
-										Email
-										<label className="ml-1 text-danger">*</label>
-									</label>
-									<input required
-										type="email"
-										className="form-control"
-										id="email"
-										placeholder="Email"
-										value={this.props.email || ''}
-										onChange={this.changeInput('email')}/>
-									<hr className="mt-4 mb-4" />
-								</section> : ''
+								<Input type='text' name='email' labelName='Email'
+									placeholder='Email' storeName='email'
+									value={this.props.email} changeInput={this.changeInput} />
+								: ''
 						}
-						<section className="form-group col-md-6 mw-100">
-							<label className="mb-0" htmlFor="firstname">
-								First Name
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<input required
-								type="text"
-								className="form-control"
-								id="firstname"
-								placeholder="First Name"
-								value={this.props.fname || ''}
-								onChange={this.changeInput('fname')}/>
-						</section>
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0" htmlFor="lastname">
-								Last Name
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<input required
-								type="text"
-								className="form-control"
-								id="lastname"
-								placeholder="Last Name"
-								value={this.props.lname || ''}
-								onChange={this.changeInput('lname')}/>
-						</section>
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0" htmlFor="company">
-								Company
-							</label>
-							<input
-								type="text"
-								className="form-control"
-								id="company"
-								placeholder="Company"
-								value={this.props.company || ''}
-								onChange={this.changeInput('company')}/>
-						</section>
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0" htmlFor="address">
-								Street Address
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<input required
-								type="text"
-								className="form-control"
-								id="address"
-								placeholder="Street Address"
-								value={this.props.street || ''}
-								onChange={this.changeInput('street')}/>
-						</section>
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0" htmlFor="city">
-								City
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<input required
-								type="text"
-								className="form-control"
-								id="city"
-								placeholder="City"
-								value={this.props.city || ''}
-								onChange={this.changeInput('city')}/>
-						</section>
+						<Input type='text' name='firstname' labelName='First Name'
+							placeholder='First Name' storeName='fname'
+							value={this.props.fname} changeInput={this.changeInput} />
+						<Input type='text' name='lastname' labelName='Last Name'
+							placeholder='Last Name' storeName='lname'
+							value={this.props.lname} changeInput={this.changeInput} />
+						<Input type='text' name='company' labelName='Company'
+							placeholder='Company' storeName='company'
+							value={this.props.company} changeInput={this.changeInput} />
+						<Input type='text' name='street' labelName='Street Address'
+							placeholder='Street Address' storeName='street'
+							value={this.props.street} changeInput={this.changeInput} />
+						<Input type='text' name='city' labelName='City'
+							placeholder='City' storeName='city'
+							value={this.props.city} changeInput={this.changeInput} />
 						<section className="form-group col-md-6  mw-100">
 							<label className="mb-0">
 								Country
@@ -349,32 +291,12 @@ class PersonalData extends React.Component {
 								</select>
 							</label>
 						</section>
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0" htmlFor="postalcode">
-								Zip/Postal Code
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<input required
-								type="text"
-								className="form-control"
-								id="postalcode"
-								placeholder="Zip/PostalCode"
-								value={this.props.postalcode || ''}
-								onChange={this.changeInput('postalcode')}/>
-						</section>
-						<section>
-							<label className="mb-0" htmlFor="phone">
-								Phone Number
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<input required
-								type="tel"
-								className="form-control"
-								id="phone"
-								placeholder="Phone Number"
-								value={this.props.phone || ''}
-								onChange={this.changeInput('phone')}/>
-						</section>
+						<Input type='text' name='postalcode' labelName='Zip/Postal Code'
+							placeholder='Zip/Postal Code' storeName='postalcode'
+							value={this.props.postalcode} changeInput={this.changeInput} />
+						<Input type='tel' name='phone' labelName='Phone Number'
+							placeholder='Phone Number' storeName='phone'
+							value={this.props.phone} changeInput={this.changeInput} />
 					</fieldset>
 					<button
 						type="submit"

@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import agent from '../../agent';
 
 import Errors from '../Errors';
+import {Input} from '../Form/Input';
+import {InputPass} from '../Form/InputPass';
 
 /**
 * @desc Import constants
@@ -178,48 +180,15 @@ class Login extends React.Component {
 					<fieldset className="form-row d-flex flex-column">
 						<p className="m-0 text-muted h3">Customer Login</p>
 						<hr className="mt-2 mb-2" />
-						<section className="form-group col-md-6 mw-100">
-							<label className="mb-0" htmlFor="email">
-								Email
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<input
-								required
-								type="email"
-								className="form-control"
-								id="email"
-								placeholder="Email"
-								value={this.props.emailL || ''}
-								onChange={this.changeInput('emailL')} />
-						</section>
-						<section className="form-group col-md-6 mw-100 d-flex flex-column">
-							<label className="mb-0" htmlFor="password">
-								Password
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<section className="d-flex align-items-center">
-								<input
-									required
-									type={this.props.passLogType}
-									className="form-control"
-									id="password"
-									placeholder="Password"
-									value={this.props.passwordL || ''}
-									onChange={this.changeInput('passwordL')} />
-								{
-									this.props.passLogType === 'password' ?
-										<i className="far fa-eye ml-3 mb-0 c-pointer h5"
-											onClick={() =>
-												this.props.changePassType('passLogType', 'text')}></i>
-										:
-										<i className="far fa-eye-slash ml-3
-										text-muted mb-0 c-pointer h5"
-										onClick={() =>
-											this.props.changePassType('passLogType', 'password')}>
-										</i>
-								}
-							</section>
-						</section>
+						<Input type='email' name='email' labelName='Email'
+							placeholder='Your Email' storeName='emailL'
+							value={this.props.emailL} changeInput={this.changeInput} />
+
+						<InputPass name='password' value={this.props.passwordL}
+							labelName='Password' storeName='passwordL'
+							changeInput={this.changeInput} passName='passLogType'
+							placeholder='Password' passType={this.props.passLogType}
+							changePassType={this.props.changePassType} />
 					</fieldset>
 					<button
 						type="submit"
