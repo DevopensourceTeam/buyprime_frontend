@@ -46,7 +46,7 @@ class Cart extends React.Component {
 			this.props.removeItem(idItem, this.props.idCart);
 		};
 		this.changeQty = (item, qty) => {
-			item.qty = qty;
+			item.qty = qty > 0 ? qty : 1;
 			this.props.changeQty(item);
 		};
 	}
