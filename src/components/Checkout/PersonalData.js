@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import agent from '../../agent';
 import {Input} from '../Form/Input';
 import Errors from '../Errors';
+import ProductCheckout from './ProductCheckout';
 
 /**
 * @desc Import constants
@@ -219,118 +220,128 @@ class PersonalData extends React.Component {
 		const disableProv = this.props.provinces ?
 			this.props.provinces.length < 1 : false;
 		return (
-			<section>
-				<Errors errors={this.props.errorsCheckout} />
-				<form className="p-3 w-50" onSubmit={this.submitForm}>
-					<fieldset className="form-row d-flex flex-column">
-						<p className="m-0 text-muted h3">Shipping Address</p>
-						<hr className="mt-2 mb-2" />
-						{
-							!this.props.user ?
-								<Input type='text' name='email' labelName='Email'
-									placeholder='Email' storeName='email'
-									value={this.props.email} changeInput={this.changeInput} />
-								: ''
-						}
-						<Input type='text' name='firstname' labelName='First Name'
-							placeholder='First Name' storeName='fname'
-							value={this.props.fname} changeInput={this.changeInput} />
-						<Input type='text' name='lastname' labelName='Last Name'
-							placeholder='Last Name' storeName='lname'
-							value={this.props.lname} changeInput={this.changeInput} />
-						<Input type='text' name='company' labelName='Company'
-							placeholder='Company' storeName='company'
-							value={this.props.company} changeInput={this.changeInput} />
-						<Input type='text' name='street' labelName='Street Address'
-							placeholder='Street Address' storeName='street'
-							value={this.props.street} changeInput={this.changeInput} />
-						<Input type='text' name='city' labelName='City'
-							placeholder='City' storeName='city'
-							value={this.props.city} changeInput={this.changeInput} />
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0">
-								Country
-								<label className="ml-1 text-danger">*</label>
-							</label>
-							<select required
-								className="form-control"
-								onChange={this.selectCountry()}
-								disabled={!this.props.countries}
-								value={this.props.country}>
-								<option value=''>Select a Country</option>
-								{
-									this.props.countries ?
-										this.props.countries.map((country, i) => {
-											return <option key={i} value={country.id}>
-												{country.full_name_english}</option>;
-										})
-										: ''
-								}
-							</select>
-						</section>
-						<section className="form-group col-md-6  mw-100">
-							<label className="mb-0">
-								State/Province
-								<label className="ml-1 text-danger">*</label>
+			<section className="d-flex mt-4">
+				<section className='mw-50 w-100'>
+					<Errors errors={this.props.errorsCheckout} />
+					<form className="pt-3 pl-3 pr-3" onSubmit={this.submitForm}>
+						<fieldset className="form-row d-flex flex-column">
+							<p className="m-0 text-muted h3">Shipping Address</p>
+							<hr className="mt-2 mb-2" />
+							{
+								!this.props.user ?
+									<Input type='text' name='email' labelName='Email'
+										placeholder='Email' storeName='email'
+										value={this.props.email} changeInput={this.changeInput} />
+									: ''
+							}
+							<Input type='text' name='firstname' labelName='First Name'
+								placeholder='First Name' storeName='fname'
+								value={this.props.fname} changeInput={this.changeInput} />
+							<Input type='text' name='lastname' labelName='Last Name'
+								placeholder='Last Name' storeName='lname'
+								value={this.props.lname} changeInput={this.changeInput} />
+							<Input type='text' name='company' labelName='Company'
+								placeholder='Company' storeName='company'
+								value={this.props.company} changeInput={this.changeInput} />
+							<Input type='text' name='street' labelName='Street Address'
+								placeholder='Street Address' storeName='street'
+								value={this.props.street} changeInput={this.changeInput} />
+							<Input type='text' name='city' labelName='City'
+								placeholder='City' storeName='city'
+								value={this.props.city} changeInput={this.changeInput} />
+							<section className="form-group col-md-6  mw-100">
+								<label className="mb-0">
+									Country
+									<label className="ml-1 text-danger">*</label>
+								</label>
 								<select required
 									className="form-control"
-									disabled={!this.props.provinces
-											|| disableProv}
-									onChange={this.selectProvince()}
-									value={this.props.provinceId}>
-									<option value=''>Select a Province</option>
+									onChange={this.selectCountry()}
+									disabled={!this.props.countries}
+									value={this.props.country}>
+									<option value=''>Select a Country</option>
 									{
-										this.props.provinces ?
-											this.props.provinces.length > 0 ?
-												this.props.provinces.map((province, i) => {
-													return <option key={i} value={province.id}>
-														{province.name}</option>;
-												})
-												: '' : ''
+										this.props.countries ?
+											this.props.countries.map((country, i) => {
+												return <option key={i} value={country.id}>
+													{country.full_name_english}</option>;
+											})
+											: ''
 									}
 								</select>
-							</label>
-						</section>
-						<Input type='text' name='postalcode' labelName='Zip/Postal Code'
-							placeholder='Zip/Postal Code' storeName='postalcode'
-							value={this.props.postalcode} changeInput={this.changeInput} />
-						<Input type='tel' name='phone' labelName='Phone Number'
-							placeholder='Phone Number' storeName='phone'
-							value={this.props.phone} changeInput={this.changeInput} />
-					</fieldset>
-					<button
-						type="submit"
-						className="btn btn-primary btn-lg"
-						disabled={this.state.buttdisable}>
-						Next</button>
-					<p className="mt-3 text-danger small">* Required Fields</p>
-				</form>
-				<form onSubmit={this.submitAll()}>
-					<fieldset className="d-flex flex-column">
-						<p className="m-0 mt-3 text-muted h3">Shipping Methods</p>
-						<hr className="mt-2 mb-2" />
-						{
-							this.props.shipMethods ?
-								this.props.shipMethods.map((method, i) => {
-									return <section key={i} className="form-check ml-3">
-										<input
-											className="form-check-input"
-											type="radio" name="personalRadio"
-											value={method.method_code}
-											onChange={this.changeInput('inputShipMethod')}/>
-										<label className="form-check-label">
-											{method.method_title} {method.carrier_title}
-										</label>
-									</section>;
-								}) : <p>Save Shipping Address</p>
-						}
-					</fieldset>
-					<button
-						type="submit"
-						className="btn btn-primary btn-lg"
-						disabled={!this.props.inputShipMethod}>
-						Next</button>
-				</form>
+							</section>
+							<section className="form-group col-md-6  mw-100">
+								<label className="mb-0">
+									State/Province
+									<label className="ml-1 text-danger">*</label>
+									<select required
+										className="form-control"
+										disabled={!this.props.provinces
+												|| disableProv}
+										onChange={this.selectProvince()}
+										value={this.props.provinceId}>
+										<option value=''>Select a Province</option>
+										{
+											this.props.provinces ?
+												this.props.provinces.length > 0 ?
+													this.props.provinces.map((province, i) => {
+														return <option key={i} value={province.id}>
+															{province.name}</option>;
+													})
+													: '' : ''
+										}
+									</select>
+								</label>
+							</section>
+							<Input type='text' name='postalcode' labelName='Zip/Postal Code'
+								placeholder='Zip/Postal Code' storeName='postalcode'
+								value={this.props.postalcode} changeInput={this.changeInput} />
+							<Input type='tel' name='phone' labelName='Phone Number'
+								placeholder='Phone Number' storeName='phone'
+								value={this.props.phone} changeInput={this.changeInput} />
+						</fieldset>
+						<button
+							type="submit"
+							className="btn btn-primary btn-lg"
+							disabled={this.state.buttdisable}>
+							Next</button>
+						<p className="mt-3 mb-0 text-danger small">* Required Fields</p>
+					</form>
+					<form className="p-3" onSubmit={this.submitAll()}>
+						<fieldset className="d-flex flex-column">
+							<p className="m-0 text-muted h3">Shipping Methods</p>
+							<hr className="mt-2 mb-2" />
+							{
+								this.props.shipMethods ?
+									this.props.shipMethods.map((method, i) => {
+										return <section key={i} className="form-check ml-3 mb-2">
+											<input
+												className="form-check-input"
+												type="radio" name="personalRadio"
+												value={method.method_code}
+												onChange={this.changeInput('inputShipMethod')}/>
+											<label className="form-check-label">
+												{method.method_title} {method.carrier_title}
+											</label>
+										</section>;
+									}) : <p>Save Shipping Address</p>
+							}
+						</fieldset>
+						<button
+							type="submit"
+							className="btn btn-primary btn-lg mt-2"
+							disabled={!this.props.inputShipMethod}>
+							Next</button>
+					</form>
+				</section>
+				<section className='mw-50 w-100 d-flex flex-column p-3'>
+					<p className="m-0 text-muted h3">Order Summary</p>
+					<hr className="mt-2 mb-2" />
+					<p className="h5 m-0">{this.props.cartItems.length} Items in Cart</p>
+					<section className='d-flex flex-column align-items-center'>
+						<ProductCheckout products={this.props.cartItems} />
+					</section>
+				</section>
 			</section>
 		);
 	}

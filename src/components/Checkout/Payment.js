@@ -2,6 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import agent from '../../agent';
+import ProductCheckout from './ProductCheckout';
 
 /**
 * @desc Import constants
@@ -81,15 +82,15 @@ class Payment extends React.Component {
      */
 	render() {
 		return (
-			<section>
-				<form onSubmit={this.paymentMethods()}>
+			<section className="d-flex">
+				<form className="mw-50 w-100 p-3" onSubmit={this.paymentMethods()}>
 					<fieldset className="d-flex flex-column">
 						<p className="m-0 mt-3 text-muted h3">Payment Methods</p>
 						<hr className="mt-2 mb-2" />
 						{
 							this.props.payMethods ?
 								this.props.payMethods.map((method, i) => {
-									return <section key={i} className="form-check ml-3">
+									return <section key={i} className="form-check ml-3 mb-2">
 										<input
 											className="form-check-input"
 											type="radio" name="paymentRadio"
@@ -104,10 +105,29 @@ class Payment extends React.Component {
 					</fieldset>
 					<button
 						type="submit"
-						className="btn btn-primary btn-lg"
+						className="btn btn-primary btn-lg mt-2"
 						disabled={!this.props.inputPayMethod}>
 						Place Order</button>
 				</form>
+				{
+					this.props.totals ?
+						<section className='mw-50 w-100 d-flex flex-column p-3'>
+							<p className="m-0 text-muted h3">Order Summary</p>
+							<hr className="mt-2 mb-2 w-100" />
+							<p className="mb-2">
+								Cart Subtotal ${this.props.totals.subtotal}</p>
+							<p className="m-0">
+								Shipping ${this.props.totals.shipping_amount}</p>
+							<hr className="mt-2 mb-2 w-100" />
+							<p>Order Total ${this.props.totals.grand_total}</p>
+							<p className="h5 m-0">
+								{this.props.totals.items.length} Items in Cart</p>
+							<section className='d-flex flex-column align-items-center'>
+								<ProductCheckout products={this.props.cartItems} />
+							</section>
+						</section>
+						: ''
+				}
 			</section>
 		);
 	}
