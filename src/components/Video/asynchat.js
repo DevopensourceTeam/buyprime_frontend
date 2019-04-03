@@ -34,16 +34,16 @@ export const asynchat = {
 	 * @desc Get channel and enter
 	 * @param {Object} sb
 	 * @param {Function} initChat
-	 * @param {Object} that
+	 * @param {Object} openChannel
 	 * @return {Promise}
 	 */
-	getchannel: (sb, initChat, that) => {
+	getchannel: (sb, initChat, openChannel) => {
 		return new Promise((resolve) => {
 			sb.OpenChannel.getChannel('devopensource', (channel, error) => {
 				if (error) {
 					return;
 				}
-				that.openChannel = channel;
+				openChannel = channel;
 
 				channel.enter(function(response, error) {
 					if (error) {

@@ -19,6 +19,7 @@ import {
 	GET_PRODUCT,
 	ADD_ITEM_CART,
 	UNMOUNT_VIDEO,
+	CHANGE_BUTTON_STATE,
 } from '../../constants/actionTypes';
 import agent from '../../agent';
 import {asynchat} from './asynchat';
@@ -34,6 +35,7 @@ const mapStateToProps = (state) => {
 		...state.video,
 		...state.common,
 		idCart: state.cart.idCart,
+		buttAddDisabled: state.cart.buttAddDisabled,
 		nickname: state.common.userInfo ?
 			state.common.userInfo.firstname+''+state.common.userInfo.lastname : null,
 		usermail: state.common.userInfo ? state.common.userInfo.email : null,
@@ -107,6 +109,13 @@ const mapDispatchToProps = (dispatch, props) => ({
 		dispatch({type: SHOW_SIDEBAR, state}),
 
 	/**
+	 * @function changeButtState
+	 * @return {*}
+	 */
+	changeButtState: () =>
+		dispatch({type: CHANGE_BUTTON_STATE}),
+
+	/**
 	 * @function unmount
 	 * @desc Clear data video
 	 * @return {*}
@@ -124,15 +133,26 @@ class Video extends React.Component {
 	 */
 	constructor() {
 		super();
+		this.state = {
+			buttAddDisabled: false,
+		};
 		const that = this;
 		this.openChannel = '';
 		this.changeInput = (ev) => {
 			this.props.changeInput(ev.target.value);
 		};
 		this.addCart = (product) => {
+			this.setState({
+				buttAddDisabled: true,
+			});
 			this.props.addCart(product, this.props.idCart);
 		};
-
+		this.changeButtState = () => {
+			this.setState({
+				buttAddDisabled: false,
+			});
+			this.props.changeButtState();
+		};
 		this.saveMessage = (ev) => {
 			ev.preventDefault();
 
@@ -188,6 +208,14 @@ class Video extends React.Component {
 
 		this.props.unmount();
 	}
+	/**
+	 * @function componentDidUpdate
+	 */
+	componentDidUpdate() {
+		if (this.props.buttAddDisabled && this.state.buttAddDisabled) {
+			this.changeButtState();
+		}
+	};
 
 	/**
 	 * @function render
@@ -209,7 +237,8 @@ class Video extends React.Component {
 						<section>
 							<ProductList
 								products={this.props.productsVideo}
-								addCart={this.addCart}/>
+								addCart={this.addCart}
+								buttAddDisabled={this.state.buttAddDisabled}/>
 						</section>
 					</section>
 					<section className="video-chat border">

@@ -22,6 +22,7 @@ const ProductList = (props) => {
 						<button
 							className="btn btn-primary m-2"
 							type="button"
+							disabled={props.buttAddDisabled}
 							onClick={() =>
 								props.addCart({
 									id: product.id,

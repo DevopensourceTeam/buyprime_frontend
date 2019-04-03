@@ -10,10 +10,19 @@ import {
 	CHANGE_QTY_CART,
 	APP_LOAD,
 	PAY_METHODS,
+	CHANGE_BUTTON_STATE,
 } from '../constants/actionTypes';
 toastr.options = TOASTR_OPTIONSL;
 
-export default (state = {cartItems: []}, action) => {
+/**
+ * @desc Default state from Cart.
+ */
+const defaultState = {
+	cartItems: [],
+	buttAddDisabled: false,
+};
+
+export default (state = defaultState, action) => {
 	switch (action.type) {
 	/**
 	 * @desc Charge the app
@@ -48,6 +57,7 @@ export default (state = {cartItems: []}, action) => {
 		return {
 			...state,
 			cartItems: AItems,
+			buttAddDisabled: true,
 		};
 	case REMOVE_ITEM_CART:
 		const RItems = action.payload.state ? state.cartItems.filter((item) =>
@@ -65,6 +75,11 @@ export default (state = {cartItems: []}, action) => {
 				}
 				return item;
 			}),
+		};
+	case CHANGE_BUTTON_STATE:
+		return {
+			...state,
+			buttAddDisabled: false,
 		};
 	case PAY_METHODS:
 		return {cartItems: []};

@@ -14,6 +14,7 @@ import {
  */
 const defaultState = {
 	buttDisabled: true,
+	buttAddDisabled: false,
 };
 
 export default (state = defaultState, action) => {
