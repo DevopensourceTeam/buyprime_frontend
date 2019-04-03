@@ -26,7 +26,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
 	switch (action.type) {
 	/**
-	 * @desc Charge the app
+	 * @desc Charge the app when the user is loggedin
 	 */
 	case APP_LOAD:
 		let fItems = [];
@@ -41,6 +41,9 @@ export default (state = defaultState, action) => {
 			cartItems: fItems,
 			idCart: action.payload.idCart,
 		};
+	/**
+	 * @desc Charge the app when the user isn't loggedin.
+	 */
 	case APP_LOADU:
 		fItems = [];
 		action.payload.items.map((item) => {
@@ -73,6 +76,9 @@ export default (state = defaultState, action) => {
 			cartItems: AItems,
 			buttAddDisabled: true,
 		};
+	/**
+	 * @desc Remove a item of the Cart
+	 */
 	case REMOVE_ITEM_CART:
 		const RItems = action.payload.state ? state.cartItems.filter((item) =>
 			item.item_id !== action.idItem) : state.cartItems;
@@ -80,6 +86,9 @@ export default (state = defaultState, action) => {
 			...state,
 			cartItems: RItems,
 		};
+	/**
+	 * @desc Change the quantity of a item
+	 */
 	case CHANGE_QTY_CART:
 		return {
 			...state,
@@ -90,6 +99,9 @@ export default (state = defaultState, action) => {
 				return item;
 			}),
 		};
+	/**
+	 * Change state to enable o disable the button.
+	 */
 	case CHANGE_BUTTON_STATE:
 		return {
 			...state,

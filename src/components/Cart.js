@@ -3,11 +3,15 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import ProductListCart from './ProductListCart';
 
+/**
+ * @desc Import constants
+ */
 import {
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
 } from '../constants/actionTypes';
 import agent from '../agent';
+
 /**
  * @function mapStateToProps
  * @param {Object} state
@@ -25,9 +29,23 @@ const mapStateToProps = (state) => {
  * @return {*}
  */
 const mapDisptachToProps = (dispatch) => ({
+	/**
+	 * @function removeItem
+	 * @desc Remove a item of the cart.
+	 * @param {Integer} idItem
+	 * @param {Integer} idCart
+	 * @return {*}
+	 */
 	removeItem: (idItem, idCart) =>
 		dispatch({type: REMOVE_ITEM_CART,
 			payload: agent.Cart.removeItem(idItem, idCart), idItem}),
+
+	/**
+	 * @function changeQty
+	 * @desc Change the quantity of item of the cart.
+	 * @param {Object} item
+	 * @return {*}
+	 */
 	changeQty: (item) =>
 		dispatch({type: CHANGE_QTY_CART,
 			payload: agent.Cart.updateItem(item)}),

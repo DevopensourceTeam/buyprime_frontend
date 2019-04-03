@@ -14,13 +14,16 @@ import {
 export default (state = {}, action) => {
 	switch (action.type) {
 	/**
-	 * @desc Charge the app
+	 * @desc Charge the app when the user is loggedin.
 	 */
 	case APP_LOAD:
 		return {
 			...state,
 			appLoaded: true,
 		};
+	/**
+	 * @desc Charge the app when the user isn't loggedin.
+	 */
 	case APP_LOADU:
 		return {
 			...state,

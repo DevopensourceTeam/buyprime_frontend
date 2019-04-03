@@ -37,6 +37,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 	/**
 	 * @function shippingMethods
+	 * @desc Save the pay method and finish the order.
 	 * @param {Object} payment
 	 * @param {Integer} idCart
 	 * @return {*}

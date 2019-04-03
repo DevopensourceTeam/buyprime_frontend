@@ -63,6 +63,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 	/**
 	 * @function getCountries
+	 * @desc Get JSON countries of Magento
 	 * @return {*}
 	 */
 	getCountries: () =>
@@ -70,6 +71,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 	/**
 	 * @function selectCountry
+	 * @desc Save in redux the country selected.
 	 * @param {String} country
 	 * @return {*}
 	 */
@@ -78,6 +80,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 	/**
 	 * @function selectCountry
+	 * @desc Save in redux the province selected.
 	 * @param {String} province
 	 * @return {*}
 	 */
@@ -86,6 +89,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 	/**
 	 * @function shippingAddress
+	 * @desc Save shipping address in Magento.
 	 * @param {Object} address
 	 * @param {Integer} idCart
 	 * @return {*}
@@ -96,6 +100,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 	/**
 	 * @function shippingMethods
+	 * @desc Save shipping method in Magento.
 	 * @param {Object} methods
 	 * @param {Integer} idCart
 	 * @return {*}

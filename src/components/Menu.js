@@ -48,6 +48,7 @@ const UnregisteredMenu = () => {
 		</ul>
 	);
 };
+
 /**
  * @function AMenu
  * @desc Global menu of the application

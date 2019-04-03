@@ -5,7 +5,7 @@ import React from 'react';
  * @param {Object} props
  * @return {JSX}
  */
-const ProductListCart = (props) => {
+const ProductListCheckout = (props) => {
 	return (
 		props.products.length > 0 ?
 			<section className="w-100 mt-4 ml-4 mr-4">
@@ -34,4 +34,4 @@ const ProductListCart = (props) => {
 	);
 };
 
-export default ProductListCart;
+export default ProductListCheckout;

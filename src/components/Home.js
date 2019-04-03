@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
 class Home extends React.Component {
 	/**
 	 * @function componentDidUpdate
+	 * @desc Init a new cart if is login but, haven't a cart
 	 * @param {*} prevProps
 	 */
 	componentDidMount() {

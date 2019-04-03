@@ -169,6 +169,7 @@ class Video extends React.Component {
 
 	/**
 	 * @function componentDidMount
+	 * @desc Listener from SendBird to Save Messages.
 	 */
 	async componentDidMount() {
 		const that = this;
@@ -179,9 +180,11 @@ class Video extends React.Component {
 			that);
 		sb.addChannelHandler('208549964', ChannelHandler);
 	}
+
 	/* eslint-disable*/
 	/**
 	 * @function componentWillMount
+	 * @desc Get the products list, Connect in the chat.
 	 */
 	async componentWillMount() {
 		const that = this;
@@ -196,8 +199,10 @@ class Video extends React.Component {
 		await asynchat.getchannel(sb, that.props.initChat, that);
 	}
 	/* eslint-enable*/
+
 	/**
 	 * @function componentWillUnmount
+	 * @desc Disconnect user from Channel and SendBird. Clear data.
 	 */
 	async componentWillUnmount() {
 		if (this.openChannel) {
@@ -208,8 +213,10 @@ class Video extends React.Component {
 
 		this.props.unmount();
 	}
+
 	/**
 	 * @function componentDidUpdate
+	 * @desc Enable the button when add the item.
 	 */
 	componentDidUpdate() {
 		if (this.props.buttAddDisabled && this.state.buttAddDisabled) {
