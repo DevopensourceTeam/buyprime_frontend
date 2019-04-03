@@ -204,6 +204,7 @@ class PersonalData extends React.Component {
 	 * @desc Check if client is sign in and have any items in cart
 	 */
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		if (this.props.cartItems.length < 1) {
 			this.props.history.push('/cart');
 		} else if (this.props.user) {
@@ -304,7 +305,7 @@ class PersonalData extends React.Component {
 							type="submit"
 							className="btn btn-primary btn-lg"
 							disabled={this.state.buttdisable}>
-							Next</button>
+							Save</button>
 						<p className="mt-3 mb-0 text-danger small">* Required Fields</p>
 					</form>
 					<form className="p-3" onSubmit={this.submitAll()}>
@@ -314,16 +315,27 @@ class PersonalData extends React.Component {
 							{
 								this.props.shipMethods ?
 									this.props.shipMethods.map((method, i) => {
-										return <section key={i} className="form-check ml-3 mb-2">
-											<input
-												className="form-check-input"
-												type="radio" name="personalRadio"
-												value={method.method_code}
-												onChange={this.changeInput('inputShipMethod')}/>
-											<label className="form-check-label">
-												{method.method_title} {method.carrier_title}
-											</label>
-										</section>;
+										return this.props.inputShipMethod === method.method_code ?
+											<section key={i} className="form-check ml-3 mb-2">
+												<input
+													className="form-check-input"
+													type="radio" name="personalRadio"
+													value={method.method_code} checked={true}
+													onChange={this.changeInput('inputShipMethod')}/>
+												<label className="form-check-label">
+													{method.method_title} {method.carrier_title}
+												</label>
+											</section> :
+											<section key={i} className="form-check ml-3 mb-2">
+												<input
+													className="form-check-input"
+													type="radio" name="personalRadio"
+													value={method.method_code} checked={false}
+													onChange={this.changeInput('inputShipMethod')}/>
+												<label className="form-check-label">
+													{method.method_title} {method.carrier_title}
+												</label>
+											</section>;
 									}) : <p>Save Shipping Address</p>
 							}
 						</fieldset>

@@ -8,15 +8,15 @@ import React from 'react';
 const ProductListCart = (props) => {
 	return (
 		props.products.length > 0 ?
-			<section className="w-100 m-4">
+			<section className="w-100 mt-4 ml-4 mr-4">
 				{props.products.map((product, i) => {
 					return <section
 						className="d-flex
-							justify-content-around
+							justify-content-start
 							rounded p-2 mb-2
 							border border-secondary"
 						key={i}>
-						<img className="h-100" width="65px"
+						<img className="h-100 ml-3 mr-4" width="65px"
 							src={'http://magento23pwa.test/media/catalog/product'+
 							product.image.file}
 							alt="thumblain product"/>

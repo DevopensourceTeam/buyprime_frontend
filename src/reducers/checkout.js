@@ -52,23 +52,30 @@ export default (state = {}, action) => {
 			countries: action.payload.countries.sort(),
 		};
 	case SELECT_COUNTRY:
+		const countryName = action.country ? state.countries.filter((country) =>
+			country.id === action.country)[0].full_name_english : [];
 		const provinces = action.country ? state.countries.filter((country) =>
 			country.id === action.country)[0].available_regions : [];
 		return {
 			...state,
 			country: action.country,
+			countryName: countryName,
 			provinces: provinces ? provinces : [],
 		};
 	case SELECT_PROVINCE:
+		const provinceName = action.province ? state.provinces.filter((province)=>
+			province.id === action.province)[0].name : [];
 		return {
 			...state,
 			provinceId: action.province,
+			provinceName: provinceName,
 		};
 	case SHIPPING_ADDRESS:
 		return {
 			...state,
 			shipMethods: action.payload.methods,
 			shipAddress: action.address,
+			errorsCheckout: [],
 		};
 	case SHIPPING_METHODS:
 		action.props.history.push('/payment');
