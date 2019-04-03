@@ -62,6 +62,8 @@ const Auth = {
 const Cart = {
 	idCart: (id) =>
 		requests.post(`/cart/idCart`, {id}),
+	guestCart: (idCart) =>
+		requests.post(`/cart/guestCart`, {idCart}),
 	addItem: (sku, idCart) =>
 		requests.post(`/cart/addItem`, {sku, idCart}),
 	removeItem: (idItem, idCart) =>

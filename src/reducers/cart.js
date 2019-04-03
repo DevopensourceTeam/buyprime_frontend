@@ -9,6 +9,7 @@ import {
 	REMOVE_ITEM_CART,
 	CHANGE_QTY_CART,
 	APP_LOAD,
+	APP_LOADU,
 	PAY_METHODS,
 	CHANGE_BUTTON_STATE,
 } from '../constants/actionTypes';
@@ -28,13 +29,26 @@ export default (state = defaultState, action) => {
 	 * @desc Charge the app
 	 */
 	case APP_LOAD:
-		const fItems = [];
+		let fItems = [];
 		action.payload.items.map((item) => {
 			item.item.image = item.image[0];
 			fItems.push(item.item);
 			return true;
 		});
 
+		return {
+			...state,
+			cartItems: fItems,
+			idCart: action.payload.idCart,
+		};
+	case APP_LOADU:
+		fItems = [];
+		action.payload.items.map((item) => {
+			item.item.image = item.image[0];
+			fItems.push(item.item);
+			return true;
+		});
+		localStorage.setItem('idGCart', action.payload.idCart);
 		return {
 			...state,
 			cartItems: fItems,

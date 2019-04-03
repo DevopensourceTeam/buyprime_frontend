@@ -52,12 +52,13 @@ const mapDispatchToProps = (dispatch, props) => ({
 		dispatch({type: APP_LOAD, payload: agent.Cart.idCart(id)}),
 
 	/**
-	 * @function onLoad
+	 * @function onLoadU
 	 * @desc Charge the app
+	 * @param {Integer | Boolean} idCart
 	 * @return {*}
 	 */
-	onLoadU: () =>
-		dispatch({type: APP_LOADU}),
+	onLoadU: (idCart) =>
+		dispatch({type: APP_LOADU, payload: agent.Cart.guestCart(idCart)}),
 
 	/**
 	 * @function infoUser
@@ -88,7 +89,11 @@ class App extends React.Component {
 		if (this.props.userInfo) {
 			this.props.onLoad(this.props.userInfo.id);
 		} else {
-			this.props.onLoadU();
+			if (localStorage.getItem('idGCart')) {
+				this.props.onLoadU(localStorage.getItem('idGCart'));
+			} else {
+				this.props.onLoadU(false);
+			}
 		}
 	}
 

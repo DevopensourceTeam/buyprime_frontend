@@ -175,6 +175,9 @@ class PersonalData extends React.Component {
 					},
 					'userForShipping': 1,
 				};
+				if (!this.props.user) {
+					checkJson.address.email = this.props.email;
+				}
 
 				this.props.shippingAddress(checkJson, this.props.idCart);
 				this.setState({

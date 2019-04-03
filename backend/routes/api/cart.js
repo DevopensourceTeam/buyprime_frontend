@@ -42,6 +42,52 @@ router.post('/idCart', (req, res) => {
 		});
 });
 
+router.post('/guestCart', (req, res) => {
+	if (req.body.idCart) {
+		fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/items', {
+			method: 'GET',
+			headers: {
+				'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
+			},
+		}).then((res) => res.json())
+			.then((items) => {
+				const asyncI = items.map((item) => {
+					return getImgItem(item);
+				});
+				Promise.all(asyncI).then((items) => {
+					const idCart = req.body.idCart;
+					res.status(200).json({idCart, items});
+				});
+			});
+	} else {
+		fetch(URL_BACKEND+'/V1/carts', {
+			method: 'POST',
+			headers: {
+				'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
+			},
+		}).then((res) => res.json())
+			.then((idCart) => {
+				fetch(URL_BACKEND+'/V1/carts/'+idCart+'/items', {
+					method: 'GET',
+					headers: {
+						'Authorization': 'Bearer 6cpd9641f7o6nzcmbey6m1uizzd8v4jl',
+					},
+				}).then((res) => res.json())
+					.then((items) => {
+						const asyncI = items.map((item) => {
+							return getImgItem(item);
+						});
+						Promise.all(asyncI).then((items) => {
+							res.status(200).json({idCart, items});
+						});
+					});
+			})
+			.catch((error) => {
+				res.status(400).json({error: error});
+			});
+	}
+});
+
 router.post('/addItem', (req, res) => {
 	fetch(URL_BACKEND+'/V1/carts/'+req.body.idCart+'/items', {
 		method: 'POST',
