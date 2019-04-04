@@ -4,10 +4,10 @@ import thunk from 'redux-thunk';
 import reducer from './reducer';
 import agent from './agent';
 import {promiseMiddleware} from './middleware';
-import createHistory from 'history/createBrowserHistory';
+import {createBrowserHistory} from 'history';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
-export const history = createHistory();
+export const history = createBrowserHistory();
 
 // Build the middleware for intercepting and dispatching navigation actions
 const myRouterMiddleware = routerMiddleware(history);

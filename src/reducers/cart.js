@@ -29,7 +29,7 @@ export default (state = defaultState, action) => {
 	 * @desc Charge the app when the user is loggedin
 	 */
 	case APP_LOAD:
-		let fItems = [];
+		const fItems = [];
 		action.payload.items.map((item) => {
 			item.item.image = item.image[0];
 			fItems.push(item.item);
@@ -45,16 +45,16 @@ export default (state = defaultState, action) => {
 	 * @desc Charge the app when the user isn't loggedin.
 	 */
 	case APP_LOADU:
-		fItems = [];
+		const fUItems = [];
 		action.payload.items.map((item) => {
 			item.item.image = item.image[0];
-			fItems.push(item.item);
+			fUItems.push(item.item);
 			return true;
 		});
 		localStorage.setItem('idGCart', action.payload.idCart);
 		return {
 			...state,
-			cartItems: fItems,
+			cartItems: fUItems,
 			idCart: action.payload.idCart,
 		};
 	/**
@@ -70,7 +70,9 @@ export default (state = defaultState, action) => {
 		if (stateCart.length < 1) {
 			window.location.reload();
 		}
+
 		toastr.success('ADDED ITEM');
+
 		return {
 			...state,
 			cartItems: AItems,
@@ -92,7 +94,7 @@ export default (state = defaultState, action) => {
 	case CHANGE_QTY_CART:
 		return {
 			...state,
-			stateCart: state.cartItems.map((item) => {
+			cartItems: state.cartItems.map((item) => {
 				if (item.item_id === action.payload.item.item_id) {
 					return action.payload.item;
 				}

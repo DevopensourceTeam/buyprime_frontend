@@ -71,6 +71,7 @@ export default (state = defaultState, action) => {
 			};
 		} else {
 			toastr.success('Successful Login', 'LOGIN');
+
 			action.props.history.push('/');
 
 			return {

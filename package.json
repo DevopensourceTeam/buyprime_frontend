@@ -22,6 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:watch": "npm test -- --watch",
     "doc": "jsdoc -c jsdoc.json README.md src/*",
     "eject": "react-scripts eject"
   },
@@ -39,5 +40,21 @@
     "eslint-plugin-react": "^7.12.4",
     "jsdoc": "^3.5.5",
     "redux-devtools-extension": "^2.13.8"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/path/to/dir/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "coverageReporters": ["text"]
   }
 }
