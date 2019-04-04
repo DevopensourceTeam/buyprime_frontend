@@ -195,8 +195,8 @@ class Video extends React.Component {
 		} else {
 			await asynchat.connect('anonymous', 'anonymous', sb);
 		}
-
-		await asynchat.getchannel(sb, that.props.initChat, that);
+		
+		this.openChannel = await asynchat.getchannel(sb, that.props.initChat);
 	}
 	/* eslint-enable*/
 

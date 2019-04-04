@@ -37,13 +37,12 @@ export const asynchat = {
 	 * @param {Object} openChannel
 	 * @return {Promise}
 	 */
-	getchannel: (sb, initChat, openChannel) => {
+	getchannel: (sb, initChat) => {
 		return new Promise((resolve) => {
 			sb.OpenChannel.getChannel('devopensource', (channel, error) => {
 				if (error) {
 					return;
 				}
-				openChannel = channel;
 
 				channel.enter(function(response, error) {
 					if (error) {
@@ -51,10 +50,10 @@ export const asynchat = {
 					}
 
 					initChat(channel.name, channel.coverUrl);
+
+					resolve(channel);
 				});
 			});
-
-			resolve(true);
 		});
 	},
 	/**
